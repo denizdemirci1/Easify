@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="com.deniz.easify.ui.track.TrackViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorSpotifyBlack">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/playingFromText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+
+            android:text="@string/fragment_track_playing_from"
+            android:textColor="@color/colorTextGray"
+            android:typeface="monospace"
+            android:textSize="12sp"
+            android:visibility="@{viewmodel.empty ? View.GONE : View.VISIBLE}"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/albumName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="@{viewmodel.track.album.name}"
+            android:textColor="@color/colorSpotifyWhite"
+            android:textStyle="bold"
+
+            app:layout_constraintTop_toBottomOf="@+id/playingFromText"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/albumImage"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="32dp"
+
+            app:imageUrl="@{viewmodel.track.album.images.get(1).url}"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/albumName"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/songName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+
+            android:text="@{viewmodel.track.name}"
+            android:textColor="@color/colorSpotifyWhite"
+            android:textStyle="bold"
+            android:textSize="20sp"
+
+            app:layout_constraintTop_toBottomOf="@+id/albumImage"
+            app:layout_constraintEnd_toEndOf="@id/albumImage"
+            app:layout_constraintStart_toStartOf="@id/albumImage"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/artistName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+
+            android:text="@{viewmodel.track.artists.get(0).name}"
+            android:textColor="@color/colorTextGray"
+            android:textStyle="bold"
+
+            app:layout_constraintTop_toBottomOf="@+id/songName"
+            app:layout_constraintStart_toStartOf="@id/songName"
+            app:layout_constraintEnd_toEndOf="@id/songName"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@id/trackLayout"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:layout_marginBottom="1dp"
+
+            android:background="@color/colorBackgroundLight"
+            android:visibility="@{viewmodel.empty ? View.GONE : View.VISIBLE}"
+
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/like"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+
+                android:src="@drawable/ic_pause"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+
+                android:text="@{viewmodel.track.name}"
+                android:textColor="@color/colorSpotifyWhite"
+                android:textStyle="bold"
+
+                app:layout_constraintStart_toEndOf="@id/like"
+                app:layout_constraintEnd_toStartOf="@id/play"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/owner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                android:paddingBottom="4dp"
+
+                android:text="@{viewmodel.track.artists[0].name}"
+                android:textColor="@color/colorTextGray"
+
+                app:layout_constraintStart_toEndOf="@id/like"
+                app:layout_constraintEnd_toStartOf="@id/play"
+                app:layout_constraintTop_toBottomOf="@id/title"/>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+
+                android:src="@drawable/ic_play"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

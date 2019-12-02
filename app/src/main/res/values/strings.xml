@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Easify</string>
+
+    <string name="spotify_client_id">72159fbde9d4403eaa7907c70c5d27dd</string>
+    <string name="spotify_client_secret">531a4edbd58e483c8e42b925741c05b4</string>
+    <string name="spotify_uri_callback">com.deniz.easify://spotify/callback</string>
+
+    <string name="dialog_error_title">Ups</string>
+    <string name="dialog_positive_button_text">Try Again</string>
+    <string name="dialog_negative_button_text">Exit</string>
+    <string name="dialog_ok">OK</string>
+
+    <string name="search">Search</string>
+    <string name="track">Track</string>
+    <string name="profile">Profile</string>
+
+
+    <string name="fragment_track_playing_from">PLAYING FROM ALBUM</string>
+
+
+
+</resources>
