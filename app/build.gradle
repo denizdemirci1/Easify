@@ -15,6 +15,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         debug {
@@ -120,4 +121,5 @@ dependencies {
 
     // Other
     implementation 'com.makeramen:roundedimageview:2.3.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
 }

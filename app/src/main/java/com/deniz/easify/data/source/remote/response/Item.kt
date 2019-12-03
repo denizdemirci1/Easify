@@ -11,9 +11,9 @@ import java.io.Serializable
 
 data class Item(
     @SerializedName("album")
-    val album: Tracks.Album,
+    val album: Album,
     @SerializedName("artists")
-    val artists: ArrayList<Tracks.Artist>,
+    val artists: ArrayList<Artist>,
     @SerializedName("available_markets")
     val availableMarkets: ArrayList<String>,
     @SerializedName("duration_ms")

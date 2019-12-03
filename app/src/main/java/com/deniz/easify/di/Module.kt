@@ -5,6 +5,8 @@ import com.deniz.easify.data.source.remote.SpotifyInterceptor
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.SpotifyService
 import com.deniz.easify.ui.profile.ProfileViewModel
+import com.deniz.easify.ui.profile.favorites.FavoritesViewModel
+import com.deniz.easify.ui.profile.favorites.favoriteDetails.FavoriteDetailsViewModel
 import com.deniz.easify.ui.search.SearchViewModel
 import com.deniz.easify.ui.splash.SplashViewModel
 import com.deniz.easify.ui.track.TrackViewModel
@@ -29,6 +31,8 @@ val viewModelModule = module {
     viewModel { SearchViewModel(get()) }
     viewModel { TrackViewModel(get()) }
     viewModel { ProfileViewModel(get(), get()) }
+    viewModel { FavoritesViewModel(get()) }
+    viewModel { FavoriteDetailsViewModel(get()) }
 
 }
 

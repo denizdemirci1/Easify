@@ -1,6 +1,7 @@
 package com.deniz.easify.ui.main
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
@@ -21,6 +22,14 @@ class MainActivity : AppCompatActivity() {
 
         // makes navigation do nothing when the fragment of clicked item is already on screen
         bottomNavigationView.disableCurrentFragmentRecreating()
+
+        // shows bottom navigation bar only on top 3 fragments
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.searchFragment, R.id.trackFragment, R.id.profileFragment -> bottomNavigationView.visibility = View.VISIBLE
+                else -> bottomNavigationView.visibility = View.GONE
+            }
+        }
 
         // For Toolbar if we add later
         // setupActionBarWithNavController(navController)

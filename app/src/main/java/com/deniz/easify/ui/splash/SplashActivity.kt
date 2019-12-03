@@ -83,6 +83,7 @@ class SplashActivity : AppCompatActivity() {
 
                 // Auth flow returned an error
                 AuthenticationResponse.Type.ERROR -> {
+                    viewModel.clearToken()
                     showNetworkError(response.error)
                 }
 

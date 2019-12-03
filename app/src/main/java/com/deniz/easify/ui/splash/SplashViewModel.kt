@@ -24,15 +24,15 @@ class SplashViewModel(
 ) : ViewModel() {
 
     companion object {
-        private const val SPOTIFY_CLIENT_ID = "72159fbde9d4403eaa7907c70c5d27dd"
+        private const val SPOTIFY_CLIENT_ID = "e896f33faf0f4ce7b5af9c86a6b07022"
         private const val SPOTIFY_URI_CALLBACK = "com.deniz.easify://spotify/callback"
         private const val DENIZ_DEVICE_ID_PHONE = "d93c8e8670a85a59f9d182051a79893c956d8e06"
         // TODO: Edit Scopes
         private const val SCOPES = "user-read-recently-played," +
                 "user-library-modify," +
                 "user-read-email," +
-                "user-read-private"
-                //"user-modify-playback-state"
+                "user-read-private" +
+                "user-top-read"
     }
 
     private val _authenticationRequest = MutableLiveData<AuthenticationRequest>()
@@ -47,6 +47,12 @@ class SplashViewModel(
     fun saveToken(accessToken: String) {
         viewModelScope.launch {
             authManager.token = accessToken
+        }
+    }
+
+    fun clearToken() {
+        viewModelScope.launch {
+            authManager.token = ""
         }
     }
 

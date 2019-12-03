@@ -1,6 +1,6 @@
 package com.deniz.easify.util
 
-import android.app.Application
+import androidx.multidex.MultiDexApplication
 import com.deniz.easify.di.managerModule
 import com.deniz.easify.di.repositoryModule
 import com.deniz.easify.di.retrofitModule
@@ -16,7 +16,7 @@ import org.koin.core.logger.Level
  * @Date: 2019-11-19
  */
 
-class Easify : Application() {
+class Easify : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

@@ -11,6 +11,7 @@
             android:id="@+id/action_searchFragment_to_trackFragment"
             app:destination="@id/trackFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/trackFragment"
         android:name="com.deniz.easify.ui.track.TrackFragment"
@@ -21,8 +22,43 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.deniz.easify.ui.profile.ProfileFragment"
-        android:label="ProfileFragment" />
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_favoritesFragment"
+            app:destination="@id/favoritesFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoritesFragment"
+        android:name="com.deniz.easify.ui.profile.favorites.FavoritesFragment"
+        android:label="FavoritesFragment" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_favoriteDetailsFragment"
+            app:destination="@id/favoriteDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoriteDetailsFragment"
+        android:name="com.deniz.easify.ui.profile.favorites.favoriteDetails.FavoriteDetailsFragment"
+        android:label="FavoriteDetailsFragment" >
+        <argument
+            android:name="favorites"
+            app:argType="com.deniz.easify.data.source.remote.response.Track"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="type"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
 </navigation>

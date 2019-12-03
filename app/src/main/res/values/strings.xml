@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Easify</string>
 
-    <string name="spotify_client_id">72159fbde9d4403eaa7907c70c5d27dd</string>
-    <string name="spotify_client_secret">531a4edbd58e483c8e42b925741c05b4</string>
+    <string name="spotify_client_id">e896f33faf0f4ce7b5af9c86a6b07022</string>
+    <string name="spotify_client_secret">c535afc67a724fd99fd8d9c14b5497bf</string>
     <string name="spotify_uri_callback">com.deniz.easify://spotify/callback</string>
 
     <string name="dialog_error_title">Ups</string>
@@ -15,7 +15,25 @@
     <string name="profile">Profile</string>
 
 
+    <!-- Track Fragment -->
     <string name="fragment_track_playing_from">PLAYING FROM ALBUM</string>
+
+
+    <!-- Profile Fragment -->
+    <string name="fragment_profile_favorites_label">Find out your top artists or tracks</string>
+    <string name="fragment_profile_favorites">Favorites</string>
+    <string name="fragment_profile_artists">Artists</string>
+    <string name="fragment_profile_tracks">Tracks</string>
+
+    <!-- Favorites Fragment -->
+    <string name="fragment_favorites_hint_type">Type</string>
+    <string name="fragment_favorites_hint_time_range">Time Range</string>
+    <string name="fragment_favorites_hint_limit">Limit</string>
+    <string name="fragment_favorites_show">Show</string>
+
+    <!-- Favorite Details Fragment -->
+    <string name="fragment_favorite_details_title">Your Top %d %s</string>
+
 
 
 
