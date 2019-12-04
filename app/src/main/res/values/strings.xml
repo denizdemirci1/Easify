@@ -1,9 +1,12 @@
 <resources>
     <string name="app_name">Easify</string>
 
-    <string name="spotify_client_id">e896f33faf0f4ce7b5af9c86a6b07022</string>
-    <string name="spotify_client_secret">c535afc67a724fd99fd8d9c14b5497bf</string>
-    <string name="spotify_uri_callback">com.deniz.easify://spotify/callback</string>
+    <string name="com_spotify_sdk_redirect_scheme">com.deniz.easify</string>
+    <string name="com_spotify_sdk_redirect_host">callback</string>
+
+    <string name="spotify_client_id">a69235e5b3024d9b80f5a4edfd81a0fe</string>
+    <string name="spotify_client_secret">0302ebaf65634ff799013f73cfc30c44</string>
+    <string name="spotify_uri_callback">com.deniz.easify://callback</string>
 
     <string name="dialog_error_title">Ups</string>
     <string name="dialog_positive_button_text">Try Again</string>

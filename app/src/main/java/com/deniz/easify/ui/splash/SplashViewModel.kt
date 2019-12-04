@@ -9,6 +9,7 @@ import com.deniz.easify.data.Result.Error
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.parseNetworkError
 import com.deniz.easify.util.AuthManager
+import com.spotify.sdk.android.authentication.AuthenticationClient
 import com.spotify.sdk.android.authentication.AuthenticationRequest
 import com.spotify.sdk.android.authentication.AuthenticationResponse
 import kotlinx.coroutines.launch
@@ -24,8 +25,8 @@ class SplashViewModel(
 ) : ViewModel() {
 
     companion object {
-        private const val SPOTIFY_CLIENT_ID = "e896f33faf0f4ce7b5af9c86a6b07022"
-        private const val SPOTIFY_URI_CALLBACK = "com.deniz.easify://spotify/callback"
+        private const val SPOTIFY_CLIENT_ID = "a69235e5b3024d9b80f5a4edfd81a0fe"
+        private const val SPOTIFY_URI_CALLBACK = "com.deniz.easify://callback"
         private const val DENIZ_DEVICE_ID_PHONE = "d93c8e8670a85a59f9d182051a79893c956d8e06"
         // TODO: Edit Scopes
         private const val SCOPES = "user-read-recently-played," +

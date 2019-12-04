@@ -54,11 +54,26 @@ class FavoritesFragment : Fragment() {
         viewModel.top.observe(this, Observer {
             openFavoriteDetailsFragment(it)
         })
+
+        viewModel.errorMessage.observe(this, Observer {
+            showSpotifyIllegalScopeError()
+        })
     }
 
     private fun openFavoriteDetailsFragment(favorites: Track?) {
         val action = FavoritesFragmentDirections.actionFavoritesFragmentToFavoriteDetailsFragment(favorites, type.text.toString())
         findNavController().navigate(action)
+    }
+
+    private fun showSpotifyIllegalScopeError() {
+        context.let {
+            MaterialDialog(it!!).show {
+                title(R.string.dialog_error_title)
+                message(text = "user-top-read scope is labeled as illegal by Spotify. " +
+                        "We can not use this at the moment. Maybe later.")
+                positiveButton(R.string.dialog_ok)
+            }
+        }
     }
 
     private fun setupListeners() {
@@ -70,21 +85,21 @@ class FavoritesFragment : Fragment() {
                     Integer.parseInt(limit.text.toString()))
         }
 
-        typeLayout.setOnClickListener {
+        type.setOnClickListener {
             it.context.let { context ->
                 MaterialDialog(context).show{
                     listItems(items = listOf("artists", "tracks")) { _, _, text ->
-                        type.setText(text)
+                        this@FavoritesFragment.type.setText(text)
                     }
                 }
             }
         }
 
-        timeRangeLayout.setOnClickListener {
+        timeRange.setOnClickListener {
             it.context.let { context ->
                 MaterialDialog(context).show{
                     listItems(items = listOf("long_term", "medium_term", "short_term")) { _, _, text ->
-                        type.setText(text)
+                        this@FavoritesFragment.timeRange.setText(text)
                     }
                 }
             }

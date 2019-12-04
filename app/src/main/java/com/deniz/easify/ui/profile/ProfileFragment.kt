@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
 import com.deniz.easify.databinding.FragmentProfileBinding
 import kotlinx.android.synthetic.main.fragment_profile.*
@@ -44,7 +45,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        favorites.setOnClickListener { openFavoritesFragment() }
+        favorites.setOnClickListener {
+            openFavoritesFragment()
+        }
     }
 
     private fun openFavoritesFragment() {
