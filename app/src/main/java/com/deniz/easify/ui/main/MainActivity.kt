@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
         val navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         bottomNavigationView.setupWithNavController(navController)
 
@@ -26,7 +25,9 @@ class MainActivity : AppCompatActivity() {
         // shows bottom navigation bar only on top 3 fragments
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
-                R.id.searchFragment, R.id.trackFragment, R.id.profileFragment -> bottomNavigationView.visibility = View.VISIBLE
+                R.id.searchFragment,
+                R.id.trackFragment,
+                R.id.profileFragment -> bottomNavigationView.visibility = View.VISIBLE
                 else -> bottomNavigationView.visibility = View.GONE
             }
         }
@@ -38,5 +39,8 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp() =
         findNavController(R.id.nav_host_fragment).navigateUp()
 
-
+    override fun onBackPressed() {
+        super.onBackPressed()
+        findNavController(R.id.nav_host_fragment).popBackStack()
+    }
 }

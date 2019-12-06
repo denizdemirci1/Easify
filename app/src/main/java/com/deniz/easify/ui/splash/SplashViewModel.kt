@@ -4,12 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.Result.Error
+import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.parseNetworkError
 import com.deniz.easify.util.AuthManager
-import com.spotify.sdk.android.authentication.AuthenticationClient
 import com.spotify.sdk.android.authentication.AuthenticationRequest
 import com.spotify.sdk.android.authentication.AuthenticationResponse
 import kotlinx.coroutines.launch
@@ -27,12 +26,11 @@ class SplashViewModel(
     companion object {
         private const val SPOTIFY_CLIENT_ID = "a69235e5b3024d9b80f5a4edfd81a0fe"
         private const val SPOTIFY_URI_CALLBACK = "com.deniz.easify://callback"
-        private const val DENIZ_DEVICE_ID_PHONE = "d93c8e8670a85a59f9d182051a79893c956d8e06"
         // TODO: Edit Scopes
         private const val SCOPES = "user-read-recently-played," +
                 "user-library-modify," +
                 "user-read-email," +
-                "user-read-private" +
+                "user-read-private," +
                 "user-top-read"
     }
 
@@ -63,7 +61,7 @@ class SplashViewModel(
                 if (result is Success) {
                     authManager.user = result.data
                     _navigateToMain.value = true
-                } else if (result is Error){
+                } else if (result is Error) {
                     authManager.token = null
                     _errorMessage.value = parseNetworkError(result.exception)
                 }
@@ -85,5 +83,19 @@ class SplashViewModel(
 
         builder.setScopes(arrayOf(SCOPES))
         _authenticationRequest.value = builder.build()
+    }
+
+    /***
+     * If the auto authentication failed, try to refresh token by authenticating again
+     * before showing error message.
+     * If it fails again, then show the error.
+     */
+    fun handleAuthError(message: String) {
+        if (authManager.tokenRefreshed) {
+            _errorMessage.value = message
+        } else {
+            authManager.tokenRefreshed = true
+            authenticateSpotify()
+        }
     }
 }

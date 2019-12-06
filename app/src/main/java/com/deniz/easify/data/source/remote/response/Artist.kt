@@ -8,12 +8,25 @@ import com.google.gson.annotations.SerializedName
  */
 
 data class Artist(
+    @SerializedName("followers")
+    val followers: Follower,
+    @SerializedName("genres")
+    val genres: ArrayList<String>,
     @SerializedName("id")
     val id: String,
+    @SerializedName("images")
+    val images: ArrayList<Image>,
     @SerializedName("name")
     val name: String,
+    @SerializedName("popularity")
+    val popularity: Int,
     @SerializedName("type")
     val type: String,
     @SerializedName("uri")
     val uri: String
-)
+) {
+    data class Follower(
+        @SerializedName("total")
+        val total: Int
+    )
+}

@@ -11,5 +11,5 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
  * Prevents clicking on selected bottom navigation bar item to re-create the fragment
  */
 fun BottomNavigationView.disableCurrentFragmentRecreating() {
-    this.setOnNavigationItemReselectedListener {  }
+    this.setOnNavigationItemReselectedListener { }
 }

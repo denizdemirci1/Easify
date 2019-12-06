@@ -1,6 +1,5 @@
 package com.deniz.easify.data.source.remote.response
 
-import com.deniz.easify.data.source.remote.response.Tracks
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 

@@ -42,5 +42,4 @@ class TrackFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.start(args.track)
     }
-
 }

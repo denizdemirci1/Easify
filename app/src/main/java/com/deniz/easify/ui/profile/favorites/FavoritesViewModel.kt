@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.SpotifyRepository
-import com.deniz.easify.data.source.remote.response.Track
+import com.deniz.easify.data.source.remote.response.TopArtist
+import com.deniz.easify.data.source.remote.response.TopTrack
 import kotlinx.coroutines.launch
 
 /**
@@ -14,23 +15,38 @@ import kotlinx.coroutines.launch
  * @Date: 2019-12-02
  */
 
-class FavoritesViewModel (
+class FavoritesViewModel(
     private val repository: SpotifyRepository
-): ViewModel() {
+) : ViewModel() {
 
-    private val _top = MutableLiveData<Track>()
-    val top: LiveData<Track> = _top
+    private val _topArtist = MutableLiveData<TopArtist>()
+    val topArtist: LiveData<TopArtist> = _topArtist
+
+    private val _topTracks = MutableLiveData<TopTrack>()
+    val topTracks: LiveData<TopTrack> = _topTracks
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
-    fun fetchTop(type: String, timeRange: String?, limit: Int?) {
+    fun fetchTopArtists(type: String, timeRange: String?, limit: Int?) {
         viewModelScope.launch {
-            repository.fetchTop(type, timeRange, limit).let { result ->
+            repository.fetchTopArtists(type, timeRange, limit).let { result ->
                 if (result is Success) {
-                    _top.value = result.data
+                    _topArtist.value = result.data
                 } else {
-                    _errorMessage.value = "fetch top request'i patladı"
+                    _errorMessage.value = "fetch top artists request'i patladı"
+                }
+            }
+        }
+    }
+
+    fun fetchTopTracks(type: String, timeRange: String?, limit: Int?) {
+        viewModelScope.launch {
+            repository.fetchTopTracks(type, timeRange, limit).let { result ->
+                if (result is Success) {
+                    _topTracks.value = result.data
+                } else {
+                    _errorMessage.value = "fetch top tracks request'i patladı"
                 }
             }
         }

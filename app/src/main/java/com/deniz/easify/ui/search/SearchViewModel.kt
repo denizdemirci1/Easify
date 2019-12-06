@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.deniz.easify.data.source.remote.response.Item
 import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.SpotifyRepository
+import com.deniz.easify.data.source.remote.response.Item
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
@@ -27,7 +27,6 @@ class SearchViewModel(
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
-
 
     fun fetchSongs(q: String) {
         viewModelScope.launch {
@@ -50,5 +49,4 @@ class SearchViewModel(
     fun openTrack(track: Item) {
         _openTrackEvent.value = Event(track)
     }
-
 }

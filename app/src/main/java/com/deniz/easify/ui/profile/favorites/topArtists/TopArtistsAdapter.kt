@@ -1,44 +1,44 @@
-package com.deniz.easify.ui.search
+package com.deniz.easify.ui.profile.favorites.topArtists
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.deniz.easify.data.source.remote.response.Item
-import com.deniz.easify.databinding.ViewholderTrackBinding
+import com.deniz.easify.data.source.remote.response.Artist
+import com.deniz.easify.databinding.ViewholderTopArtistsBinding
 
 /**
  * @User: deniz.demirci
- * @Date: 2019-11-25
+ * @Date: 2019-12-02
  */
 
-class TrackAdapter(private val viewModel: SearchViewModel) :
-    ListAdapter<Item, TrackAdapter.ViewHolder>(TracksDiffCallback()) {
+class TopArtistsAdapter(private val viewModel: TopArtistsViewModel) :
+    ListAdapter<Artist, TopArtistsAdapter.ViewHolder>(TracksDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
+        val artist = getItem(position)
 
-        holder.bind(viewModel, item)
+        holder.bind(viewModel, artist)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder.from(parent)
     }
 
-    class ViewHolder private constructor(val binding: ViewholderTrackBinding) :
+    class ViewHolder private constructor(val binding: ViewholderTopArtistsBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: SearchViewModel, item: Item) {
+        fun bind(viewModel: TopArtistsViewModel, artist: Artist) {
             binding.viewmodel = viewModel
-            binding.track = item
+            binding.artist = artist
             binding.executePendingBindings()
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ViewholderTrackBinding.inflate(layoutInflater, parent, false)
+                val binding = ViewholderTopArtistsBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }
@@ -52,12 +52,12 @@ class TrackAdapter(private val viewModel: SearchViewModel) :
  * Used by ListAdapter to calculate the minimum number of changes between and old list and a new
  * list that's been passed to `submitList`.
  */
-class TracksDiffCallback : DiffUtil.ItemCallback<Item>() {
-    override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+class TracksDiffCallback : DiffUtil.ItemCallback<Artist>() {
+    override fun areItemsTheSame(oldItem: Artist, newItem: Artist): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+    override fun areContentsTheSame(oldItem: Artist, newItem: Artist): Boolean {
         return oldItem == newItem
     }
 }

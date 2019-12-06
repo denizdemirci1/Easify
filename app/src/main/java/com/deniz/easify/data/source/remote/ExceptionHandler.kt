@@ -1,8 +1,8 @@
 package com.deniz.easify.data.source.remote
 
 import com.deniz.easify.BuildConfig
-import retrofit2.HttpException
 import java.net.UnknownHostException
+import retrofit2.HttpException
 
 /**
  * @User: deniz.demirci
@@ -11,7 +11,7 @@ import java.net.UnknownHostException
 
 fun parseNetworkError(e: Exception): String {
 
-    return when(e) {
+    return when (e) {
         is HttpException -> {
             if (BuildConfig.DEBUG) {
                 "Response: ${e.response()} \n Code: ${e.code()} \n Message: ${e.message()}"

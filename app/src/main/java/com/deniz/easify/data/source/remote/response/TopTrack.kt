@@ -5,10 +5,10 @@ import java.io.Serializable
 
 /**
  * @User: deniz.demirci
- * @Date: 2019-12-02
+ * @Date: 2019-12-04
  */
 
-data class Track(
+data class TopTrack(
     @SerializedName("items")
     val items: ArrayList<Item>,
     @SerializedName("limit")

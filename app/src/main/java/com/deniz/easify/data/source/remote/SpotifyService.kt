@@ -1,8 +1,9 @@
 package com.deniz.easify.data.source.remote
 
 import com.deniz.easify.data.source.remote.request.PlayBody
+import com.deniz.easify.data.source.remote.response.TopArtist
+import com.deniz.easify.data.source.remote.response.TopTrack
 import com.deniz.easify.data.source.remote.response.Tracks
-import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.data.source.remote.response.User
 import retrofit2.http.*
 
@@ -29,13 +30,17 @@ interface SpotifyService {
     suspend fun fetchUser(): User
 
     @GET("search")
-    suspend fun fetchTrack(@Query(query_q) q: String,
-                           @Query(query_type) type: String = "track",
-                           @Query(query_limit) limit: Int = 10): Tracks
+    suspend fun fetchTrack(
+        @Query(query_q) q: String,
+        @Query(query_type) type: String = "track",
+        @Query(query_limit) limit: Int = 10
+    ): Tracks
 
     @PUT("me/player/play")
-    suspend fun play(@Query(query_device_id) deviceId: String? = "d93c8e8670a85a59f9d182051a79893c956d8e06",
-                     @Body request: PlayBody)
+    suspend fun play(
+        @Query(query_device_id) deviceId: String? = "d93c8e8670a85a59f9d182051a79893c956d8e06",
+        @Body request: PlayBody
+    )
 
     /***
      * @param limit: Optional. The number of entities to return. Default: 20. Minimum: 1. Maximum: 50.
@@ -45,8 +50,16 @@ interface SpotifyService {
      * short_term (approximately last 4 weeks). Default: medium_term
      */
     @GET("me/top/{type}")
-    suspend fun fetchTop(@Path(path_type) type: String? = "artists",
-                         @Query(query_time_range) timeRange: String?,
-                         @Query(query_limit) limit: Int?): Track
+    suspend fun fetchTopArtists(
+        @Path(path_type) type: String? = "artists",
+        @Query(query_time_range) timeRange: String?,
+        @Query(query_limit) limit: Int?
+    ): TopArtist
 
+    @GET("me/top/{type}")
+    suspend fun fetchTopTracks(
+        @Path(path_type) type: String? = "tracks",
+        @Query(query_time_range) timeRange: String?,
+        @Query(query_limit) limit: Int?
+    ): TopTrack
 }

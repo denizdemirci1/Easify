@@ -41,24 +41,34 @@
         android:name="com.deniz.easify.ui.profile.favorites.FavoritesFragment"
         android:label="FavoritesFragment" >
         <action
-            android:id="@+id/action_favoritesFragment_to_favoriteDetailsFragment"
-            app:destination="@id/favoriteDetailsFragment" />
+            android:id="@+id/action_favoritesFragment_to_topArtistsFragment"
+            app:destination="@id/topArtistsFragment" />
+        <action
+            android:id="@+id/action_favoritesFragment_to_topTracksFragment"
+            app:destination="@id/topTracksFragment" />
     </fragment>
 
     <fragment
-        android:id="@+id/favoriteDetailsFragment"
-        android:name="com.deniz.easify.ui.profile.favorites.favoriteDetails.FavoriteDetailsFragment"
-        android:label="FavoriteDetailsFragment" >
+        android:id="@+id/topArtistsFragment"
+        android:name="com.deniz.easify.ui.profile.favorites.topArtists.TopArtistsFragment"
+        android:label="TopArtistsFragment">
         <argument
             android:name="favorites"
-            app:argType="com.deniz.easify.data.source.remote.response.Track"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <argument
-            android:name="type"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
+            android:defaultValue="@null"
+            app:argType="com.deniz.easify.data.source.remote.response.TopArtist"
+            app:nullable="true" />
     </fragment>
+
+    <fragment
+        android:id="@+id/topTracksFragment"
+        android:name="com.deniz.easify.ui.profile.favorites.topTracks.TopTracksFragment"
+        android:label="TopTracksFragment" >
+        <argument
+            android:name="favorites"
+            android:defaultValue="@null"
+            app:argType="com.deniz.easify.data.source.remote.response.TopTrack"
+            app:nullable="true" />
+    </fragment>
+
 
 </navigation>

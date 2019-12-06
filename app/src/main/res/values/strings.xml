@@ -34,8 +34,11 @@
     <string name="fragment_favorites_hint_limit">Limit</string>
     <string name="fragment_favorites_show">Show</string>
 
-    <!-- Favorite Details Fragment -->
-    <string name="fragment_favorite_details_title">Your Top %d %s</string>
+    <!-- Top Artists Fragment -->
+    <string name="fragment_top_artists_title">Your Top %d Artists</string>
+
+    <!-- Top Tracks Fragment -->
+    <string name="fragment_top_tracks_title">Your Top %d Tracks</string>
 
 
 

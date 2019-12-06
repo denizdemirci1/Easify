@@ -4,9 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.deniz.easify.data.source.remote.response.Item
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.request.PlayBody
+import com.deniz.easify.data.source.remote.response.Item
 import kotlinx.coroutines.launch
 
 /**
@@ -32,7 +32,7 @@ class TrackViewModel(
         }
     }
 
-    private fun playTrack(){
+    private fun playTrack() {
         viewModelScope.launch {
             val playBody = arrayListOf<String>()
             playBody.add(track.value!!.uri)

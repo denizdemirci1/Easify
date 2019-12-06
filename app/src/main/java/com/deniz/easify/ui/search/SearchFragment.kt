@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Item
-
 import com.deniz.easify.databinding.FragmentSearchBinding
 import com.deniz.easify.extension.afterTextChanged
 import com.deniz.easify.util.EventObserver
@@ -51,7 +50,6 @@ class SearchFragment : Fragment() {
         setupNavigation()
         setupListeners()
         setupObservers()
-
     }
 
     private fun setupTrackAdapter() {
@@ -62,7 +60,6 @@ class SearchFragment : Fragment() {
         } else {
             Log.i("SearchFragment", "ViewModel not initialized when attempting to set up adapter.")
         }
-
     }
 
     private fun setupNavigation() {
@@ -91,5 +88,4 @@ class SearchFragment : Fragment() {
         val action = SearchFragmentDirections.actionSearchFragmentToTrackFragment(track)
         findNavController().navigate(action)
     }
-
 }

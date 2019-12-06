@@ -39,7 +39,10 @@ class SplashActivity : AppCompatActivity() {
         viewModel.authenticateSpotify()
 
         viewModel.authenticationRequest.observe(this, Observer {
-            AuthenticationClient.openLoginActivity(this, SPOTIFY_REQUEST_CODE, viewModel.authenticationRequest.value)
+            AuthenticationClient.openLoginActivity(
+                this,
+                SPOTIFY_REQUEST_CODE,
+                viewModel.authenticationRequest.value)
         })
 
         viewModel.errorMessage.observe(this, Observer {
@@ -84,7 +87,7 @@ class SplashActivity : AppCompatActivity() {
                 // Auth flow returned an error
                 AuthenticationResponse.Type.ERROR -> {
                     viewModel.clearToken()
-                    showNetworkError(response.error)
+                    viewModel.handleAuthError(response.error)
                 }
 
                 else -> showNetworkError("Something went wrong be canım.")

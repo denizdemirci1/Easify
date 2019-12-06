@@ -1,4 +1,4 @@
-package com.deniz.easify.ui.profile.favorites.favoriteDetails
+package com.deniz.easify.ui.profile.favorites.topTracks
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -10,16 +10,16 @@ import com.deniz.easify.databinding.ViewholderTopTracksBinding
 
 /**
  * @User: deniz.demirci
- * @Date: 2019-12-02
+ * @Date: 2019-12-04
  */
 
-class TopTracksAdapter(private val viewModel: FavoriteDetailsViewModel) :
+class TopTracksAdapter(private val viewModel: TopTracksViewModel) :
     ListAdapter<Item, TopTracksAdapter.ViewHolder>(TracksDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = getItem(position)
+        val artist = getItem(position)
 
-        holder.bind(viewModel, item)
+        holder.bind(viewModel, artist)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,9 +29,9 @@ class TopTracksAdapter(private val viewModel: FavoriteDetailsViewModel) :
     class ViewHolder private constructor(val binding: ViewholderTopTracksBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: FavoriteDetailsViewModel, item: Item) {
+        fun bind(viewModel: TopTracksViewModel, track: Item) {
             binding.viewmodel = viewModel
-            binding.track = item
+            binding.track = track
             binding.executePendingBindings()
         }
 

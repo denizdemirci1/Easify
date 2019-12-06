@@ -1,18 +1,19 @@
 package com.deniz.easify.data.source
 
 import com.deniz.easify.data.Result
-import com.deniz.easify.data.source.remote.response.Tracks
-import com.deniz.easify.data.source.remote.response.Track
-import com.deniz.easify.data.source.remote.response.User
 import com.deniz.easify.data.source.remote.SpotifyService
 import com.deniz.easify.data.source.remote.request.PlayBody
+import com.deniz.easify.data.source.remote.response.TopArtist
+import com.deniz.easify.data.source.remote.response.TopTrack
+import com.deniz.easify.data.source.remote.response.Tracks
+import com.deniz.easify.data.source.remote.response.User
 
 /**
  * @User: deniz.demirci
  * @Date: 2019-11-11
  */
 
-class SpotifyRepository(private val service: SpotifyService): Repository {
+class SpotifyRepository(private val service: SpotifyService) : Repository {
 
     override suspend fun fetchUser(): Result<User>? {
         return try {
@@ -32,14 +33,27 @@ class SpotifyRepository(private val service: SpotifyService): Repository {
         }
     }
 
-    override suspend fun fetchTop(
+    override suspend fun fetchTopArtists(
         type: String,
         timeRange: String?,
         limit: Int?
-        ): Result<Track> {
+    ): Result<TopArtist> {
         return try {
-            val track = service.fetchTop(type, timeRange, limit)
-            Result.Success(track)
+            val topArtist = service.fetchTopArtists(type, timeRange, limit)
+            Result.Success(topArtist)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun fetchTopTracks(
+        type: String,
+        timeRange: String?,
+        limit: Int?
+    ): Result<TopTrack> {
+        return try {
+            val topTrack = service.fetchTopTracks(type, timeRange, limit)
+            Result.Success(topTrack)
         } catch (e: Exception) {
             Result.Error(e)
         }

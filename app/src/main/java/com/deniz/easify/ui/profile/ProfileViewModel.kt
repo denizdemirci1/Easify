@@ -1,9 +1,9 @@
 package com.deniz.easify.ui.profile
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.util.AuthManager
-import androidx.lifecycle.MutableLiveData
 
 /**
  * @User: deniz.demirci
@@ -20,6 +20,4 @@ class ProfileViewModel(
     init {
         profilePictureUrl.value = authManager.user!!.images[0].url
     }
-
-
 }

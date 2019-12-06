@@ -41,6 +41,4 @@ data class User(
         @SerializedName("total")
         val total: Int
     )
-
-
 }
