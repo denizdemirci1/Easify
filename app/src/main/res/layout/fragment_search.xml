@@ -20,14 +20,14 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:background="@color/colorBackgroundLight"
+            android:background="@color/colorSpotifyBlack"
 
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.AppCompatEditText
                 android:id="@+id/search"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:hint="@string/search"
                 android:textColorHint="@color/colorSpotifyWhite"
                 android:textColor="@color/colorSpotifyWhite"
