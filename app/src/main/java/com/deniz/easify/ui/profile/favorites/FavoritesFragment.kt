@@ -28,6 +28,14 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  */
 class FavoritesFragment : Fragment() {
 
+    companion object {
+        private const val artists = "artists"
+        private const val tracks = "tracks"
+        private val longTerm = Pair("Several Years", "long_term")
+        private val mediumTerm = Pair("Last 6 Months", "medium_term")
+        private val shortTerm = Pair("Last 4 Weeks", "short_term")
+    }
+
     private lateinit var binding: FragmentFavoritesBinding
 
     private val viewModel by viewModel<FavoritesViewModel>()
@@ -93,19 +101,31 @@ class FavoritesFragment : Fragment() {
     private fun setupListeners() {
         show.setOnClickListener {
             it.hideKeyboard()
-            if (limit.text.toString() != "0" && limit.text.toString().isNotEmpty()) {
-                if (type.text.toString() == "artists") {
-                    fetchTopArtists()
-                } else if (type.text.toString() == "tracks") {
-                    fetchTopTracks()
-                }
+
+            val term = when (timeRange.text.toString()) {
+                longTerm.first -> longTerm.second
+                mediumTerm.first -> mediumTerm.second
+                shortTerm.first -> shortTerm.second
+                else -> longTerm.second
+            }
+
+            val amount = when {
+                limit.text.toString().isNotEmpty() -> Integer.parseInt(limit.text.toString())
+                limit.text.toString() == "0" -> null
+                else -> null
+            }
+
+            when {
+                type.text.toString() == artists -> fetchTopArtists(term, amount)
+                type.text.toString() == tracks -> fetchTopTracks(term, amount)
+                else -> showError(resources.getString(R.string.fragment_favorites_type_empty_error))
             }
         }
 
         type.setOnClickListener {
             it.context.let { context ->
                 MaterialDialog(context).show {
-                    listItems(items = listOf("artists", "tracks")) { _, _, text ->
+                    listItems(items = listOf(artists, tracks)) { _, _, text ->
                         this@FavoritesFragment.type.setText(text)
                     }
                 }
@@ -115,7 +135,7 @@ class FavoritesFragment : Fragment() {
         timeRange.setOnClickListener {
             it.context.let { context ->
                 MaterialDialog(context).show {
-                    listItems(items = listOf("long_term", "medium_term", "short_term")) { _, _, text ->
+                    listItems(items = listOf(longTerm.first, mediumTerm.first, shortTerm.first)) { _, _, text ->
                         this@FavoritesFragment.timeRange.setText(text)
                     }
                 }
@@ -123,17 +143,17 @@ class FavoritesFragment : Fragment() {
         }
     }
 
-    private fun fetchTopArtists() {
+    private fun fetchTopArtists(term: String, amount: Int?) {
         viewModel.fetchTopArtists(
-            "artists",
-            timeRange.text.toString(),
-            Integer.parseInt(limit.text.toString()))
+            artists,
+            term,
+            amount)
     }
 
-    private fun fetchTopTracks() {
+    private fun fetchTopTracks(term: String, amount: Int?) {
         viewModel.fetchTopTracks(
-            "tracks",
-            timeRange.text.toString(),
-            Integer.parseInt(limit.text.toString()))
+            tracks,
+            term,
+            amount)
     }
 }

@@ -63,7 +63,7 @@ class SplashViewModel(
                     _navigateToMain.value = true
                 } else if (result is Error) {
                     authManager.token = null
-                    _errorMessage.value = parseNetworkError(result.exception)
+                    handleAuthError(parseNetworkError(result.exception))
                 }
             }
         }
@@ -93,6 +93,7 @@ class SplashViewModel(
     fun handleAuthError(message: String) {
         if (authManager.tokenRefreshed) {
             _errorMessage.value = message
+            authManager.tokenRefreshed = false
         } else {
             authManager.tokenRefreshed = true
             authenticateSpotify()

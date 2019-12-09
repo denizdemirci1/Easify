@@ -14,7 +14,7 @@ import com.deniz.easify.databinding.ViewholderTopTracksBinding
  */
 
 class TopTracksAdapter(private val viewModel: TopTracksViewModel) :
-    ListAdapter<Item, TopTracksAdapter.ViewHolder>(TracksDiffCallback()) {
+    ListAdapter<Item, TopTracksAdapter.ViewHolder>(TopTracksDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val artist = getItem(position)
@@ -52,7 +52,7 @@ class TopTracksAdapter(private val viewModel: TopTracksViewModel) :
  * Used by ListAdapter to calculate the minimum number of changes between and old list and a new
  * list that's been passed to `submitList`.
  */
-class TracksDiffCallback : DiffUtil.ItemCallback<Item>() {
+class TopTracksDiffCallback : DiffUtil.ItemCallback<Item>() {
     override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
         return oldItem.id == newItem.id
     }

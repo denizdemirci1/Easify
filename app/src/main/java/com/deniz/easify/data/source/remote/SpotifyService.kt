@@ -33,7 +33,7 @@ interface SpotifyService {
     suspend fun fetchTrack(
         @Query(query_q) q: String,
         @Query(query_type) type: String = "track",
-        @Query(query_limit) limit: Int = 10
+        @Query(query_limit) limit: Int = 30
     ): Tracks
 
     @PUT("me/player/play")
@@ -53,13 +53,13 @@ interface SpotifyService {
     suspend fun fetchTopArtists(
         @Path(path_type) type: String? = "artists",
         @Query(query_time_range) timeRange: String?,
-        @Query(query_limit) limit: Int?
+        @Query(query_limit) limit: Int? = 20
     ): TopArtist
 
     @GET("me/top/{type}")
     suspend fun fetchTopTracks(
         @Path(path_type) type: String? = "tracks",
         @Query(query_time_range) timeRange: String?,
-        @Query(query_limit) limit: Int?
+        @Query(query_limit) limit: Int? = 20
     ): TopTrack
 }

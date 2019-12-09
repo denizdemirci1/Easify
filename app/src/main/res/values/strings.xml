@@ -31,8 +31,9 @@
     <!-- Favorites Fragment -->
     <string name="fragment_favorites_hint_type">Type</string>
     <string name="fragment_favorites_hint_time_range">Time Range</string>
-    <string name="fragment_favorites_hint_limit">Limit</string>
+    <string name="fragment_favorites_hint_limit">Amount</string>
     <string name="fragment_favorites_show">Show</string>
+    <string name="fragment_favorites_type_empty_error">Please select a type. Artists or Tracks?</string>
 
     <!-- Top Artists Fragment -->
     <string name="fragment_top_artists_title">Your Top %d Artists</string>

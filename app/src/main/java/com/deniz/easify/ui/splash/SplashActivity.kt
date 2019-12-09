@@ -37,7 +37,11 @@ class SplashActivity : AppCompatActivity() {
         binding.lifecycleOwner = this
 
         viewModel.authenticateSpotify()
+        setObservers()
 
+    }
+
+    private fun setObservers() {
         viewModel.authenticationRequest.observe(this, Observer {
             AuthenticationClient.openLoginActivity(
                 this,

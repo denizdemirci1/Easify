@@ -13,6 +13,9 @@ import com.deniz.easify.databinding.ViewholderTrackBinding
  * @Date: 2019-11-25
  */
 
+/**
+ * Adapter for the tracks list. Has a reference to the [SearchViewModel] to send actions back to it.
+ */
 class TrackAdapter(private val viewModel: SearchViewModel) :
     ListAdapter<Item, TrackAdapter.ViewHolder>(TracksDiffCallback()) {
 
