@@ -10,7 +10,7 @@ import java.io.Serializable
 
 data class TopTrack(
     @SerializedName("items")
-    val items: ArrayList<Item>,
+    val items: ArrayList<Track>,
     @SerializedName("limit")
     val limit: Int,
     @SerializedName("next")

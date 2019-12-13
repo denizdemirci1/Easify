@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.SpotifyRepository
-import com.deniz.easify.data.source.remote.response.Item
+import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
@@ -19,11 +19,11 @@ class SearchViewModel(
     private val repository: SpotifyRepository
 ) : ViewModel() {
 
-    private val _trackList = MutableLiveData<ArrayList<Item>>().apply { value = arrayListOf() }
-    val trackList: LiveData<ArrayList<Item>> = _trackList
+    private val _trackList = MutableLiveData<ArrayList<Track>>().apply { value = arrayListOf() }
+    val trackList: LiveData<ArrayList<Track>> = _trackList
 
-    private val _openTrackEvent = MutableLiveData<Event<Item>>()
-    val openTrackEvent: LiveData<Event<Item>> = _openTrackEvent
+    private val _openTrackEvent = MutableLiveData<Event<Track>>()
+    val openTrackEvent: LiveData<Event<Track>> = _openTrackEvent
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -32,7 +32,7 @@ class SearchViewModel(
         viewModelScope.launch {
             repository.fetchTrack(q).let { result ->
                 if (result is Success) {
-                    val tracksToShow = ArrayList<Item>()
+                    val tracksToShow = ArrayList<Track>()
                     tracksToShow.clear()
                     tracksToShow.addAll(result.data.tracks.items)
                     _trackList.value = ArrayList(tracksToShow)
@@ -46,7 +46,7 @@ class SearchViewModel(
     /**
      * Called by Data Binding.
      */
-    fun openTrack(track: Item) {
+    fun openTrack(track: Track) {
         _openTrackEvent.value = Event(track)
     }
 }

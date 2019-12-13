@@ -4,8 +4,8 @@
     <string name="com_spotify_sdk_redirect_scheme">com.deniz.easify</string>
     <string name="com_spotify_sdk_redirect_host">callback</string>
 
-    <string name="spotify_client_id">a69235e5b3024d9b80f5a4edfd81a0fe</string>
-    <string name="spotify_client_secret">0302ebaf65634ff799013f73cfc30c44</string>
+    <string name="spotify_client_id">c7488b4d223740f195ed82e6ee3c3802</string>
+    <string name="spotify_client_secret">6aa42e1004cb411784bd1f2e98e258f3</string>
     <string name="spotify_uri_callback">com.deniz.easify://callback</string>
 
     <string name="dialog_error_title">Ups</string>

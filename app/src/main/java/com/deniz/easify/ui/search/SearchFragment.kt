@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DiffUtil
 import com.deniz.easify.R
-import com.deniz.easify.data.source.remote.response.Item
+import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.FragmentSearchBinding
 import com.deniz.easify.extension.afterTextChanged
 import com.deniz.easify.util.EventObserver
@@ -85,7 +85,7 @@ class SearchFragment : Fragment() {
         })
     }
 
-    private fun openTrackDetails(track: Item) {
+    private fun openTrackDetails(track: Track) {
         val action = SearchFragmentDirections.actionSearchFragmentToTrackFragment(track)
         findNavController().navigate(action)
     }

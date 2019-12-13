@@ -22,7 +22,7 @@
         android:label="TrackFragment" >
         <argument
             android:name="track"
-            app:argType="com.deniz.easify.data.source.remote.response.Item"
+            app:argType="com.deniz.easify.data.source.remote.response.Track"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>

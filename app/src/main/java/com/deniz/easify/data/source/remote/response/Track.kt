@@ -5,20 +5,24 @@ import java.io.Serializable
 
 /**
  * @User: deniz.demirci
- * @Date: 2019-12-02
+ * @Date: 2019-11-27
  */
 
 data class Track(
-    @SerializedName("items")
-    val items: ArrayList<Item>,
-    @SerializedName("limit")
-    val limit: Int,
-    @SerializedName("next")
-    val next: String?,
-    @SerializedName("offset")
-    val offset: Int,
-    @SerializedName("previous")
-    val previous: String?,
-    @SerializedName("total")
-    val total: Int
+    @SerializedName("album")
+    val album: Album,
+    @SerializedName("artists")
+    val artists: ArrayList<Artist>,
+    @SerializedName("available_markets")
+    val availableMarkets: ArrayList<String>,
+    @SerializedName("duration_ms")
+    val duration: Int,
+    @SerializedName("id")
+    val id: String,
+    @SerializedName("name")
+    val name: String,
+    @SerializedName("popularity")
+    val popularity: Int,
+    @SerializedName("uri")
+    val uri: String
 ) : Serializable

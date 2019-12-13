@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.deniz.easify.data.source.remote.response.Item
+import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.ViewholderTopTracksBinding
 
 /**
@@ -14,7 +14,7 @@ import com.deniz.easify.databinding.ViewholderTopTracksBinding
  */
 
 class TopTracksAdapter(private val viewModel: TopTracksViewModel) :
-    ListAdapter<Item, TopTracksAdapter.ViewHolder>(TopTracksDiffCallback()) {
+    ListAdapter<Track, TopTracksAdapter.ViewHolder>(TopTracksDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val artist = getItem(position)
@@ -29,7 +29,7 @@ class TopTracksAdapter(private val viewModel: TopTracksViewModel) :
     class ViewHolder private constructor(val binding: ViewholderTopTracksBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: TopTracksViewModel, track: Item) {
+        fun bind(viewModel: TopTracksViewModel, track: Track) {
             binding.viewmodel = viewModel
             binding.track = track
             binding.executePendingBindings()
@@ -52,12 +52,12 @@ class TopTracksAdapter(private val viewModel: TopTracksViewModel) :
  * Used by ListAdapter to calculate the minimum number of changes between and old list and a new
  * list that's been passed to `submitList`.
  */
-class TopTracksDiffCallback : DiffUtil.ItemCallback<Item>() {
-    override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+class TopTracksDiffCallback : DiffUtil.ItemCallback<Track>() {
+    override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+    override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {
         return oldItem == newItem
     }
 }

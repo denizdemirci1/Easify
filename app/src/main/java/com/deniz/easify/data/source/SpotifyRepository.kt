@@ -5,7 +5,7 @@ import com.deniz.easify.data.source.remote.SpotifyService
 import com.deniz.easify.data.source.remote.request.PlayBody
 import com.deniz.easify.data.source.remote.response.TopArtist
 import com.deniz.easify.data.source.remote.response.TopTrack
-import com.deniz.easify.data.source.remote.response.Tracks
+import com.deniz.easify.data.source.remote.response.TracksObject
 import com.deniz.easify.data.source.remote.response.User
 
 /**
@@ -24,7 +24,7 @@ class SpotifyRepository(private val service: SpotifyService) : Repository {
         }
     }
 
-    override suspend fun fetchTrack(q: String): Result<Tracks> {
+    override suspend fun fetchTrack(q: String): Result<TracksObject> {
         return try {
             val track = service.fetchTrack(q)
             Result.Success(track)

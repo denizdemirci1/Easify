@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.request.PlayBody
-import com.deniz.easify.data.source.remote.response.Item
+import com.deniz.easify.data.source.remote.response.Track
 import kotlinx.coroutines.launch
 
 /**
@@ -18,12 +18,12 @@ class TrackViewModel(
     private val repository: SpotifyRepository
 ) : ViewModel() {
 
-    val track = MutableLiveData<Item>()
+    val track = MutableLiveData<Track>()
 
     private val _empty = MutableLiveData<Boolean>()
     val empty: LiveData<Boolean> = _empty
 
-    fun start(track: Item?) {
+    fun start(track: Track?) {
         _empty.value = track == null
 
         if (track != null) {

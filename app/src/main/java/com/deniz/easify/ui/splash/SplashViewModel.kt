@@ -24,7 +24,7 @@ class SplashViewModel(
 ) : ViewModel() {
 
     companion object {
-        private const val SPOTIFY_CLIENT_ID = "a69235e5b3024d9b80f5a4edfd81a0fe"
+        private const val SPOTIFY_CLIENT_ID = "c7488b4d223740f195ed82e6ee3c3802"
         private const val SPOTIFY_URI_CALLBACK = "com.deniz.easify://callback"
         // TODO: Edit Scopes
         private const val SCOPES = "user-read-recently-played," +

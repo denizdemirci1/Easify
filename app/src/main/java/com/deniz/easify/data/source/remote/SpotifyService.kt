@@ -3,7 +3,7 @@ package com.deniz.easify.data.source.remote
 import com.deniz.easify.data.source.remote.request.PlayBody
 import com.deniz.easify.data.source.remote.response.TopArtist
 import com.deniz.easify.data.source.remote.response.TopTrack
-import com.deniz.easify.data.source.remote.response.Tracks
+import com.deniz.easify.data.source.remote.response.TracksObject
 import com.deniz.easify.data.source.remote.response.User
 import retrofit2.http.*
 
@@ -34,7 +34,7 @@ interface SpotifyService {
         @Query(query_q) q: String,
         @Query(query_type) type: String = "track",
         @Query(query_limit) limit: Int = 30
-    ): Tracks
+    ): TracksObject
 
     @PUT("me/player/play")
     suspend fun play(

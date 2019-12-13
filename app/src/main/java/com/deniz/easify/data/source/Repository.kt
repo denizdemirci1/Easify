@@ -4,7 +4,7 @@ import com.deniz.easify.data.Result
 import com.deniz.easify.data.source.remote.request.PlayBody
 import com.deniz.easify.data.source.remote.response.TopArtist
 import com.deniz.easify.data.source.remote.response.TopTrack
-import com.deniz.easify.data.source.remote.response.Tracks
+import com.deniz.easify.data.source.remote.response.TracksObject
 import com.deniz.easify.data.source.remote.response.User
 
 /**
@@ -16,7 +16,7 @@ interface Repository {
 
     suspend fun fetchUser(): Result<User>?
 
-    suspend fun fetchTrack(q: String): Result<Tracks>
+    suspend fun fetchTrack(q: String): Result<TracksObject>
 
     suspend fun fetchTopArtists(type: String, timeRange: String?, limit: Int?): Result<TopArtist>
 

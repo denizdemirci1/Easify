@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.deniz.easify.data.source.remote.response.Item
+import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.ViewholderTrackBinding
 
 /**
@@ -17,7 +17,7 @@ import com.deniz.easify.databinding.ViewholderTrackBinding
  * Adapter for the tracks list. Has a reference to the [SearchViewModel] to send actions back to it.
  */
 class TrackAdapter(private val viewModel: SearchViewModel) :
-    ListAdapter<Item, TrackAdapter.ViewHolder>(TracksDiffCallback()) {
+    ListAdapter<Track, TrackAdapter.ViewHolder>(TracksDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = getItem(position)
@@ -32,9 +32,9 @@ class TrackAdapter(private val viewModel: SearchViewModel) :
     class ViewHolder private constructor(val binding: ViewholderTrackBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(viewModel: SearchViewModel, item: Item) {
+        fun bind(viewModel: SearchViewModel, track: Track) {
             binding.viewmodel = viewModel
-            binding.track = item
+            binding.track = track
             binding.executePendingBindings()
         }
 
@@ -55,12 +55,12 @@ class TrackAdapter(private val viewModel: SearchViewModel) :
  * Used by ListAdapter to calculate the minimum number of changes between and old list and a new
  * list that's been passed to `submitList`.
  */
-class TracksDiffCallback : DiffUtil.ItemCallback<Item>() {
-    override fun areItemsTheSame(oldItem: Item, newItem: Item): Boolean {
+class TracksDiffCallback : DiffUtil.ItemCallback<Track>() {
+    override fun areItemsTheSame(oldItem: Track, newItem: Track): Boolean {
         return oldItem.id == newItem.id
     }
 
-    override fun areContentsTheSame(oldItem: Item, newItem: Item): Boolean {
+    override fun areContentsTheSame(oldItem: Track, newItem: Track): Boolean {
         return oldItem == newItem
     }
 }
