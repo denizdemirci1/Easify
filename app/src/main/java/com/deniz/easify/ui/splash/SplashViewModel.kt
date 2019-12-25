@@ -60,6 +60,7 @@ class SplashViewModel(
             repository.fetchUser().let { result ->
                 if (result is Success) {
                     authManager.user = result.data
+                    authManager.tokenRefreshed = false
                     _navigateToMain.value = true
                 } else if (result is Error) {
                     authManager.token = null
