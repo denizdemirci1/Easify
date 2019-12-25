@@ -3,10 +3,7 @@ package com.deniz.easify.data.source
 import com.deniz.easify.data.Result
 import com.deniz.easify.data.source.remote.SpotifyService
 import com.deniz.easify.data.source.remote.request.PlayBody
-import com.deniz.easify.data.source.remote.response.TopArtist
-import com.deniz.easify.data.source.remote.response.TopTrack
-import com.deniz.easify.data.source.remote.response.TracksObject
-import com.deniz.easify.data.source.remote.response.User
+import com.deniz.easify.data.source.remote.response.*
 
 /**
  * @User: deniz.demirci
@@ -54,6 +51,15 @@ class SpotifyRepository(private val service: SpotifyService) : Repository {
         return try {
             val topTrack = service.fetchTopTracks(type, timeRange, limit)
             Result.Success(topTrack)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun fetchFollowedArtists(): Result<FollowedArtistsResponse> {
+        return try {
+            val followedArtists = service.fetchFollowedArtists()
+            Result.Success(followedArtists)
         } catch (e: Exception) {
             Result.Error(e)
         }

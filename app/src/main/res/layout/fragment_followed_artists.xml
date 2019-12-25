@@ -9,7 +9,7 @@
 
         <variable
             name="viewmodel"
-            type="com.deniz.easify.ui.profile.favorites.topArtists.TopArtistsViewModel" />
+            type="com.deniz.easify.ui.profile.follow.FollowedArtistsViewModel" />
 
     </data>
 
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                tools:text="Your Top (13) (artists)"
+                tools:text="Artists You Follow"
                 android:textColor="@color/colorSpotifyWhite"
 
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,14 +43,31 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/tracksRecyclerView"
+            android:id="@+id/artistsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:topArtists="@{viewmodel.topArtist.items}"
+            app:followedArtists="@{viewmodel.artists}"
 
             app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toTopOf="@id/follow"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/follow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+
+            android:text="@string/fragment_favorites_show"
+            android:textColor="@color/colorSpotifyWhite"
+            android:textSize="24sp"
+            android:background="@drawable/button_green"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

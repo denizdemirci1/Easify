@@ -1,10 +1,7 @@
 package com.deniz.easify.data.source.remote
 
 import com.deniz.easify.data.source.remote.request.PlayBody
-import com.deniz.easify.data.source.remote.response.TopArtist
-import com.deniz.easify.data.source.remote.response.TopTrack
-import com.deniz.easify.data.source.remote.response.TracksObject
-import com.deniz.easify.data.source.remote.response.User
+import com.deniz.easify.data.source.remote.response.*
 import retrofit2.http.*
 
 /**
@@ -62,4 +59,10 @@ interface SpotifyService {
         @Query(query_time_range) timeRange: String?,
         @Query(query_limit) limit: Int? = 20
     ): TopTrack
+
+    @GET("me/following")
+    suspend fun fetchFollowedArtists(
+        @Query(query_type) type: String = "artist",
+        @Query(query_limit) limit: Int = 50
+    ): FollowedArtistsResponse
 }

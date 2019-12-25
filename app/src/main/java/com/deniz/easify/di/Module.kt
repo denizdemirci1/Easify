@@ -8,6 +8,7 @@ import com.deniz.easify.ui.profile.ProfileViewModel
 import com.deniz.easify.ui.profile.favorites.FavoritesViewModel
 import com.deniz.easify.ui.profile.favorites.topArtists.TopArtistsViewModel
 import com.deniz.easify.ui.profile.favorites.topTracks.TopTracksViewModel
+import com.deniz.easify.ui.profile.follow.FollowedArtistsViewModel
 import com.deniz.easify.ui.search.SearchViewModel
 import com.deniz.easify.ui.splash.SplashViewModel
 import com.deniz.easify.ui.track.TrackViewModel
@@ -35,6 +36,7 @@ val viewModelModule = module {
     viewModel { FavoritesViewModel(get()) }
     viewModel { TopArtistsViewModel(get()) }
     viewModel { TopTracksViewModel(get()) }
+    viewModel { FollowedArtistsViewModel(get()) }
 }
 
 val repositoryModule = module {

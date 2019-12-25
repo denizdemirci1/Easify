@@ -47,10 +47,19 @@ class ProfileFragment : Fragment() {
         favorites.setOnClickListener {
             openFavoritesFragment()
         }
+
+        followedArtists.setOnClickListener {
+            openFollowedArtistsFragment()
+        }
     }
 
     private fun openFavoritesFragment() {
         val action = ProfileFragmentDirections.actionProfileFragmentToFavoritesFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun openFollowedArtistsFragment() {
+        val action = ProfileFragmentDirections.actionProfileFragmentToFollowedArtistsFragment()
         findNavController().navigate(action)
     }
 }
