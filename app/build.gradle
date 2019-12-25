@@ -48,7 +48,7 @@ ktlint {
     verbose = true
     android = true
     outputToConsole = true
-    disabledRules = []
+    disabledRules = ["max-line-length", "no-wildcard-imports"]
     filter {
         exclude("**/generated/**")
         include("**/java/**")

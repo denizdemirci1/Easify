@@ -1,4 +1,4 @@
-package com.deniz.easify.ui.profile.follow
+package com.deniz.easify.ui.profile.followings
 
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.deniz.easify.R
 import com.deniz.easify.databinding.FragmentFollowedArtistsBinding
 import kotlinx.android.synthetic.main.fragment_followed_artists.*
@@ -65,12 +66,13 @@ class FollowedArtistsFragment : Fragment() {
     }
 
     private fun setListeners() {
-        follow.setOnClickListener {
+        add.setOnClickListener {
             navigateToFollowFragment()
         }
     }
 
     private fun navigateToFollowFragment() {
-
+        val action = FollowedArtistsFragmentDirections.actionFollowedArtistsFragmentToFollowFragment()
+        findNavController().navigate(action)
     }
 }

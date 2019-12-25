@@ -43,6 +43,9 @@
     <!-- Top Tracks Fragment -->
     <string name="fragment_top_tracks_title">Your Top %d Tracks</string>
 
+    <!-- Followed Artists Fragment -->
+    <string name="fragment_followed_artists_title">Artists You Follow</string>
+    <string name="fragment_followed_artists_follow_more">Follow More</string>
 
 
 

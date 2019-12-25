@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.DiffUtil
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.FragmentSearchBinding

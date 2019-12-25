@@ -38,7 +38,6 @@ class SplashActivity : AppCompatActivity() {
 
         viewModel.authenticateSpotify()
         setObservers()
-
     }
 
     private fun setObservers() {

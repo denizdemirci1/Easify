@@ -1,4 +1,4 @@
-package com.deniz.easify.ui.profile.follow
+package com.deniz.easify.ui.profile.followings
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.response.Artist
-import com.deniz.easify.data.source.remote.response.FollowedArtistsResponse
 import kotlinx.coroutines.launch
 
 /**
@@ -15,9 +14,9 @@ import kotlinx.coroutines.launch
  * @Date: 2019-12-25
  */
 
-class FollowedArtistsViewModel (
+class FollowedArtistsViewModel(
     private val repository: SpotifyRepository
-): ViewModel() {
+) : ViewModel() {
 
     private val _artists = MutableLiveData<ArrayList<Artist>>().apply { value = arrayListOf() }
     val artists: LiveData<ArrayList<Artist>> = _artists

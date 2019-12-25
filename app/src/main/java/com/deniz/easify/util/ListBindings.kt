@@ -6,7 +6,8 @@ import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.ui.profile.favorites.topArtists.TopArtistsAdapter
 import com.deniz.easify.ui.profile.favorites.topTracks.TopTracksAdapter
-import com.deniz.easify.ui.profile.follow.FollowedArtistsAdapter
+import com.deniz.easify.ui.profile.followings.FollowedArtistsAdapter
+import com.deniz.easify.ui.profile.followings.follow.FollowAdapter
 import com.deniz.easify.ui.search.TrackAdapter
 
 /**
@@ -36,4 +37,9 @@ fun setTopTracks(listView: RecyclerView, items: List<Track>) {
 @BindingAdapter("app:followedArtists")
 fun setFollowedArtists(listView: RecyclerView, items: List<Artist>) {
     (listView.adapter as FollowedArtistsAdapter).submitList(items)
+}
+
+@BindingAdapter("app:artists")
+fun setArtists(listView: RecyclerView, items: List<Artist>) {
+    (listView.adapter as FollowAdapter).submitList(items)
 }

@@ -8,8 +8,7 @@ import java.io.Serializable
  * @Date: 2019-12-25
  */
 
-data class FollowedArtistsResponse(
+data class ArtistsResponse(
     @SerializedName("artists")
     val artists: Artists
 ) : Serializable
-

@@ -30,8 +30,15 @@ interface SpotifyService {
     suspend fun fetchTrack(
         @Query(query_q) q: String,
         @Query(query_type) type: String = "track",
-        @Query(query_limit) limit: Int = 30
+        @Query(query_limit) limit: Int = 50
     ): TracksObject
+
+    @GET("search")
+    suspend fun fetchArtists(
+        @Query(query_q) q: String,
+        @Query(query_type) type: String = "artist",
+        @Query(query_limit) limit: Int = 50
+    ): ArtistsResponse
 
     @PUT("me/player/play")
     suspend fun play(
@@ -39,13 +46,6 @@ interface SpotifyService {
         @Body request: PlayBody
     )
 
-    /***
-     * @param limit: Optional. The number of entities to return. Default: 20. Minimum: 1. Maximum: 50.
-     * @param timeRange: Optional. Over what time frame the affinities are computed. Valid values:
-     * long_term (calculated from several years),
-     * medium_term (approximately last 6 months),
-     * short_term (approximately last 4 weeks). Default: medium_term
-     */
     @GET("me/top/{type}")
     suspend fun fetchTopArtists(
         @Path(path_type) type: String? = "artists",
@@ -64,5 +64,5 @@ interface SpotifyService {
     suspend fun fetchFollowedArtists(
         @Query(query_type) type: String = "artist",
         @Query(query_limit) limit: Int = 50
-    ): FollowedArtistsResponse
+    ): ArtistsResponse
 }

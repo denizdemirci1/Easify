@@ -6,12 +6,12 @@
     <data>
 
         <variable
-            name="track"
-            type="com.deniz.easify.data.source.remote.response.Track" />
+            name="artist"
+            type="com.deniz.easify.data.source.remote.response.Artist" />
 
         <variable
             name="viewmodel"
-            type="com.deniz.easify.ui.profile.favorites.topTracks.TopTracksViewModel" />
+            type="com.deniz.easify.ui.profile.followings.follow.FollowViewModel" />
 
     </data>
 
@@ -19,14 +19,16 @@
         android:id="@+id/trackLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorSpotifyBlack">
+        android:background="@color/colorSpotifyBlack"
+
+        android:onClick="@{() -> viewmodel.openArtistFragment(artist)}">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/trackImage"
+            android:id="@+id/artistImage"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:scaleType="fitCenter"
-            app:imageUrl="@{track.album.images.get(track.album.images.size()-1).url}"
+            app:imageUrl="@{artist.images.get(artist.images.size()-1).url}"
 
             android:layout_margin="16dp"
 
@@ -35,22 +37,21 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/trackName"
+            android:id="@+id/artistName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
 
-            android:text="@{track.name}"
+            android:text="@{artist.name}"
             android:textColor="@color/colorSpotifyWhite"
             android:textStyle="bold"
             android:textSize="16sp"
 
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/trackImage"
+            app:layout_constraintStart_toEndOf="@id/artistImage"
             app:layout_constraintEnd_toEndOf="parent"/>
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

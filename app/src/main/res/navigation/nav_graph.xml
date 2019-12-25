@@ -86,8 +86,33 @@
     </fragment>
     <fragment
         android:id="@+id/followedArtistsFragment"
-        android:name="com.deniz.easify.ui.profile.follow.FollowedArtistsFragment"
-        android:label="FollowedArtistsFragment" />
+        android:name="com.deniz.easify.ui.profile.followings.FollowedArtistsFragment"
+        android:label="FollowedArtistsFragment" >
+        <action
+            android:id="@+id/action_followedArtistsFragment_to_followFragment"
+            app:destination="@id/followFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/followFragment"
+        android:name="com.deniz.easify.ui.profile.followings.follow.FollowFragment"
+        android:label="FollowFragment" >
+        <action
+            android:id="@+id/action_followFragment_to_artistFragment"
+            app:destination="@id/artistFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/artistFragment"
+        android:name="com.deniz.easify.ui.profile.followings.follow.artist.ArtistFragment"
+        android:label="ArtistFragment" >
+        <action
+            android:id="@+id/action_artistFragment_to_followedArtistsFragment"
+            app:destination="@id/followedArtistsFragment" />
+        <argument
+            android:name="artist"
+            app:argType="com.deniz.easify.data.source.remote.response.Artist"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
 
 
 </navigation>
