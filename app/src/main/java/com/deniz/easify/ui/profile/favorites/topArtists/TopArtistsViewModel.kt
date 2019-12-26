@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.deniz.easify.data.source.SpotifyRepository
+import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.data.source.remote.response.TopArtist
+import com.deniz.easify.util.Event
 
 /**
  * @User: deniz.demirci
@@ -15,6 +17,9 @@ class TopArtistsViewModel(
     private val repository: SpotifyRepository
 ) : ViewModel() {
 
+    private val _openArtistFragmentEvent = MutableLiveData<Event<Artist>>()
+    val openArtistFragmentEvent: LiveData<Event<Artist>> = _openArtistFragmentEvent
+
     private val _topArtist = MutableLiveData<TopArtist>()
     val topArtist: LiveData<TopArtist> = _topArtist
 
@@ -23,5 +28,10 @@ class TopArtistsViewModel(
         if (artists != null) {
             _topArtist.value = artists
         }
+    }
+
+    // Called by Data Binding.
+    fun openArtistFragment(artist: Artist) {
+        _openArtistFragmentEvent.value = Event(artist)
     }
 }

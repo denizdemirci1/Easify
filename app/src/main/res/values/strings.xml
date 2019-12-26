@@ -27,8 +27,6 @@
     <string name="fragment_profile_followed_artists_label">See the artists you follow and follow more</string>
     <string name="fragment_profile_favorites">Favorites</string>
     <string name="fragment_profile_followed_artists">Following</string>
-    <string name="fragment_profile_artists">Artists</string>
-    <string name="fragment_profile_tracks">Tracks</string>
 
     <!-- Favorites Fragment -->
     <string name="fragment_favorites_hint_type">Type</string>

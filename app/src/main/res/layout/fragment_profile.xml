@@ -32,19 +32,46 @@
 
             app:riv_corner_radius="42dp"
             app:riv_oval="true"
-            app:imageUrl="@{viewmodel.profilePictureUrl}" />
+            app:imageUrl="@{viewmodel.user.images.get(0).url}" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
+            android:text="@{viewmodel.user.displayName}"
+            android:textColor="@color/colorSpotifyWhite"
+            android:textSize="24sp"
+
+            app:layout_constraintTop_toBottomOf="@id/profilePicture"
+            app:layout_constraintStart_toStartOf="@id/profilePicture"
+            app:layout_constraintEnd_toEndOf="@id/profilePicture"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/followerCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+
+            android:textColor="@color/colorSpotifyWhite"
+            android:textSize="16sp"
+
+            app:layout_constraintTop_toBottomOf="@id/username"
+            app:layout_constraintStart_toStartOf="@id/username"
+            app:layout_constraintEnd_toEndOf="@id/username"/>
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="32dp"
 
-            app:layout_constraintTop_toBottomOf="@id/profilePicture"
+            app:layout_constraintTop_toBottomOf="@id/followerCount"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout

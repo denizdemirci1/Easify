@@ -72,6 +72,9 @@
             android:defaultValue="@null"
             app:argType="com.deniz.easify.data.source.remote.response.TopArtist"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_topArtistsFragment_to_artistFragment"
+            app:destination="@id/artistFragment" />
     </fragment>
 
     <fragment

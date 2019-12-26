@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.deniz.easify.R
+import com.deniz.easify.data.source.remote.response.User
 import com.deniz.easify.databinding.FragmentProfileBinding
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -40,7 +42,14 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupObservers()
         setupListeners()
+    }
+
+    private fun setupObservers() {
+        viewModel.user.observe(this, Observer { user ->
+            setupUserFollowerCount(user)
+        })
     }
 
     private fun setupListeners() {
@@ -51,6 +60,13 @@ class ProfileFragment : Fragment() {
         followedArtists.setOnClickListener {
             openFollowedArtistsFragment()
         }
+    }
+
+    private fun setupUserFollowerCount(user: User) {
+        String.format(
+            resources.getString(R.string.fragment_artist_follower_count),
+            user.followers.total
+        ).also { followerCount.text = it }
     }
 
     private fun openFavoritesFragment() {

@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.deniz.easify.R
+import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.databinding.FragmentTopArtistsBinding
+import com.deniz.easify.util.EventObserver
 import kotlinx.android.synthetic.main.fragment_top_artists.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -62,6 +65,10 @@ class TopArtistsFragment : Fragment() {
         viewModel.topArtist.observe(this, Observer {
             setupTopArtistsAdapter()
         })
+
+        viewModel.openArtistFragmentEvent.observe(this, EventObserver{
+            navigateToArtistFragment(it)
+        })
     }
 
     private fun setupTopArtistsAdapter() {
@@ -72,5 +79,10 @@ class TopArtistsFragment : Fragment() {
         } else {
             Log.i("TopArtistsFragment", "ViewModel not initialized when attempting to set up adapter.")
         }
+    }
+
+    private fun navigateToArtistFragment(artist: Artist) {
+        val action = TopArtistsFragmentDirections.actionTopArtistsFragmentToArtistFragment(artist)
+        findNavController().navigate(action)
     }
 }

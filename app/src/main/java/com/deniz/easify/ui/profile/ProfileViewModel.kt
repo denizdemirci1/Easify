@@ -1,8 +1,10 @@
 package com.deniz.easify.ui.profile
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.deniz.easify.data.source.SpotifyRepository
+import com.deniz.easify.data.source.remote.response.User
 import com.deniz.easify.util.AuthManager
 
 /**
@@ -15,9 +17,10 @@ class ProfileViewModel(
     private val repository: SpotifyRepository
 ) : ViewModel() {
 
-    val profilePictureUrl = MutableLiveData<String>()
+    private val _user = MutableLiveData<User>()
+    val user: LiveData<User> = _user
 
     init {
-        profilePictureUrl.value = authManager.user!!.images[0].url
+        _user.value = authManager.user!!
     }
 }
