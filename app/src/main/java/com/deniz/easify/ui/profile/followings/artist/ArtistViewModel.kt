@@ -1,4 +1,4 @@
-package com.deniz.easify.ui.profile.followings.follow.artist
+package com.deniz.easify.ui.profile.followings.artist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

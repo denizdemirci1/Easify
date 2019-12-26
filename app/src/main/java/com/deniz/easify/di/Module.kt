@@ -10,7 +10,7 @@ import com.deniz.easify.ui.profile.favorites.topArtists.TopArtistsViewModel
 import com.deniz.easify.ui.profile.favorites.topTracks.TopTracksViewModel
 import com.deniz.easify.ui.profile.followings.FollowedArtistsViewModel
 import com.deniz.easify.ui.profile.followings.follow.FollowViewModel
-import com.deniz.easify.ui.profile.followings.follow.artist.ArtistViewModel
+import com.deniz.easify.ui.profile.followings.artist.ArtistViewModel
 import com.deniz.easify.ui.search.SearchViewModel
 import com.deniz.easify.ui.splash.SplashViewModel
 import com.deniz.easify.ui.track.TrackViewModel

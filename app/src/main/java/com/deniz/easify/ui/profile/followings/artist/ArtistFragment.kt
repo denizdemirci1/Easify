@@ -1,4 +1,4 @@
-package com.deniz.easify.ui.profile.followings.follow.artist
+package com.deniz.easify.ui.profile.followings.artist
 
 import android.os.Bundle
 import android.view.LayoutInflater

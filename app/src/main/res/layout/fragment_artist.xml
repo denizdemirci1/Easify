@@ -9,7 +9,7 @@
 
         <variable
             name="viewmodel"
-            type="com.deniz.easify.ui.profile.followings.follow.artist.ArtistViewModel" />
+            type="com.deniz.easify.ui.profile.followings.artist.ArtistViewModel" />
 
     </data>
 
@@ -25,7 +25,7 @@
             android:layout_marginBottom="32dp"
 
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/follow">
+            app:layout_constraintBottom_toTopOf="@+id/followLayout">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
@@ -107,36 +107,49 @@
 
         </ScrollView>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/follow"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/followLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
 
-            android:text="@string/fragment_artist_follow"
-            android:textColor="@color/colorSpotifyWhite"
-            android:textSize="24sp"
-            android:background="@drawable/button_green"
-
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent">
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/unfollow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/follow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-            android:text="@string/fragment_artist_unfollow"
-            android:textColor="@color/colorSpotifyWhite"
-            android:textSize="24sp"
-            android:background="@drawable/button_red"
-            android:visibility="gone"
 
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+                android:text="@string/fragment_artist_follow"
+                android:textColor="@color/colorSpotifyWhite"
+                android:textSize="24sp"
+                android:background="@drawable/button_green"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/unfollow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:text="@string/fragment_artist_unfollow"
+                android:textColor="@color/colorSpotifyWhite"
+                android:textSize="24sp"
+                android:background="@drawable/button_red"
+                android:visibility="gone"
+
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
