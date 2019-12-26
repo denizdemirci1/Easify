@@ -32,7 +32,9 @@ class SplashViewModel(
                 "user-read-email," +
                 "user-read-private," +
                 "user-top-read," +
-                "user-follow-read"
+                "user-follow-read," +
+                "user-follow-modify," +
+                "user-modify-playback-state"
     }
 
     private val _authenticationRequest = MutableLiveData<AuthenticationRequest>()

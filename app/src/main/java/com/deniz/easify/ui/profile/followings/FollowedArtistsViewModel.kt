@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.response.Artist
+import com.deniz.easify.data.source.remote.response.ArtistsResponse
 import kotlinx.coroutines.launch
 
 /**
@@ -21,6 +22,8 @@ class FollowedArtistsViewModel(
     private val _artists = MutableLiveData<ArrayList<Artist>>().apply { value = arrayListOf() }
     val artists: LiveData<ArrayList<Artist>> = _artists
 
+    var followedArtists: ArtistsResponse? = null
+
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
@@ -29,6 +32,7 @@ class FollowedArtistsViewModel(
             repository.fetchFollowedArtists().let { result ->
                 if (result is Result.Success) {
                     _artists.value = result.data.artists.items
+                    followedArtists = result.data
                 } else {
                     _errorMessage.value = "fetch followed artists request'i patladı"
                 }

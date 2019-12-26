@@ -99,6 +99,11 @@
         <action
             android:id="@+id/action_followFragment_to_artistFragment"
             app:destination="@id/artistFragment" />
+        <argument
+            android:name="followedArtists"
+            app:argType="com.deniz.easify.data.source.remote.response.ArtistsResponse"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/artistFragment"
@@ -110,6 +115,11 @@
         <argument
             android:name="artist"
             app:argType="com.deniz.easify.data.source.remote.response.Artist"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <argument
+            android:name="followedArtists"
+            app:argType="com.deniz.easify.data.source.remote.response.ArtistsResponse"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.databinding.FragmentFollowBinding
@@ -28,6 +29,8 @@ class FollowFragment : Fragment() {
     private val viewModel by viewModel<FollowViewModel>()
 
     private lateinit var followAdapter: FollowAdapter
+
+    private val args: FollowFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -82,7 +85,7 @@ class FollowFragment : Fragment() {
     }
 
     private fun navigateToArtistFragment(artist: Artist) {
-        val action = FollowFragmentDirections.actionFollowFragmentToArtistFragment(artist)
+        val action = FollowFragmentDirections.actionFollowFragmentToArtistFragment(artist, args.followedArtists)
         findNavController().navigate(action)
     }
 }

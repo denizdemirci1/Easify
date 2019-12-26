@@ -85,4 +85,20 @@ class SpotifyRepository(private val service: SpotifyService) : Repository {
             Result.Error(e)
         }
     }
+
+    override suspend fun followArtist(id: String) {
+        try {
+            service.followArtist(id = id)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun unfollowArtist(id: String) {
+        try {
+            service.unfollowArtist(id = id)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
 }

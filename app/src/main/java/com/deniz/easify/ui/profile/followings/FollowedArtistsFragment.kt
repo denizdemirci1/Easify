@@ -72,7 +72,7 @@ class FollowedArtistsFragment : Fragment() {
     }
 
     private fun navigateToFollowFragment() {
-        val action = FollowedArtistsFragmentDirections.actionFollowedArtistsFragmentToFollowFragment()
+        val action = FollowedArtistsFragmentDirections.actionFollowedArtistsFragmentToFollowFragment(viewModel.followedArtists)
         findNavController().navigate(action)
     }
 }

@@ -47,7 +47,13 @@
     <string name="fragment_followed_artists_title">Artists You Follow</string>
     <string name="fragment_followed_artists_follow_more">Follow More</string>
 
-
+    <!-- Artist Fragment -->
+    <string name="fragment_artist_follower_count">Followers: %d</string>
+    <string name="fragment_artist_genres">Genre(s):</string>
+    <string name="fragment_artist_follow">Follow</string>
+    <string name="fragment_artist_unfollow">Unfollow</string>
+    <string name="fragment_artist_snackbar_followed">You follow %s now!</string>
+    <string name="fragment_artist_snackbar_unfollowed">You don\'t follow %s anymore</string>
 
 
 

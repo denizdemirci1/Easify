@@ -16,6 +16,7 @@ interface SpotifyService {
 
         const val query_q = "q"
         const val query_type = "type"
+        const val query_ids = "ids"
         const val query_limit = "limit"
         const val query_device_id = "device_id"
         const val query_time_range = "time_range"
@@ -44,6 +45,18 @@ interface SpotifyService {
     suspend fun play(
         @Query(query_device_id) deviceId: String? = "d93c8e8670a85a59f9d182051a79893c956d8e06",
         @Body request: PlayBody
+    )
+
+    @PUT("me/following")
+    suspend fun followArtist(
+        @Query(query_type) type: String? = "artist",
+        @Query(query_ids) id: String
+    )
+
+    @DELETE("me/following")
+    suspend fun unfollowArtist(
+        @Query(query_type) type: String? = "artist",
+        @Query(query_ids) id: String
     )
 
     @GET("me/top/{type}")

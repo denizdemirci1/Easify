@@ -28,4 +28,8 @@ interface Repository {
     suspend fun fetchFollowedArtists(): Result<ArtistsResponse>
 
     suspend fun play(playBody: PlayBody)
+
+    suspend fun followArtist(id: String)
+
+    suspend fun unfollowArtist(id: String)
 }
