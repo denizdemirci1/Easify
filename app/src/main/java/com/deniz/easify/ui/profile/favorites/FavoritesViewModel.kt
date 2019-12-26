@@ -8,6 +8,7 @@ import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.response.TopArtist
 import com.deniz.easify.data.source.remote.response.TopTrack
+import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
 /**
@@ -19,11 +20,11 @@ class FavoritesViewModel(
     private val repository: SpotifyRepository
 ) : ViewModel() {
 
-    private val _topArtist = MutableLiveData<TopArtist>()
-    val topArtist: LiveData<TopArtist> = _topArtist
+    private val _topArtist = MutableLiveData<Event<TopArtist>>()
+    val topArtist: LiveData<Event<TopArtist>> = _topArtist
 
-    private val _topTracks = MutableLiveData<TopTrack>()
-    val topTracks: LiveData<TopTrack> = _topTracks
+    private val _topTracks = MutableLiveData<Event<TopTrack>>()
+    val topTracks: LiveData<Event<TopTrack>> = _topTracks
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -32,7 +33,7 @@ class FavoritesViewModel(
         viewModelScope.launch {
             repository.fetchTopArtists(type, timeRange, limit).let { result ->
                 if (result is Success) {
-                    _topArtist.value = result.data
+                    _topArtist.value = Event(result.data)
                 } else {
                     _errorMessage.value = "fetch top artists request'i patladı"
                 }
@@ -44,7 +45,7 @@ class FavoritesViewModel(
         viewModelScope.launch {
             repository.fetchTopTracks(type, timeRange, limit).let { result ->
                 if (result is Success) {
-                    _topTracks.value = result.data
+                    _topTracks.value = Event(result.data)
                 } else {
                     _errorMessage.value = "fetch top tracks request'i patladı"
                 }

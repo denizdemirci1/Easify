@@ -14,6 +14,7 @@ import com.deniz.easify.data.source.remote.response.TopArtist
 import com.deniz.easify.data.source.remote.response.TopTrack
 import com.deniz.easify.databinding.FragmentFavoritesBinding
 import com.deniz.easify.extension.hideKeyboard
+import com.deniz.easify.util.EventObserver
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -65,11 +66,11 @@ class FavoritesFragment : Fragment() {
 
     private fun setupObservers() {
 
-        viewModel.topArtist.observe(this, Observer {
+        viewModel.topArtist.observe(this, EventObserver {
             openTopArtistsFragment(it)
         })
 
-        viewModel.topTracks.observe(this, Observer {
+        viewModel.topTracks.observe(this, EventObserver {
             openTopTracksFragment(it)
         })
 
