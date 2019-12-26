@@ -23,8 +23,6 @@ class FollowedArtistsViewModel(
     private val _artists = MutableLiveData<ArrayList<Artist>>().apply { value = arrayListOf() }
     val artists: LiveData<ArrayList<Artist>> = _artists
 
-    var followedArtists: ArtistsResponse? = null
-
     private val _openArtistFragmentEvent = MutableLiveData<Event<Artist>>()
     val openArtistFragmentEvent: LiveData<Event<Artist>> = _openArtistFragmentEvent
 
@@ -36,7 +34,6 @@ class FollowedArtistsViewModel(
             repository.fetchFollowedArtists().let { result ->
                 if (result is Result.Success) {
                     _artists.value = result.data.artists.items
-                    followedArtists = result.data
                 } else {
                     _errorMessage.value = "fetch followed artists request'i patladı"
                 }

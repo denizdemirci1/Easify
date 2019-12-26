@@ -127,6 +127,7 @@
                 android:textColor="@color/colorSpotifyWhite"
                 android:textSize="24sp"
                 android:background="@drawable/button_green"
+                android:visibility="@{viewmodel.showFollowButton ? View.VISIBLE : View.GONE}"
 
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -142,7 +143,7 @@
                 android:textColor="@color/colorSpotifyWhite"
                 android:textSize="24sp"
                 android:background="@drawable/button_red"
-                android:visibility="gone"
+                android:visibility="@{viewmodel.showFollowButton ? View.GONE : View.VISIBLE}"
 
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"

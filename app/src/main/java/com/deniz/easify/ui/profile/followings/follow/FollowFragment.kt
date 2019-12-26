@@ -30,8 +30,6 @@ class FollowFragment : Fragment() {
 
     private lateinit var followAdapter: FollowAdapter
 
-    private val args: FollowFragmentArgs by navArgs()
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -85,7 +83,7 @@ class FollowFragment : Fragment() {
     }
 
     private fun navigateToArtistFragment(artist: Artist) {
-        val action = FollowFragmentDirections.actionFollowFragmentToArtistFragment(artist, args.followedArtists)
+        val action = FollowFragmentDirections.actionFollowFragmentToArtistFragment(artist)
         findNavController().navigate(action)
     }
 }

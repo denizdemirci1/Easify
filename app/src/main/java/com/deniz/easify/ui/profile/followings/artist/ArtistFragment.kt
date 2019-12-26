@@ -45,9 +45,11 @@ class ArtistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.start(args.artist)
+        viewModel.fetchFollowedArtists()
         setupObservers()
         setupListeners()
-        viewModel.start(args.artist)
+
     }
 
     private fun setupObservers() {
@@ -77,22 +79,13 @@ class ArtistFragment : Fragment() {
     }
 
     private fun setupViews(artist: Artist) {
-
-        // button
-        for(followedArtist in args.followedArtists!!.artists.items){
-            if (artist.id == followedArtist.id) {
-                showUnfollowButton(true)
-                showFollowButton(false)
-            }
-        }
-
         // name
         artistName.text = artist.name
 
         // follower count
         String.format(
             resources.getString(R.string.fragment_artist_follower_count),
-            artist.followers.total
+            args.artist!!.followers.total
         ).also { followers.text = it }
 
         // genre(s)

@@ -78,12 +78,12 @@ class FollowedArtistsFragment : Fragment() {
     }
 
     private fun navigateToFollowFragment() {
-        val action = FollowedArtistsFragmentDirections.actionFollowedArtistsFragmentToFollowFragment(viewModel.followedArtists)
+        val action = FollowedArtistsFragmentDirections.actionFollowedArtistsFragmentToFollowFragment()
         findNavController().navigate(action)
     }
 
     private fun navigateToArtistFragment(artist: Artist) {
-        val action = FollowedArtistsFragmentDirections.actionFollowedArtistsFragmentToArtistFragment(artist, viewModel.followedArtists)
+        val action = FollowedArtistsFragmentDirections.actionFollowedArtistsFragmentToArtistFragment(artist)
         findNavController().navigate(action)
     }
 }
