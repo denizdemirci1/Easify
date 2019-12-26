@@ -100,7 +100,7 @@ class ArtistFragment : Fragment() {
         for (genre in artist.genres) {
             genresText += "$genre,\n"
         }
-        genres.text = genresText.substring(0, genresText.length-2)
+        genres.text = if (artist.genres.isEmpty()) "unknown" else genresText.substring(0, genresText.length-2)
     }
 
     private fun showFollowButton(show: Boolean) {

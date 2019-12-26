@@ -19,7 +19,8 @@
         android:id="@+id/artistLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorSpotifyBlack">
+        android:background="@color/colorSpotifyBlack"
+        android:onClick="@{() -> viewmodel.openArtistFragment(artist)}">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/artistImage"

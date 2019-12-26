@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.deniz.easify.R
+import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.databinding.FragmentFollowedArtistsBinding
+import com.deniz.easify.util.EventObserver
 import kotlinx.android.synthetic.main.fragment_followed_artists.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -53,6 +55,10 @@ class FollowedArtistsFragment : Fragment() {
         viewModel.artists.observe(this, Observer {
             setupFollowedArtistsAdapter()
         })
+
+        viewModel.openArtistFragmentEvent.observe(this, EventObserver{
+            navigateToArtistFragment(it)
+        })
     }
 
     private fun setupFollowedArtistsAdapter() {
@@ -73,6 +79,11 @@ class FollowedArtistsFragment : Fragment() {
 
     private fun navigateToFollowFragment() {
         val action = FollowedArtistsFragmentDirections.actionFollowedArtistsFragmentToFollowFragment(viewModel.followedArtists)
+        findNavController().navigate(action)
+    }
+
+    private fun navigateToArtistFragment(artist: Artist) {
+        val action = FollowedArtistsFragmentDirections.actionFollowedArtistsFragmentToArtistFragment(artist, viewModel.followedArtists)
         findNavController().navigate(action)
     }
 }

@@ -91,6 +91,9 @@
         <action
             android:id="@+id/action_followedArtistsFragment_to_followFragment"
             app:destination="@id/followFragment" />
+        <action
+            android:id="@+id/action_followedArtistsFragment_to_artistFragment"
+            app:destination="@id/artistFragment" />
     </fragment>
     <fragment
         android:id="@+id/followFragment"
@@ -109,9 +112,6 @@
         android:id="@+id/artistFragment"
         android:name="com.deniz.easify.ui.profile.followings.follow.artist.ArtistFragment"
         android:label="ArtistFragment" >
-        <action
-            android:id="@+id/action_artistFragment_to_followedArtistsFragment"
-            app:destination="@id/followedArtistsFragment" />
         <argument
             android:name="artist"
             app:argType="com.deniz.easify.data.source.remote.response.Artist"

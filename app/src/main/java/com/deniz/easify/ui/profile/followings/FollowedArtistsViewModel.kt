@@ -8,6 +8,7 @@ import com.deniz.easify.data.Result
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.data.source.remote.response.ArtistsResponse
+import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
 /**
@@ -24,6 +25,9 @@ class FollowedArtistsViewModel(
 
     var followedArtists: ArtistsResponse? = null
 
+    private val _openArtistFragmentEvent = MutableLiveData<Event<Artist>>()
+    val openArtistFragmentEvent: LiveData<Event<Artist>> = _openArtistFragmentEvent
+
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
@@ -38,5 +42,10 @@ class FollowedArtistsViewModel(
                 }
             }
         }
+    }
+
+    // Called by Data Binding.
+    fun openArtistFragment(artist: Artist) {
+        _openArtistFragmentEvent.value = Event(artist)
     }
 }
