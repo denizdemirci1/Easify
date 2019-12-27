@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
  * @Date: 2019-12-25
  */
 
-class FollowViewModel (
+class FollowViewModel(
     private val repository: SpotifyRepository
 ) : ViewModel() {
 
@@ -34,7 +34,7 @@ class FollowViewModel (
                 if (result is Result.Success) {
                     val artistsToShow = ArrayList<Artist>()
                     artistsToShow.clear()
-                    artistsToShow.addAll(result.data.artists.items.filter {it.images.isNotEmpty()})
+                    artistsToShow.addAll(result.data.artists.items.filter { it.images.isNotEmpty() })
                     _artists.value = ArrayList(artistsToShow)
                 } else {
                     _errorMessage.value = "fetch artists request'i patladı"

@@ -49,7 +49,6 @@ class ArtistFragment : Fragment() {
         viewModel.fetchFollowedArtists()
         setupObservers()
         setupListeners()
-
     }
 
     private fun setupObservers() {
@@ -58,7 +57,7 @@ class ArtistFragment : Fragment() {
         })
 
         viewModel.showSnackbarMessage.observe(this, Observer {
-            val snackbarMessage = when(it) {
+            val snackbarMessage = when (it) {
                 ArtistViewModel.Follow.FOLLOW -> {
                     String.format(
                         resources.getString(R.string.fragment_artist_snackbar_followed),
@@ -93,7 +92,7 @@ class ArtistFragment : Fragment() {
         for (genre in artist.genres) {
             genresText += "$genre,\n"
         }
-        genres.text = if (artist.genres.isEmpty()) "unknown" else genresText.substring(0, genresText.length-2)
+        genres.text = if (artist.genres.isEmpty()) "unknown" else genresText.substring(0, genresText.length - 2)
     }
 
     private fun showFollowButton(show: Boolean) {
@@ -131,7 +130,7 @@ class ArtistFragment : Fragment() {
 
             // add margin
             val params = snackbar.view.layoutParams as ViewGroup.MarginLayoutParams
-            params.setMargins(24, 24,24,24)
+            params.setMargins(24, 24, 24, 24)
             snackbar.view.layoutParams = params
 
             snackbar.show()

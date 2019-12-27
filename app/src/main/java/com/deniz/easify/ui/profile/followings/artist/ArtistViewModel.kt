@@ -80,5 +80,4 @@ class ArtistViewModel(
         }
         _showFollowButton.value = !isArtistFollowed
     }
-
 }

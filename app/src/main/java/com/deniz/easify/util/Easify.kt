@@ -1,11 +1,7 @@
 package com.deniz.easify.util
 
 import androidx.multidex.MultiDexApplication
-import com.deniz.easify.di.managerModule
-import com.deniz.easify.di.repositoryModule
-import com.deniz.easify.di.retrofitModule
-import com.deniz.easify.di.serviceModule
-import com.deniz.easify.di.viewModelModule
+import com.deniz.easify.di.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

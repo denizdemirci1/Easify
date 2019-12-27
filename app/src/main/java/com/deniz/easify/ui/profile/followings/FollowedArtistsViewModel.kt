@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.response.Artist
-import com.deniz.easify.data.source.remote.response.ArtistsResponse
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 

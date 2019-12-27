@@ -26,6 +26,7 @@
 
         </activity>
 
+        <!-- region spotify -->
         <activity
             android:exported="true"
             android:name="com.spotify.sdk.android.authentication.AuthCallbackActivity"
@@ -45,6 +46,7 @@
         <activity
             android:name="com.spotify.sdk.android.authentication.LoginActivity"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <!-- endregion -->
 
     </application>
 

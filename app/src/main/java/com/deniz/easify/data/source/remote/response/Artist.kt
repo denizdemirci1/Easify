@@ -25,7 +25,7 @@ data class Artist(
     val type: String,
     @SerializedName("uri")
     val uri: String
-): Serializable {
+) : Serializable {
     data class Follower(
         @SerializedName("total")
         val total: Int

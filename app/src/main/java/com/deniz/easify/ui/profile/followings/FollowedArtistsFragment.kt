@@ -56,7 +56,7 @@ class FollowedArtistsFragment : Fragment() {
             setupFollowedArtistsAdapter()
         })
 
-        viewModel.openArtistFragmentEvent.observe(this, EventObserver{
+        viewModel.openArtistFragmentEvent.observe(this, EventObserver {
             navigateToArtistFragment(it)
         })
     }
