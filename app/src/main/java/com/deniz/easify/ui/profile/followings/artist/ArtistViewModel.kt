@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result
+import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.response.Artist
 import kotlinx.coroutines.launch
@@ -15,7 +16,7 @@ import kotlinx.coroutines.launch
  */
 
 class ArtistViewModel(
-    private val repository: SpotifyRepository
+    private val repository: Repository
 ) : ViewModel() {
 
     enum class Follow {

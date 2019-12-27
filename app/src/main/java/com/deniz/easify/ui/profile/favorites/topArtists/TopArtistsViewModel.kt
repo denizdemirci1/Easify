@@ -3,6 +3,7 @@ package com.deniz.easify.ui.profile.favorites.topArtists
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.data.source.remote.response.TopArtist
@@ -14,7 +15,7 @@ import com.deniz.easify.util.Event
  */
 
 class TopArtistsViewModel(
-    private val repository: SpotifyRepository
+    private val repository: Repository
 ) : ViewModel() {
 
     private val _openArtistFragmentEvent = MutableLiveData<Event<Artist>>()

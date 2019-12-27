@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.request.PlayBody
 import com.deniz.easify.data.source.remote.response.Track
@@ -15,7 +16,7 @@ import kotlinx.coroutines.launch
  */
 
 class TrackViewModel(
-    private val repository: SpotifyRepository
+    private val repository: Repository
 ) : ViewModel() {
 
     val track = MutableLiveData<Track>()

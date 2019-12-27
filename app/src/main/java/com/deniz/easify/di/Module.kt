@@ -1,6 +1,7 @@
 package com.deniz.easify.di
 
 import android.content.Context
+import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.SpotifyInterceptor
 import com.deniz.easify.data.source.remote.SpotifyService
@@ -44,7 +45,11 @@ val viewModelModule = module {
 }
 
 val repositoryModule = module {
-    single { SpotifyRepository(get()) }
+    fun provideRepository(repo: SpotifyRepository): Repository {
+        return repo
+    }
+
+    single { provideRepository(SpotifyRepository(get())) }
 }
 
 val managerModule = module {

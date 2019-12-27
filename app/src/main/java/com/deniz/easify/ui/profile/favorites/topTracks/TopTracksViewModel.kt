@@ -3,6 +3,7 @@ package com.deniz.easify.ui.profile.favorites.topTracks
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.response.TopTrack
 
@@ -12,7 +13,7 @@ import com.deniz.easify.data.source.remote.response.TopTrack
  */
 
 class TopTracksViewModel(
-    private val repository: SpotifyRepository
+    private val repository: Repository
 ) : ViewModel() {
 
     private val _topTrack = MutableLiveData<TopTrack>()

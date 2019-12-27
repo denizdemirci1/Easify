@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result.Error
 import com.deniz.easify.data.Result.Success
+import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.parseNetworkError
 import com.deniz.easify.util.AuthManager
@@ -20,7 +21,7 @@ import kotlinx.coroutines.launch
 
 class SplashViewModel(
     private val authManager: AuthManager,
-    private val repository: SpotifyRepository
+    private val repository: Repository
 ) : ViewModel() {
 
     companion object {
