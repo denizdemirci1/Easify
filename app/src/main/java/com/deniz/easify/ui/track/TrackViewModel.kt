@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.source.Repository
-import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.request.PlayBody
 import com.deniz.easify.data.source.remote.response.Track
 import kotlinx.coroutines.launch
@@ -29,15 +28,20 @@ class TrackViewModel(
 
         if (track != null) {
             this.track.value = track
-            playTrack()
         }
     }
 
-    private fun playTrack() {
+    fun playTrack() {
         viewModelScope.launch {
-            val playBody = arrayListOf<String>()
+            val playBody = mutableListOf<String>()
             playBody.add(track.value!!.uri)
             repository.play(PlayBody(playBody))
+        }
+    }
+
+    fun pauseTrack() {
+        viewModelScope.launch {
+            repository.pause()
         }
     }
 }

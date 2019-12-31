@@ -6,8 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.databinding.FragmentFollowedArtistsBinding
@@ -52,9 +53,13 @@ class FollowedArtistsFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.artists.observe(this, Observer {
+        viewModel.artists.observe(this) {
             setupFollowedArtistsAdapter()
-        })
+        }
+
+        viewModel.errorMessage.observe(this) {
+            showError(it)
+        }
 
         viewModel.openArtistFragmentEvent.observe(this, EventObserver {
             navigateToArtistFragment(it)
@@ -85,5 +90,15 @@ class FollowedArtistsFragment : Fragment() {
     private fun navigateToArtistFragment(artist: Artist) {
         val action = FollowedArtistsFragmentDirections.actionFollowedArtistsFragmentToArtistFragment(artist)
         findNavController().navigate(action)
+    }
+
+    private fun showError(message: String) {
+        view?.context?.let {
+            MaterialDialog(it).show {
+                title(R.string.dialog_error_title)
+                message(text = message)
+                positiveButton(R.string.dialog_ok)
+            }
+        }
     }
 }

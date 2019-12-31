@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.Repository
-import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.response.TopArtist
 import com.deniz.easify.data.source.remote.response.TopTrack
 import com.deniz.easify.util.Event

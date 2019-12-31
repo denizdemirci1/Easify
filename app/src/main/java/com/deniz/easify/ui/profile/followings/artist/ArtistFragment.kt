@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Artist
@@ -52,11 +52,11 @@ class ArtistFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.artist.observe(this, Observer { artist ->
+        viewModel.artist.observe(this) { artist ->
             setupViews(artist)
-        })
+        }
 
-        viewModel.showSnackbarMessage.observe(this, Observer {
+        viewModel.showSnackbarMessage.observe(this) {
             val snackbarMessage = when (it) {
                 ArtistViewModel.Follow.FOLLOW -> {
                     String.format(
@@ -69,12 +69,10 @@ class ArtistFragment : Fragment() {
                         resources.getString(R.string.fragment_artist_snackbar_unfollowed),
                         args.artist?.name)
                 }
-
-                else -> ""
             }
 
             showSnackbar(snackbarMessage)
-        })
+        }
     }
 
     private fun setupViews(artist: Artist) {

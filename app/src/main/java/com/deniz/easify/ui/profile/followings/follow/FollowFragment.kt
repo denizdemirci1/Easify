@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Artist
@@ -62,9 +62,9 @@ class FollowFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.artists.observe(this, Observer {
+        viewModel.artists.observe(this) {
             setupFollowAdapter()
-        })
+        }
 
         viewModel.openArtistFragmentEvent.observe(this, EventObserver {
             navigateToArtistFragment(it)

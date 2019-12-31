@@ -36,7 +36,7 @@ class SpotifyRepository(private val service: SpotifyService) : Repository {
 
     override suspend fun fetchArtists(q: String): Result<ArtistsResponse> {
         return try {
-            val artists = service.fetchArtists(q)
+            val artists = service.fetchArtists("$q*")
             Result.Success(artists)
         } catch (e: Exception) {
             Result.Error(e)
@@ -80,7 +80,15 @@ class SpotifyRepository(private val service: SpotifyService) : Repository {
 
     override suspend fun play(playBody: PlayBody) {
         try {
-            service.play(null, playBody)
+            service.play(playBody)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun pause() {
+        try {
+            service.pause()
         } catch (e: Exception) {
             Result.Error(e)
         }

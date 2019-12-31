@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result.Error
 import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.Repository
-import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.parseNetworkError
 import com.deniz.easify.util.AuthManager
 import com.spotify.sdk.android.authentication.AuthenticationRequest
@@ -62,13 +61,16 @@ class SplashViewModel(
     fun fetchUser() {
         viewModelScope.launch {
             repository.fetchUser().let { result ->
-                if (result is Success) {
-                    authManager.user = result.data
-                    authManager.tokenRefreshed = false
-                    _navigateToMain.value = true
-                } else if (result is Error) {
-                    authManager.token = null
-                    handleAuthError(parseNetworkError(result.exception))
+                when (result) {
+                    is Success -> {
+                        authManager.user = result.data
+                        authManager.tokenRefreshed = false
+                        _navigateToMain.value = true
+                    }
+                    is Error -> {
+                        authManager.token = null
+                        handleAuthError(parseNetworkError(result.exception))
+                    }
                 }
             }
         }

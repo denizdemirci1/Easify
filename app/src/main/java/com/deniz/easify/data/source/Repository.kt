@@ -29,6 +29,8 @@ interface Repository {
 
     suspend fun play(playBody: PlayBody)
 
+    suspend fun pause()
+
     suspend fun followArtist(id: String)
 
     suspend fun unfollowArtist(id: String)

@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.User
@@ -47,9 +47,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.user.observe(this, Observer { user ->
+        viewModel.user.observe(this) { user ->
             setupUserFollowerCount(user)
-        })
+        }
     }
 
     private fun setupListeners() {

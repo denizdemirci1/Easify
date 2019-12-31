@@ -43,9 +43,11 @@ interface SpotifyService {
 
     @PUT("me/player/play")
     suspend fun play(
-        @Query(query_device_id) deviceId: String? = "d93c8e8670a85a59f9d182051a79893c956d8e06",
-        @Body request: PlayBody
+        @Body playBody: PlayBody
     )
+
+    @PUT("me/player/pause")
+    suspend fun pause()
 
     @PUT("me/following")
     suspend fun followArtist(

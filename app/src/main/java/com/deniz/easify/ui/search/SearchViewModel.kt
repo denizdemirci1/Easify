@@ -4,9 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.deniz.easify.data.Result.Error
 import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.Repository
-import com.deniz.easify.data.source.SpotifyRepository
+import com.deniz.easify.data.source.remote.parseNetworkError
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
@@ -32,13 +33,14 @@ class SearchViewModel(
     fun fetchSongs(q: String) {
         viewModelScope.launch {
             repository.fetchTrack(q).let { result ->
-                if (result is Success) {
-                    val tracksToShow = ArrayList<Track>()
-                    tracksToShow.clear()
-                    tracksToShow.addAll(result.data.tracks.items)
-                    _trackList.value = ArrayList(tracksToShow)
-                } else {
-                    _errorMessage.value = "fetch song request'i patladı"
+                when (result) {
+                    is Success -> {
+                        val tracksToShow = ArrayList<Track>()
+                        tracksToShow.clear()
+                        tracksToShow.addAll(result.data.tracks.items)
+                        _trackList.value = ArrayList(tracksToShow)
+                    }
+                    is Error -> _errorMessage.value = parseNetworkError(result.exception)
                 }
             }
         }

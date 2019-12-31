@@ -4,9 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.deniz.easify.data.Result
+import com.deniz.easify.data.Result.Error
+import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.Repository
-import com.deniz.easify.data.source.SpotifyRepository
+import com.deniz.easify.data.source.remote.parseNetworkError
 import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
@@ -32,13 +33,14 @@ class FollowViewModel(
     fun fetchArtists(q: String) {
         viewModelScope.launch {
             repository.fetchArtists(q).let { result ->
-                if (result is Result.Success) {
-                    val artistsToShow = ArrayList<Artist>()
-                    artistsToShow.clear()
-                    artistsToShow.addAll(result.data.artists.items.filter { it.images.isNotEmpty() })
-                    _artists.value = ArrayList(artistsToShow)
-                } else {
-                    _errorMessage.value = "fetch artists request'i patladı"
+                when (result) {
+                    is Success -> {
+                        val artistsToShow = ArrayList<Artist>()
+                        artistsToShow.clear()
+                        artistsToShow.addAll(result.data.artists.items.filter { it.images.isNotEmpty() })
+                        _artists.value = ArrayList(artistsToShow)
+                    }
+                    is Error -> _errorMessage.value = parseNetworkError(result.exception)
                 }
             }
         }

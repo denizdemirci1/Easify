@@ -1,6 +1,7 @@
 package com.deniz.easify.data.source.remote.request
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /**
  * @User: deniz.demirci
@@ -9,5 +10,5 @@ import com.google.gson.annotations.SerializedName
 
 data class PlayBody(
     @SerializedName("uris")
-    val uri: ArrayList<String>
-)
+    val uri: List<String>
+) : Serializable

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.deniz.easify.R
 import com.deniz.easify.databinding.FragmentTrackBinding
+import kotlinx.android.synthetic.main.fragment_track.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -41,5 +42,20 @@ class TrackFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.start(args.track)
+        setListeners()
+        setObservers()
+    }
+
+    private fun setListeners() {
+        play.setOnClickListener {
+            viewModel.playTrack()
+        }
+
+        pause.setOnClickListener {
+            viewModel.pauseTrack()
+        }
+    }
+
+    private fun setObservers() {
     }
 }

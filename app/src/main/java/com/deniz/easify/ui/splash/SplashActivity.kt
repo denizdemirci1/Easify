@@ -3,10 +3,10 @@ package com.deniz.easify.ui.splash
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
 import com.deniz.easify.databinding.ActivitySplashBinding
+import com.deniz.easify.extension.observe
 import com.deniz.easify.ui.main.MainActivity
 import com.spotify.sdk.android.authentication.AuthenticationClient
 import com.spotify.sdk.android.authentication.AuthenticationResponse
@@ -41,21 +41,21 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun setObservers() {
-        viewModel.authenticationRequest.observe(this, Observer {
+        viewModel.authenticationRequest.observe(this) {
             AuthenticationClient.openLoginActivity(
                 this,
                 SPOTIFY_REQUEST_CODE,
-                viewModel.authenticationRequest.value)
-        })
+                it)
+        }
 
-        viewModel.errorMessage.observe(this, Observer {
-            showNetworkError(viewModel.errorMessage.value!!)
-        })
+        viewModel.errorMessage.observe(this) {
+            showNetworkError(it)
+        }
 
-        viewModel.navigateToMain.observe(this, Observer {
+        viewModel.navigateToMain.observe(this) {
             startActivity(Intent(this, MainActivity::class.java))
             finishAffinity()
-        })
+        }
     }
 
     private fun showNetworkError(message: String) {

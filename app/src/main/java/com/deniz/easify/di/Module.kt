@@ -45,11 +45,7 @@ val viewModelModule = module {
 }
 
 val repositoryModule = module {
-    fun provideRepository(repo: SpotifyRepository): Repository {
-        return repo
-    }
-
-    single { provideRepository(SpotifyRepository(get())) }
+    single<Repository> { SpotifyRepository(get()) }
 }
 
 val managerModule = module {

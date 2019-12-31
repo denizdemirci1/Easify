@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.deniz.easify.R
 import com.deniz.easify.databinding.FragmentTopTracksBinding
@@ -59,9 +59,9 @@ class TopTracksFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.topTrack.observe(this, Observer {
+        viewModel.topTrack.observe(this) {
             setupTopTracksAdapter()
-        })
+        }
     }
 
     private fun setupTopTracksAdapter() {

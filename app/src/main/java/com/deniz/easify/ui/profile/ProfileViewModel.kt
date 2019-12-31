@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.deniz.easify.data.source.Repository
-import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.response.User
 import com.deniz.easify.util.AuthManager
 
