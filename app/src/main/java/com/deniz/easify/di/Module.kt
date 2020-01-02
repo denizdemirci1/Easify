@@ -13,6 +13,7 @@ import com.deniz.easify.ui.profile.followings.FollowedArtistsViewModel
 import com.deniz.easify.ui.profile.followings.artist.ArtistViewModel
 import com.deniz.easify.ui.profile.followings.follow.FollowViewModel
 import com.deniz.easify.ui.search.SearchViewModel
+import com.deniz.easify.ui.search.features.FeaturesViewModel
 import com.deniz.easify.ui.splash.SplashViewModel
 import com.deniz.easify.ui.track.TrackViewModel
 import com.deniz.easify.util.AuthManager
@@ -42,6 +43,7 @@ val viewModelModule = module {
     viewModel { FollowedArtistsViewModel(get()) }
     viewModel { FollowViewModel(get()) }
     viewModel { ArtistViewModel(get()) }
+    viewModel { FeaturesViewModel(get()) }
 }
 
 val repositoryModule = module {

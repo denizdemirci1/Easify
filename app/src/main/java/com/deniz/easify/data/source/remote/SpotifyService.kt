@@ -22,6 +22,7 @@ interface SpotifyService {
         const val query_time_range = "time_range"
 
         const val path_type = "type"
+        const val path_id = "id"
     }
 
     @GET("me")
@@ -33,6 +34,11 @@ interface SpotifyService {
         @Query(query_type) type: String = "track",
         @Query(query_limit) limit: Int = 50
     ): TracksObject
+
+    @GET("audio-features/{id}")
+    suspend fun fetchTrackFeatures(
+        @Path(path_id) id: String
+    ): FeaturesObject
 
     @GET("search")
     suspend fun fetchArtists(

@@ -8,12 +8,8 @@
         android:name="com.deniz.easify.ui.search.SearchFragment"
         android:label="SearchFragment" >
         <action
-            android:id="@+id/action_searchFragment_to_trackFragment"
-            app:destination="@id/trackFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
+            android:id="@+id/action_searchFragment_to_featuresFragment"
+            app:destination="@id/featuresFragment" />
     </fragment>
 
     <fragment
@@ -40,7 +36,11 @@
             app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_profileFragment_to_followedArtistsFragment"
-            app:destination="@id/followedArtistsFragment" />
+            app:destination="@id/followedArtistsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -74,7 +74,11 @@
             app:nullable="true" />
         <action
             android:id="@+id/action_topArtistsFragment_to_artistFragment"
-            app:destination="@id/artistFragment" />
+            app:destination="@id/artistFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -93,10 +97,18 @@
         android:label="FollowedArtistsFragment" >
         <action
             android:id="@+id/action_followedArtistsFragment_to_followFragment"
-            app:destination="@id/followFragment" />
+            app:destination="@id/followFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/action_followedArtistsFragment_to_artistFragment"
-            app:destination="@id/artistFragment" />
+            app:destination="@id/artistFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/followFragment"
@@ -104,7 +116,11 @@
         android:label="FollowFragment" >
         <action
             android:id="@+id/action_followFragment_to_artistFragment"
-            app:destination="@id/artistFragment" />
+            app:destination="@id/artistFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/artistFragment"
@@ -115,6 +131,15 @@
             app:argType="com.deniz.easify.data.source.remote.response.Artist"
             app:nullable="true"
             android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/featuresFragment"
+        android:name="com.deniz.easify.ui.search.features.FeaturesFragment"
+        android:label="FeaturesFragment">
+        <argument
+            android:name="track"
+            app:argType="com.deniz.easify.data.source.remote.response.Track"
+            app:nullable="true" />
     </fragment>
 
 

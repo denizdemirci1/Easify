@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewmodel"
+            type="com.deniz.easify.ui.search.features.FeaturesViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorSpotifyBlack">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/search">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/containerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/trackInfoLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:layout_editor_absoluteX="0dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/albumLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+
+                        android:text="@string/fragment_features_album"
+                        android:textColor="@color/colorTextGray"
+                        android:textSize="12sp"
+                        android:typeface="monospace"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/albumName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:gravity="center"
+                        android:text="@{viewmodel.track.album.name}"
+                        android:textColor="@color/colorSpotifyWhite"
+                        android:textStyle="bold"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/albumLabel" />
+
+                    <androidx.appcompat.widget.AppCompatImageView
+                        android:id="@+id/albumImage"
+                        android:layout_width="300dp"
+                        android:layout_height="300dp"
+                        android:layout_marginTop="32dp"
+
+                        app:imageUrl="@{viewmodel.track.album.images.get(1).url}"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/albumName" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/songName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+
+                        android:gravity="center"
+                        android:text="@{viewmodel.track.name}"
+                        android:textColor="@color/colorSpotifyWhite"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+
+                        app:layout_constraintEnd_toEndOf="@id/albumImage"
+                        app:layout_constraintStart_toStartOf="@id/albumImage"
+                        app:layout_constraintTop_toBottomOf="@+id/albumImage" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/artistName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
+                        android:gravity="center"
+                        android:text="@{viewmodel.track.artists.get(0).name}"
+                        android:textColor="@color/colorTextGray"
+                        android:textStyle="bold"
+
+                        app:layout_constraintEnd_toEndOf="@id/songName"
+                        app:layout_constraintStart_toStartOf="@id/songName"
+                        app:layout_constraintTop_toBottomOf="@+id/songName" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/trackFeatureLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    app:layout_constraintTop_toBottomOf="@id/trackInfoLayout"
+                    tools:layout_editor_absoluteX="85dp">
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/danceability"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+
+                        tools:text="Danceability: 0.5"
+                        android:textColor="@color/colorSpotifyWhite"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/danceabilitySeek"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+
+                        app:progress="@{viewmodel.trackFeatures.danceability * 100}"
+                        android:max="100"
+                        android:progressBackgroundTint="@color/colorTextGray"
+
+                        app:layout_constraintTop_toBottomOf="@id/danceability"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/energy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+
+                        tools:text="Energy: 0.5"
+                        android:textColor="@color/colorSpotifyWhite"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/danceabilitySeek" />
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/energySeek"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+
+                        app:progress="@{viewmodel.trackFeatures.energy * 100}"
+                        android:max="100"
+                        android:progressBackgroundTint="@color/colorTextGray"
+
+                        app:layout_constraintTop_toBottomOf="@id/energy"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/speechiness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+
+                        android:textColor="@color/colorSpotifyWhite"
+                        tools:text="Speechiness: 0.5"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/energySeek"/>
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/speechinessSeek"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+
+                        android:max="100"
+                        app:progress="@{viewmodel.trackFeatures.speechiness * 100}"
+                        android:progressBackgroundTint="@color/colorTextGray"
+
+                        app:layout_constraintTop_toBottomOf="@id/speechiness"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/acousticness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+
+                        android:textColor="@color/colorSpotifyWhite"
+                        tools:text="Acousticness: 0.5"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/speechinessSeek" />
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/acousticnessSeek"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+
+                        android:max="100"
+                        app:progress="@{viewmodel.trackFeatures.acousticness * 100}"
+                        android:progressBackgroundTint="@color/colorTextGray"
+
+                        app:layout_constraintTop_toBottomOf="@id/acousticness"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/instrumentalness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+
+                        android:textColor="@color/colorSpotifyWhite"
+                        tools:text="Instrumentalness: 0.5"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/acousticnessSeek" />
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/instrumentalnessSeek"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+
+                        app:progress="@{viewmodel.trackFeatures.instrumentalness * 100}"
+                        android:max="100"
+                        android:progressBackgroundTint="@color/colorTextGray"
+
+                        app:layout_constraintTop_toBottomOf="@id/instrumentalness"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/liveness"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+
+                        android:textColor="@color/colorSpotifyWhite"
+                        tools:text="Liveness: 0.5"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/instrumentalnessSeek" />
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/livenessSeek"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+
+                        android:max="100"
+                        app:progress="@{viewmodel.trackFeatures.liveness * 100}"
+                        android:progressBackgroundTint="@color/colorTextGray"
+
+                        app:layout_constraintTop_toBottomOf="@id/liveness"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/valence"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+
+                        android:textColor="@color/colorSpotifyWhite"
+                        tools:text="Liveness: 0.5"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/livenessSeek" />
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/valenceSeek"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+
+                        app:progress="@{viewmodel.trackFeatures.valence * 100}"
+                        android:max="100"
+                        android:progressBackgroundTint="@color/colorTextGray"
+
+                        app:layout_constraintTop_toBottomOf="@id/valence"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/tempo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+
+                        android:textColor="@color/colorSpotifyWhite"
+                        tools:text="Liveness: 0.5"
+
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/valenceSeek" />
+
+                    <androidx.appcompat.widget.AppCompatSeekBar
+                        android:id="@+id/tempoSeek"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+
+                        android:max="250"
+                        app:progress="@{viewmodel.trackFeatures.tempo}"
+                        android:progressBackgroundTint="@color/colorTextGray"
+
+                        app:layout_constraintTop_toBottomOf="@id/tempo"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+
+            android:text="@string/fragment_features_search_similar"
+            android:textColor="@color/colorSpotifyWhite"
+            android:textSize="16sp"
+            android:background="@drawable/button_green"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

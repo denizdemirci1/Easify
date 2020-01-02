@@ -2,11 +2,7 @@ package com.deniz.easify.data.source
 
 import com.deniz.easify.data.Result
 import com.deniz.easify.data.source.remote.request.PlayBody
-import com.deniz.easify.data.source.remote.response.ArtistsResponse
-import com.deniz.easify.data.source.remote.response.TopArtist
-import com.deniz.easify.data.source.remote.response.TopTrack
-import com.deniz.easify.data.source.remote.response.TracksObject
-import com.deniz.easify.data.source.remote.response.User
+import com.deniz.easify.data.source.remote.response.*
 
 /**
  * @User: deniz.demirci
@@ -18,6 +14,8 @@ interface Repository {
     suspend fun fetchUser(): Result<User>?
 
     suspend fun fetchTrack(q: String): Result<TracksObject>
+
+    suspend fun fetchTrackFeatures(id: String): Result<FeaturesObject>
 
     suspend fun fetchArtists(q: String): Result<ArtistsResponse>
 

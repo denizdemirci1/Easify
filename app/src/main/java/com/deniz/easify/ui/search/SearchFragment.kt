@@ -64,7 +64,7 @@ class SearchFragment : Fragment() {
 
     private fun setupNavigation() {
         viewModel.openTrackEvent.observe(this, EventObserver {
-            openTrackDetails(it)
+            openFeaturesFragment(it)
         })
     }
 
@@ -84,8 +84,8 @@ class SearchFragment : Fragment() {
         })
     }
 
-    private fun openTrackDetails(track: Track) {
-        val action = SearchFragmentDirections.actionSearchFragmentToTrackFragment(track)
+    private fun openFeaturesFragment(track: Track) {
+        val action = SearchFragmentDirections.actionSearchFragmentToFeaturesFragment(track)
         findNavController().navigate(action)
     }
 }

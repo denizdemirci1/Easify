@@ -18,6 +18,18 @@
     <string name="profile">Profile</string>
 
 
+    <!-- Features Fragment -->
+    <string name="fragment_features_album">ALBUM</string>
+    <string name="fragment_features_danceability">Danceability: %.2f</string>
+    <string name="fragment_features_energy">Energy: %.2f</string>
+    <string name="fragment_features_speechiness">Speechiness: %.2f</string>
+    <string name="fragment_features_acousticness">Acousticness: %.2f</string>
+    <string name="fragment_features_instrumentalness">Instrumentalness: %.2f</string>
+    <string name="fragment_features_liveness">Liveness: %.2f</string>
+    <string name="fragment_features_valence">Valence: %.2f</string>
+    <string name="fragment_features_tempo">Tempo: %.2f</string>
+    <string name="fragment_features_search_similar">Search Similar</string>
+
     <!-- Track Fragment -->
     <string name="fragment_track_playing_from">PLAYING FROM ALBUM</string>
 
