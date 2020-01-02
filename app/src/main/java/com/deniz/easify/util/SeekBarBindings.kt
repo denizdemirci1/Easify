@@ -10,8 +10,13 @@ import androidx.databinding.BindingAdapter
  */
 
 @SuppressLint("ClickableViewAccessibility")
-@BindingAdapter("app:progress")
+@BindingAdapter("app:progressNonEditable")
 fun setNonEditableProgress(seekBar: AppCompatSeekBar, progress: Float) {
     seekBar.setOnTouchListener { _, _ -> return@setOnTouchListener true }
+    seekBar.progress = progress.toInt()
+}
+
+@BindingAdapter("app:progressEditable")
+fun setEditableProgress(seekBar: AppCompatSeekBar, progress: Float) {
     seekBar.progress = progress.toInt()
 }

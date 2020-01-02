@@ -1,30 +1,31 @@
-package com.deniz.easify.ui.search.features
+package com.deniz.easify.ui.search.features.discover
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.FeaturesObject
-import com.deniz.easify.databinding.FragmentFeaturesBinding
+import com.deniz.easify.databinding.FragmentDiscoverBinding
+import com.deniz.easify.extension.onProgressChanged
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * @User: deniz.demirci
- * @Date: 2019-12-31
+ * @Date: 2020-01-02
  */
 
-class FeaturesFragment : Fragment() {
+class DiscoverFragment : Fragment() {
 
-    private lateinit var binding: FragmentFeaturesBinding
+    private lateinit var binding: FragmentDiscoverBinding
 
-    private val viewModel by viewModel<FeaturesViewModel>()
+    private val viewModel by viewModel<DiscoverViewModel>()
 
-    private val args: FeaturesFragmentArgs by navArgs()
+    private val args: DiscoverFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,8 +33,8 @@ class FeaturesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val root = inflater.inflate(R.layout.fragment_features, container, false)
-        binding = FragmentFeaturesBinding.bind(root).apply {
+        val root = inflater.inflate(R.layout.fragment_discover, container, false)
+        binding = FragmentDiscoverBinding.bind(root).apply {
             this.viewmodel = viewModel
         }
 
@@ -43,28 +44,52 @@ class FeaturesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.start(args.track)
+        viewModel.start(args.features)
         setListeners()
         setObservers()
     }
 
+    /**
+     * When user changes progress of a seek bar, set and show the current value
+     * on the text view accordingly
+     */
     private fun setListeners() {
-        binding.search.setOnClickListener {
-            val action = FeaturesFragmentDirections.actionFeaturesFragmentToDiscoverFragment(viewModel.trackFeatures.value)
-            findNavController().navigate(action)
+        binding.danceabilitySeek.onProgressChanged { setDanceability(it) }
+        binding.energySeek.onProgressChanged { setEnergy(it) }
+        binding.speechinessSeek.onProgressChanged { setSpeechiness(it) }
+        binding.acousticnessSeek.onProgressChanged { setAcousticness(it) }
+        binding.instrumentalnessSeek.onProgressChanged { setInstrumentalness(it) }
+        binding.livenessSeek.onProgressChanged { setLiveness(it) }
+        binding.valenceSeek.onProgressChanged { setValence(it) }
+        binding.tempoSeek.onProgressChanged { setTempo(it) }
+
+        binding.discover.setOnClickListener {
+            viewModel.fetchRecommendations(
+                binding.danceabilitySeek.progress.toFloat(),
+                binding.energySeek.progress.toFloat(),
+                binding.speechinessSeek.progress.toFloat(),
+                binding.acousticnessSeek.progress.toFloat(),
+                binding.instrumentalnessSeek.progress.toFloat(),
+                binding.livenessSeek.progress.toFloat(),
+                binding.valenceSeek.progress.toFloat(),
+                binding.tempoSeek.progress.toFloat()
+            )
         }
     }
 
     private fun setObservers() {
         viewModel.trackFeatures.observe(this) {
-            setFeatures(it)
+            initializeFeatures(it)
         }
     }
 
     //region Features Are Set Here
 
-    // This function only sets features texts. SeekBars are set in xml file
-    private fun setFeatures(features: FeaturesObject) {
+    /**
+     * This function initialize the features for search with the value of
+     * selected track from previous fragment
+     */
+    private fun initializeFeatures(features: FeaturesObject) {
         setDanceability(features.danceability)
         setEnergy(features.energy)
         setSpeechiness(features.speechiness)

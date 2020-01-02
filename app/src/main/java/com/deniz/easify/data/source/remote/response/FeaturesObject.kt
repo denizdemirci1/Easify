@@ -1,6 +1,7 @@
 package com.deniz.easify.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /**
  * @User: deniz.demirci
@@ -40,4 +41,4 @@ data class FeaturesObject(
     val duration_ms: Int,
     @SerializedName("time_signature")
     val time_signature: Int
-)
+) : Serializable

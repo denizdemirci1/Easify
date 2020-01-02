@@ -139,7 +139,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
 
-                        app:progress="@{viewmodel.trackFeatures.danceability * 100}"
+                        app:progressNonEditable="@{viewmodel.trackFeatures.danceability * 100}"
                         android:max="100"
                         android:progressBackgroundTint="@color/colorTextGray"
 
@@ -166,7 +166,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
 
-                        app:progress="@{viewmodel.trackFeatures.energy * 100}"
+                        app:progressNonEditable="@{viewmodel.trackFeatures.energy * 100}"
                         android:max="100"
                         android:progressBackgroundTint="@color/colorTextGray"
 
@@ -194,7 +194,7 @@
                         android:layout_marginTop="8dp"
 
                         android:max="100"
-                        app:progress="@{viewmodel.trackFeatures.speechiness * 100}"
+                        app:progressNonEditable="@{viewmodel.trackFeatures.speechiness * 100}"
                         android:progressBackgroundTint="@color/colorTextGray"
 
                         app:layout_constraintTop_toBottomOf="@id/speechiness"
@@ -221,7 +221,7 @@
                         android:layout_marginTop="8dp"
 
                         android:max="100"
-                        app:progress="@{viewmodel.trackFeatures.acousticness * 100}"
+                        app:progressNonEditable="@{viewmodel.trackFeatures.acousticness * 100}"
                         android:progressBackgroundTint="@color/colorTextGray"
 
                         app:layout_constraintTop_toBottomOf="@id/acousticness"
@@ -247,7 +247,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
 
-                        app:progress="@{viewmodel.trackFeatures.instrumentalness * 100}"
+                        app:progressNonEditable="@{viewmodel.trackFeatures.instrumentalness * 100}"
                         android:max="100"
                         android:progressBackgroundTint="@color/colorTextGray"
 
@@ -275,7 +275,7 @@
                         android:layout_marginTop="8dp"
 
                         android:max="100"
-                        app:progress="@{viewmodel.trackFeatures.liveness * 100}"
+                        app:progressNonEditable="@{viewmodel.trackFeatures.liveness * 100}"
                         android:progressBackgroundTint="@color/colorTextGray"
 
                         app:layout_constraintTop_toBottomOf="@id/liveness"
@@ -301,7 +301,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
 
-                        app:progress="@{viewmodel.trackFeatures.valence * 100}"
+                        app:progressNonEditable="@{viewmodel.trackFeatures.valence * 100}"
                         android:max="100"
                         android:progressBackgroundTint="@color/colorTextGray"
 
@@ -329,7 +329,7 @@
                         android:layout_marginTop="8dp"
 
                         android:max="250"
-                        app:progress="@{viewmodel.trackFeatures.tempo}"
+                        app:progressNonEditable="@{viewmodel.trackFeatures.tempo}"
                         android:progressBackgroundTint="@color/colorTextGray"
 
                         app:layout_constraintTop_toBottomOf="@id/tempo"

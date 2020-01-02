@@ -30,6 +30,10 @@
     <string name="fragment_features_tempo">Tempo: %.2f</string>
     <string name="fragment_features_search_similar">Search Similar</string>
 
+    <!-- Discover Fragment -->
+    <string name="fragment_discover_album">Discover</string>
+    <string name="fragment_discover_title">Search For Your Taste</string>
+
     <!-- Track Fragment -->
     <string name="fragment_track_playing_from">PLAYING FROM ALBUM</string>
 

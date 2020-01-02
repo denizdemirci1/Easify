@@ -140,6 +140,19 @@
             android:name="track"
             app:argType="com.deniz.easify.data.source.remote.response.Track"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_featuresFragment_to_discoverFragment"
+            app:destination="@id/discoverFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/discoverFragment"
+        android:name="com.deniz.easify.ui.search.features.discover.DiscoverFragment"
+        android:label="DiscoverFragment" >
+        <argument
+            android:name="features"
+            app:argType="com.deniz.easify.data.source.remote.response.FeaturesObject"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
 

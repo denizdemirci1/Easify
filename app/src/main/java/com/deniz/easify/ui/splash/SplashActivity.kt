@@ -3,9 +3,9 @@ package com.deniz.easify.ui.splash
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.observe
 import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
-import com.deniz.easify.extension.observe
 import com.deniz.easify.ui.main.MainActivity
 import com.spotify.sdk.android.authentication.AuthenticationClient
 import com.spotify.sdk.android.authentication.AuthenticationResponse
