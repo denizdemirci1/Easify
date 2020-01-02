@@ -13,7 +13,6 @@ import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.databinding.FragmentFollowBinding
 import com.deniz.easify.extension.afterTextChanged
 import com.deniz.easify.util.EventObserver
-import kotlinx.android.synthetic.main.fragment_follow.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -52,11 +51,11 @@ class FollowFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        search.setOnFocusChangeListener { _, focused ->
-            search.hint = if (!focused) getString(R.string.search) else ""
+        binding.search.setOnFocusChangeListener { _, focused ->
+            binding.search.hint = if (!focused) getString(R.string.search) else ""
         }
 
-        search.afterTextChanged { input ->
+        binding.search.afterTextChanged { input ->
             viewModel.fetchArtists(input)
         }
     }

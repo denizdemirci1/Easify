@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.User
 import com.deniz.easify.databinding.FragmentProfileBinding
-import kotlinx.android.synthetic.main.fragment_profile.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -53,11 +52,11 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        favorites.setOnClickListener {
+        binding.favorites.setOnClickListener {
             openFavoritesFragment()
         }
 
-        followedArtists.setOnClickListener {
+        binding.followedArtists.setOnClickListener {
             openFollowedArtistsFragment()
         }
     }
@@ -66,7 +65,7 @@ class ProfileFragment : Fragment() {
         String.format(
             resources.getString(R.string.fragment_artist_follower_count),
             user.followers.total
-        ).also { followerCount.text = it }
+        ).also { binding.followerCount.text = it }
     }
 
     private fun openFavoritesFragment() {

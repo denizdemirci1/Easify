@@ -10,7 +10,6 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
 import com.deniz.easify.R
 import com.deniz.easify.databinding.FragmentTopTracksBinding
-import kotlinx.android.synthetic.main.fragment_top_artists.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -51,7 +50,7 @@ class TopTracksFragment : Fragment() {
             resources.getString(R.string.fragment_top_tracks_title),
             args.favorites?.items?.size
         )
-        title.text = toolbarTitle
+        binding.title.text = toolbarTitle
 
         viewModel.start(args.favorites)
 

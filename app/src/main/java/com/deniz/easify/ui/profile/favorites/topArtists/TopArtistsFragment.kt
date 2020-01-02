@@ -13,7 +13,6 @@ import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.databinding.FragmentTopArtistsBinding
 import com.deniz.easify.util.EventObserver
-import kotlinx.android.synthetic.main.fragment_top_artists.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -54,7 +53,7 @@ class TopArtistsFragment : Fragment() {
             resources.getString(R.string.fragment_top_artists_title),
             args.favorites?.items?.size
         )
-        title.text = toolbarTitle
+        binding.title.text = toolbarTitle
 
         viewModel.start(args.favorites)
 

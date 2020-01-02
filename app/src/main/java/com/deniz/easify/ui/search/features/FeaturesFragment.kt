@@ -10,7 +10,6 @@ import androidx.navigation.fragment.navArgs
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.FeaturesObject
 import com.deniz.easify.databinding.FragmentFeaturesBinding
-import kotlinx.android.synthetic.main.fragment_features.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -18,7 +17,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * @Date: 2019-12-31
  */
 
-class FeaturesFragment: Fragment() {
+class FeaturesFragment : Fragment() {
 
     private lateinit var binding: FragmentFeaturesBinding
 
@@ -49,7 +48,7 @@ class FeaturesFragment: Fragment() {
     }
 
     private fun setListeners() {
-        search.setOnClickListener {
+        binding.search.setOnClickListener {
             // navigate to Search Screen
         }
     }
@@ -59,7 +58,6 @@ class FeaturesFragment: Fragment() {
             setFeatures(it)
         }
     }
-
 
     //region Features Are Set Here
 
@@ -75,61 +73,60 @@ class FeaturesFragment: Fragment() {
         setTempo(features.tempo)
     }
 
-    private fun setDanceability(value: Float){
+    private fun setDanceability(value: Float) {
         val text = String.format(
             resources.getString(R.string.fragment_features_danceability),
             value)
-        danceability.text = text
+        binding.danceability.text = text
     }
 
-    private fun setEnergy(value: Float){
+    private fun setEnergy(value: Float) {
         val text = String.format(
             resources.getString(R.string.fragment_features_energy),
             value)
-        energy.text = text
+        binding.energy.text = text
     }
 
-    private fun setSpeechiness(value: Float){
+    private fun setSpeechiness(value: Float) {
         val text = String.format(
             resources.getString(R.string.fragment_features_speechiness),
             value)
-        speechiness.text = text
+        binding.speechiness.text = text
     }
 
-    private fun setAcousticness(value: Float){
+    private fun setAcousticness(value: Float) {
         val text = String.format(
             resources.getString(R.string.fragment_features_acousticness),
             value)
-        acousticness.text = text
+        binding.acousticness.text = text
     }
 
-    private fun setInstrumentalness(value: Float){
+    private fun setInstrumentalness(value: Float) {
         val text = String.format(
             resources.getString(R.string.fragment_features_instrumentalness),
             value)
-        instrumentalness.text = text
+        binding.instrumentalness.text = text
     }
 
-    private fun setLiveness(value: Float){
+    private fun setLiveness(value: Float) {
         val text = String.format(
             resources.getString(R.string.fragment_features_liveness),
             value)
-        liveness.text = text
+        binding.liveness.text = text
     }
 
-    private fun setValence(value: Float){
+    private fun setValence(value: Float) {
         val text = String.format(
             resources.getString(R.string.fragment_features_valence),
             value)
-        valence.text = text
+        binding.valence.text = text
     }
 
-    private fun setTempo(value: Float){
+    private fun setTempo(value: Float) {
         val text = String.format(
             resources.getString(R.string.fragment_features_tempo),
             value)
-        tempo.text = text
+        binding.tempo.text = text
     }
     // endregion
-
 }

@@ -13,7 +13,6 @@ import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.FragmentSearchBinding
 import com.deniz.easify.extension.afterTextChanged
 import com.deniz.easify.util.EventObserver
-import kotlinx.android.synthetic.main.fragment_search.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -41,6 +40,7 @@ class SearchFragment : Fragment() {
         }
         // Set the lifecycle owner to the lifecycle of the view
         binding.lifecycleOwner = this.viewLifecycleOwner
+
         return binding.root
     }
 
@@ -69,11 +69,11 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        search.setOnFocusChangeListener { _, focused ->
-            search.hint = if (!focused) getString(R.string.search) else ""
+        binding.search.setOnFocusChangeListener { _, focused ->
+            binding.search.hint = if (!focused) getString(R.string.search) else ""
         }
 
-        search.afterTextChanged { input ->
+        binding.search.afterTextChanged { input ->
             viewModel.fetchSongs(input)
         }
     }

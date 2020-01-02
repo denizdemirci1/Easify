@@ -20,6 +20,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
+            android:layout_margin="16dp"
             android:background="@color/colorSpotifyBlack"
 
             app:layout_constraintTop_toTopOf="parent">
@@ -44,7 +45,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/tracksRecyclerView"
+            android:id="@+id/tracks_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="16dp"

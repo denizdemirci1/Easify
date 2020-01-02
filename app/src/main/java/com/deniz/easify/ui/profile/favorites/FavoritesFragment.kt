@@ -15,7 +15,6 @@ import com.deniz.easify.data.source.remote.response.TopTrack
 import com.deniz.easify.databinding.FragmentFavoritesBinding
 import com.deniz.easify.extension.hideKeyboard
 import com.deniz.easify.util.EventObserver
-import kotlinx.android.synthetic.main.fragment_favorites.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -100,10 +99,10 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        show.setOnClickListener {
+        binding.show.setOnClickListener {
             it.hideKeyboard()
 
-            val term = when (timeRange.text.toString()) {
+            val term = when (binding.timeRange.text.toString()) {
                 longTerm.first -> longTerm.second
                 mediumTerm.first -> mediumTerm.second
                 shortTerm.first -> shortTerm.second
@@ -111,33 +110,33 @@ class FavoritesFragment : Fragment() {
             }
 
             val amount = when {
-                limit.text.toString().isNotEmpty() -> Integer.parseInt(limit.text.toString())
-                limit.text.toString() == "0" -> null
+                binding.limit.text.toString().isNotEmpty() -> Integer.parseInt(binding.limit.text.toString())
+                binding.limit.text.toString() == "0" -> null
                 else -> null
             }
 
             when {
-                type.text.toString() == artists -> fetchTopArtists(term, amount)
-                type.text.toString() == tracks -> fetchTopTracks(term, amount)
+                binding.type.text.toString() == artists -> fetchTopArtists(term, amount)
+                binding.type.text.toString() == tracks -> fetchTopTracks(term, amount)
                 else -> showError(resources.getString(R.string.fragment_favorites_type_empty_error))
             }
         }
 
-        type.setOnClickListener {
+        binding.type.setOnClickListener {
             it.context.let { context ->
                 MaterialDialog(context).show {
                     listItems(items = listOf(artists, tracks)) { _, _, text ->
-                        this@FavoritesFragment.type.setText(text)
+                        binding.type.setText(text)
                     }
                 }
             }
         }
 
-        timeRange.setOnClickListener {
+        binding.timeRange.setOnClickListener {
             it.context.let { context ->
                 MaterialDialog(context).show {
                     listItems(items = listOf(longTerm.first, mediumTerm.first, shortTerm.first)) { _, _, text ->
-                        this@FavoritesFragment.timeRange.setText(text)
+                        binding.timeRange.setText(text)
                     }
                 }
             }

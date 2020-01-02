@@ -5,12 +5,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
-import com.deniz.easify.databinding.ActivitySplashBinding
 import com.deniz.easify.extension.observe
 import com.deniz.easify.ui.main.MainActivity
 import com.spotify.sdk.android.authentication.AuthenticationClient
 import com.spotify.sdk.android.authentication.AuthenticationResponse
-import kotlinx.android.synthetic.main.activity_splash.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -19,8 +17,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  */
 
 class SplashActivity : AppCompatActivity() {
-
-    private lateinit var binding: ActivitySplashBinding
 
     private val viewModel by viewModel<SplashViewModel>()
 
@@ -31,10 +27,6 @@ class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-
-        binding = ActivitySplashBinding.bind(root)
-        binding.splashViewModel = viewModel
-        binding.lifecycleOwner = this
 
         viewModel.authenticateSpotify()
         setObservers()

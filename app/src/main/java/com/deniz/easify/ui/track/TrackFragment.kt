@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.deniz.easify.R
 import com.deniz.easify.databinding.FragmentTrackBinding
-import kotlinx.android.synthetic.main.fragment_track.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -47,11 +46,11 @@ class TrackFragment : Fragment() {
     }
 
     private fun setListeners() {
-        play.setOnClickListener {
+        binding.play.setOnClickListener {
             viewModel.playTrack()
         }
 
-        pause.setOnClickListener {
+        binding.pause.setOnClickListener {
             viewModel.pauseTrack()
         }
     }

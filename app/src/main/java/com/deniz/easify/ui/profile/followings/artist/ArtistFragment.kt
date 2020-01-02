@@ -11,7 +11,6 @@ import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.databinding.FragmentArtistBinding
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_artist.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -77,32 +76,32 @@ class ArtistFragment : Fragment() {
 
     private fun setupViews(artist: Artist) {
         // name
-        artistName.text = artist.name
+        binding.artistName.text = artist.name
 
         // follower count
         String.format(
             resources.getString(R.string.fragment_artist_follower_count),
             args.artist!!.followers.total
-        ).also { followers.text = it }
+        ).also { binding.followers.text = it }
 
         // genre(s)
         var genresText = ""
         for (genre in artist.genres) {
             genresText += "$genre,\n"
         }
-        genres.text = if (artist.genres.isEmpty()) "unknown" else genresText.substring(0, genresText.length - 2)
+        binding.genres.text = if (artist.genres.isEmpty()) "unknown" else genresText.substring(0, genresText.length - 2)
     }
 
     private fun showFollowButton(show: Boolean) {
-        follow.visibility = if (show) View.VISIBLE else View.GONE
+        binding.follow.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun showUnfollowButton(show: Boolean) {
-        unfollow.visibility = if (show) View.VISIBLE else View.GONE
+        binding.unfollow.visibility = if (show) View.VISIBLE else View.GONE
     }
 
     private fun setupListeners() {
-        follow.setOnClickListener {
+        binding.follow.setOnClickListener {
             args.artist?.let {
                 showFollowButton(false)
                 showUnfollowButton(true)
@@ -110,7 +109,7 @@ class ArtistFragment : Fragment() {
             }
         }
 
-        unfollow.setOnClickListener {
+        binding.unfollow.setOnClickListener {
             args.artist?.let {
                 showFollowButton(true)
                 showUnfollowButton(false)

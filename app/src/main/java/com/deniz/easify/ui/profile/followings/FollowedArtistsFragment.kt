@@ -13,7 +13,6 @@ import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.databinding.FragmentFollowedArtistsBinding
 import com.deniz.easify.util.EventObserver
-import kotlinx.android.synthetic.main.fragment_followed_artists.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -77,7 +76,7 @@ class FollowedArtistsFragment : Fragment() {
     }
 
     private fun setListeners() {
-        add.setOnClickListener {
+        binding.add.setOnClickListener {
             navigateToFollowFragment()
         }
     }
