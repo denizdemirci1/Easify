@@ -8,6 +8,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
 import com.deniz.easify.ui.main.MainActivity
 import com.spotify.sdk.android.authentication.AuthenticationClient
+import com.spotify.sdk.android.authentication.AuthenticationRequest
 import com.spotify.sdk.android.authentication.AuthenticationResponse
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -22,6 +23,15 @@ class SplashActivity : AppCompatActivity() {
 
     companion object {
         private const val SPOTIFY_REQUEST_CODE = 1337
+        // TODO: Edit Scopes
+        private const val SCOPES = "user-read-recently-played," +
+                "user-library-modify," +
+                "user-read-email," +
+                "user-read-private," +
+                "user-top-read," +
+                "user-follow-read," +
+                "user-follow-modify," +
+                "user-modify-playback-state"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,11 +43,19 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun setObservers() {
-        viewModel.authenticationRequest.observe(this) {
+        viewModel.authenticate.observe(this) {
+            val builder = AuthenticationRequest.Builder(
+                resources.getString(R.string.spotify_client_id),
+                AuthenticationResponse.Type.TOKEN,
+                resources.getString(R.string.spotify_uri_callback)
+            )
+
+            builder.setScopes(arrayOf(SCOPES))
+
             AuthenticationClient.openLoginActivity(
                 this,
                 SPOTIFY_REQUEST_CODE,
-                it)
+                builder.build())
         }
 
         viewModel.errorMessage.observe(this) {

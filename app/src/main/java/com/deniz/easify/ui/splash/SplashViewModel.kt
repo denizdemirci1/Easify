@@ -9,8 +9,6 @@ import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.remote.parseNetworkError
 import com.deniz.easify.util.AuthManager
-import com.spotify.sdk.android.authentication.AuthenticationRequest
-import com.spotify.sdk.android.authentication.AuthenticationResponse
 import kotlinx.coroutines.launch
 
 /**
@@ -23,22 +21,8 @@ class SplashViewModel(
     private val repository: Repository
 ) : ViewModel() {
 
-    companion object {
-        private const val SPOTIFY_CLIENT_ID = "c7488b4d223740f195ed82e6ee3c3802"
-        private const val SPOTIFY_URI_CALLBACK = "com.deniz.easify://callback"
-        // TODO: Edit Scopes
-        private const val SCOPES = "user-read-recently-played," +
-                "user-library-modify," +
-                "user-read-email," +
-                "user-read-private," +
-                "user-top-read," +
-                "user-follow-read," +
-                "user-follow-modify," +
-                "user-modify-playback-state"
-    }
-
-    private val _authenticationRequest = MutableLiveData<AuthenticationRequest>()
-    val authenticationRequest: LiveData<AuthenticationRequest> = _authenticationRequest
+    private val _authenticate = MutableLiveData<Boolean>()
+    val authenticate: LiveData<Boolean> = _authenticate
 
     private val _navigateToMain = MutableLiveData<Boolean>()
     val navigateToMain: LiveData<Boolean> = _navigateToMain
@@ -82,14 +66,7 @@ class SplashViewModel(
             return
         }
 
-        val builder = AuthenticationRequest.Builder(
-            SPOTIFY_CLIENT_ID,
-            AuthenticationResponse.Type.TOKEN,
-            SPOTIFY_URI_CALLBACK
-        )
-
-        builder.setScopes(arrayOf(SCOPES))
-        _authenticationRequest.value = builder.build()
+        _authenticate.value = true
     }
 
     /***
