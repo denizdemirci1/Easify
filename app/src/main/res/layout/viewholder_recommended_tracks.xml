@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+
+    <data>
+
+        <variable
+            name="track"
+            type="com.deniz.easify.data.source.remote.response.Track" />
+
+        <variable
+            name="viewmodel"
+            type="com.deniz.easify.ui.search.features.discover.recommended.RecommendedTracksViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/track_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorSpotifyBlack"
+        android:onClick="@{() -> viewmodel.openTrackFragment(track)}">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/track_image"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:scaleType="fitCenter"
+            app:imageUrl="@{track.album.images.get(track.album.images.size()-1).url}"
+
+            android:layout_margin="16dp"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/track_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+
+            android:text="@{track.name}"
+            android:textColor="@color/colorSpotifyWhite"
+            android:textStyle="bold"
+            android:textSize="16sp"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@id/track_image"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

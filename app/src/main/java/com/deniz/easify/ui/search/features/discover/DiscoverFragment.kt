@@ -4,14 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.FeaturesObject
+import com.deniz.easify.data.source.remote.response.RecommendationsObject
 import com.deniz.easify.databinding.FragmentDiscoverBinding
 import com.deniz.easify.extension.onProgressChanged
+import com.deniz.easify.util.EventObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -81,6 +83,15 @@ class DiscoverFragment : Fragment() {
         viewModel.trackFeatures.observe(this) {
             initializeFeatures(it)
         }
+
+        viewModel.recommendationsEvent.observe(this, EventObserver {
+            navigateToRecommendedTracksFragment(it)
+        })
+    }
+
+    private fun navigateToRecommendedTracksFragment(recommendations: RecommendationsObject) {
+        val action = DiscoverFragmentDirections.actionDiscoverFragmentToRecommendedTracksFragment(recommendations)
+        findNavController().navigate(action)
     }
 
     //region Features Are Set Here

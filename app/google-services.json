@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "452759756214",
+    "firebase_url": "https://easify-a5b7e.firebaseio.com",
+    "project_id": "easify-a5b7e",
+    "storage_bucket": "easify-a5b7e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452759756214:android:1f22ccfd33298d8f34b517",
+        "android_client_info": {
+          "package_name": "com.deniz.easify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452759756214-i92d4iqfi3nm9thqcdr6m2g6rb9gkra2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.deniz.easify",
+            "certificate_hash": "181d78c3853df99fb44177631c3b3279ac78c7be"
+          }
+        },
+        {
+          "client_id": "452759756214-n5dpnku0c21oj0vlp0c7uskqctosvrj0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBlJGKU9TFLBVUM1KxicyDlG4BDJ_2mdZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452759756214-n5dpnku0c21oj0vlp0c7uskqctosvrj0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

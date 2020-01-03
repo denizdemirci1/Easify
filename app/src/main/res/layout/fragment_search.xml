@@ -34,7 +34,7 @@
                 android:textColor="@color/colorSpotifyWhite"
                 android:textAlignment="center"
                 android:maxLines="1"
-                android:background="@color/colorBackgroundLight"
+                android:background="@drawable/bg_search"
                 android:inputType="textCapWords"
 
                 app:layout_constraintStart_toStartOf="parent"

@@ -1,6 +1,7 @@
 package com.deniz.easify.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /**
  * @User: deniz.demirci
@@ -14,4 +15,4 @@ data class Image(
     val url: String,
     @SerializedName("width")
     val width: Int
-)
+): Serializable

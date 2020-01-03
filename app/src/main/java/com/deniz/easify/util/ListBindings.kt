@@ -9,6 +9,7 @@ import com.deniz.easify.ui.profile.favorites.topTracks.TopTracksAdapter
 import com.deniz.easify.ui.profile.followings.FollowedArtistsAdapter
 import com.deniz.easify.ui.profile.followings.follow.FollowAdapter
 import com.deniz.easify.ui.search.TrackAdapter
+import com.deniz.easify.ui.search.features.discover.recommended.RecommendedTracksAdapter
 
 /**
  * @User: deniz.demirci
@@ -42,4 +43,9 @@ fun setFollowedArtists(listView: RecyclerView, items: List<Artist>) {
 @BindingAdapter("app:artists")
 fun setArtists(listView: RecyclerView, items: List<Artist>) {
     (listView.adapter as FollowAdapter).submitList(items)
+}
+
+@BindingAdapter("app:recommendations")
+fun setRecommendations(listView: RecyclerView, items: List<Track>) {
+    (listView.adapter as RecommendedTracksAdapter).submitList(items)
 }

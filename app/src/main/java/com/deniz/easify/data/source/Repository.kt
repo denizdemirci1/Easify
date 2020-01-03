@@ -32,4 +32,14 @@ interface Repository {
     suspend fun followArtist(id: String)
 
     suspend fun unfollowArtist(id: String)
+
+    suspend fun fetchRecommendations(danceability: Float,
+                                     energy: Float,
+                                     speechiness: Float,
+                                     acousticness: Float,
+                                     instrumentalness: Float,
+                                     liveness: Float,
+                                     valence: Float,
+                                     tempo: Float,
+                                     seedTrackId: String): Result<RecommendationsObject>
 }

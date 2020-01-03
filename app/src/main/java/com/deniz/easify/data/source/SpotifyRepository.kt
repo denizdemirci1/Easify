@@ -23,7 +23,7 @@ class SpotifyRepository(private val service: SpotifyService) : Repository {
 
     override suspend fun fetchTrack(q: String): Result<TracksObject> {
         return try {
-            val track = service.fetchTrack(q)
+            val track = service.fetchTrack("$q*")
             Result.Success(track)
         } catch (e: Exception) {
             Result.Error(e)
@@ -110,6 +110,25 @@ class SpotifyRepository(private val service: SpotifyService) : Repository {
     override suspend fun unfollowArtist(id: String) {
         try {
             service.unfollowArtist(id = id)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun fetchRecommendations(
+        danceability: Float,
+        energy: Float,
+        speechiness: Float,
+        acousticness: Float,
+        instrumentalness: Float,
+        liveness: Float,
+        valence: Float,
+        tempo: Float,
+        seedTrackId: String
+    ): Result<RecommendationsObject> {
+        return try {
+            val recommendations = service.fetchRecommendations(seedTrackId, acousticness, danceability, energy, instrumentalness, liveness, speechiness, tempo, valence)
+            Result.Success(recommendations)
         } catch (e: Exception) {
             Result.Error(e)
         }

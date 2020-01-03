@@ -1,6 +1,7 @@
 package com.deniz.easify.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 /**
  * @User: deniz.demirci
@@ -18,4 +19,4 @@ data class Album(
     val name: String,
     @SerializedName("uri")
     val uri: String
-)
+): Serializable

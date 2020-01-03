@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewmodel"
-            type="com.deniz.easify.ui.profile.followings.follow.FollowViewModel" />
+            type="com.deniz.easify.ui.search.features.discover.recommended.RecommendedTracksViewModel" />
 
     </data>
 
@@ -20,22 +23,17 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
-            android:layout_margin="16dp"
-            android:background="@color/colorSpotifyBlack"
+            android:background="@color/colorBackgroundLight"
 
             app:layout_constraintTop_toTopOf="parent">
 
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/search"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:hint="@string/search"
-                android:textColorHint="@color/colorSpotifyWhite"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                tools:text="Found 13 Tracks"
                 android:textColor="@color/colorSpotifyWhite"
-                android:textAlignment="center"
-                android:maxLines="1"
-                android:background="@drawable/bg_search"
-                android:inputType="textCapWords"
 
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -44,13 +42,22 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewmodel.recommendedTracks.empty ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/artistsRecyclerView"
+            android:id="@+id/tracks_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:artists="@{viewmodel.artists}"
+            app:recommendations="@{viewmodel.recommendedTracks}"
 
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintBottom_toBottomOf="parent"/>

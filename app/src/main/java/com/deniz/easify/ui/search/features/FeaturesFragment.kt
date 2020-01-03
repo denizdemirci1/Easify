@@ -78,49 +78,49 @@ class FeaturesFragment : Fragment() {
     private fun setDanceability(value: Float) {
         val text = String.format(
             resources.getString(R.string.fragment_features_danceability),
-            value)
+            value * 100)
         binding.danceability.text = text
     }
 
     private fun setEnergy(value: Float) {
         val text = String.format(
             resources.getString(R.string.fragment_features_energy),
-            value)
+            value * 100)
         binding.energy.text = text
     }
 
     private fun setSpeechiness(value: Float) {
         val text = String.format(
             resources.getString(R.string.fragment_features_speechiness),
-            value)
+            value * 100)
         binding.speechiness.text = text
     }
 
     private fun setAcousticness(value: Float) {
         val text = String.format(
             resources.getString(R.string.fragment_features_acousticness),
-            value)
+            value * 100)
         binding.acousticness.text = text
     }
 
     private fun setInstrumentalness(value: Float) {
         val text = String.format(
             resources.getString(R.string.fragment_features_instrumentalness),
-            value)
+            value * 100)
         binding.instrumentalness.text = text
     }
 
     private fun setLiveness(value: Float) {
         val text = String.format(
             resources.getString(R.string.fragment_features_liveness),
-            value)
+            value * 100)
         binding.liveness.text = text
     }
 
     private fun setValence(value: Float) {
         val text = String.format(
             resources.getString(R.string.fragment_features_valence),
-            value)
+            value * 100)
         binding.valence.text = text
     }
 

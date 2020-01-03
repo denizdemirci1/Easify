@@ -21,6 +21,21 @@ interface SpotifyService {
         const val query_device_id = "device_id"
         const val query_time_range = "time_range"
 
+        //region recommendations
+        const val query_seed_tracks = "seed_tracks"
+
+        const val query_min_acousticness = "min_acousticness"
+        const val query_max_acousticness = "max_acousticness"
+        const val query_target_acousticness = "target_acousticness"
+        const val query_target_danceability = "target_danceability"
+        const val query_target_energy = "target_energy"
+        const val query_target_instrumentalness = "target_instrumentalness"
+        const val query_target_liveness = "target_liveness"
+        const val query_target_speechiness = "target_speechiness"
+        const val query_target_tempo = "target_tempo"
+        const val query_target_valence = "target_valence"
+        //endregion
+
         const val path_type = "type"
         const val path_id = "id"
     }
@@ -86,4 +101,17 @@ interface SpotifyService {
         @Query(query_type) type: String = "artist",
         @Query(query_limit) limit: Int = 50
     ): ArtistsResponse
+
+    @GET("recommendations")
+    suspend fun fetchRecommendations(
+        @Query(query_seed_tracks) seedTrackId: String,
+        @Query(query_target_acousticness) acousticness: Float,
+        @Query(query_target_danceability) danceability: Float,
+        @Query(query_target_energy) energy: Float,
+        @Query(query_target_instrumentalness) instrumentalness: Float,
+        @Query(query_target_liveness) liveness: Float,
+        @Query(query_target_speechiness) speechiness: Float,
+        @Query(query_target_tempo) tempo: Float,
+        @Query(query_target_valence) valence: Float
+    ): RecommendationsObject
 }
