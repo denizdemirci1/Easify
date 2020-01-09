@@ -18,14 +18,10 @@ interface SpotifyService {
         const val query_type = "type"
         const val query_ids = "ids"
         const val query_limit = "limit"
-        const val query_device_id = "device_id"
         const val query_time_range = "time_range"
 
         //region recommendations
         const val query_seed_tracks = "seed_tracks"
-
-        const val query_min_acousticness = "min_acousticness"
-        const val query_max_acousticness = "max_acousticness"
         const val query_target_acousticness = "target_acousticness"
         const val query_target_danceability = "target_danceability"
         const val query_target_energy = "target_energy"

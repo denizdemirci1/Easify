@@ -1,6 +1,7 @@
 package com.deniz.easify.ui.search.features.discover
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,6 +67,7 @@ class DiscoverFragment : Fragment() {
         binding.tempoSeek.onProgressChanged { setTempo(it) }
 
         binding.discover.setOnClickListener {
+            it.isEnabled = false
             viewModel.fetchRecommendations(
                 binding.danceabilitySeek.progress.toFloat(),
                 binding.energySeek.progress.toFloat(),

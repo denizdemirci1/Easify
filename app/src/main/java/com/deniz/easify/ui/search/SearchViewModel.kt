@@ -38,6 +38,9 @@ class SearchViewModel(
                         val tracksToShow = ArrayList<Track>()
                         tracksToShow.clear()
                         tracksToShow.addAll(result.data.tracks.items)
+                        tracksToShow.filter { track ->
+                            track.name.contains(q) || track.artists[0].name.contains(q)
+                        }
                         _trackList.value = ArrayList(tracksToShow)
                     }
                     is Error -> _errorMessage.value = parseNetworkError(result.exception)

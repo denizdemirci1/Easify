@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.observe
 import com.afollestad.materialdialogs.MaterialDialog
+import com.deniz.easify.BuildConfig
 import com.deniz.easify.R
 import com.deniz.easify.ui.main.MainActivity
 import com.spotify.sdk.android.authentication.AuthenticationClient
@@ -45,7 +46,7 @@ class SplashActivity : AppCompatActivity() {
     private fun setObservers() {
         viewModel.authenticate.observe(this) {
             val builder = AuthenticationRequest.Builder(
-                resources.getString(R.string.spotify_client_id),
+                BuildConfig.SPOTIFY_CLIENT_ID,
                 AuthenticationResponse.Type.TOKEN,
                 resources.getString(R.string.spotify_uri_callback)
             )

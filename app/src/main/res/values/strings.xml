@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">Easify</string>
 
+    <string name="com_spotify_sdk_redirect_scheme">com.deniz.easify</string>
+    <string name="com_spotify_sdk_redirect_host">callback</string>
 
+    <string name="spotify_uri_callback">com.deniz.easify://callback</string>
 
     <string name="dialog_error_title">Ups</string>
     <string name="dialog_positive_button_text">Try Again</string>

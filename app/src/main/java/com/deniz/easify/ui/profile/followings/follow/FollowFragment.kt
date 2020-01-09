@@ -55,7 +55,12 @@ class FollowFragment : Fragment() {
             binding.search.hint = if (!focused) getString(R.string.search) else ""
         }
 
+        binding.clear.setOnClickListener {
+            binding.search.setText("")
+        }
+
         binding.search.afterTextChanged { input ->
+            binding.clear.visibility = if (input.isNotEmpty()) View.VISIBLE else View.GONE
             viewModel.fetchArtists(input)
         }
     }

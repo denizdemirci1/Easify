@@ -31,13 +31,18 @@ class DiscoverViewModel(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
+    private val _showDiscoverButton = MutableLiveData<Boolean>().apply { value = true }
+    val showDiscoverButton: LiveData<Boolean> = _showDiscoverButton
+
     private var seedTrackId: String? = null
 
     fun start(features: FeaturesObject?) {
         features?.let {
             _trackFeatures.value = it
             seedTrackId = it.id
+            return
         }
+        _showDiscoverButton.value = false
     }
 
     fun fetchRecommendations(

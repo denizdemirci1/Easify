@@ -47,7 +47,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupNavigation()
         setupListeners()
         setupObservers()
     }
@@ -62,23 +61,29 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun setupNavigation() {
-        viewModel.openTrackEvent.observe(this, EventObserver {
-            openFeaturesFragment(it)
-        })
-    }
-
     private fun setupListeners() {
         binding.search.setOnFocusChangeListener { _, focused ->
             binding.search.hint = if (!focused) getString(R.string.search) else ""
         }
 
+        binding.clear.setOnClickListener {
+            binding.search.setText("")
+        }
+
         binding.search.afterTextChanged { input ->
-            viewModel.fetchSongs(input)
+            binding.clear.visibility = if (input.isNotEmpty()) View.VISIBLE else View.GONE
+            binding.search.hint = if (input.isEmpty()) getString(R.string.search) else ""
+
+            if (input.length > 1)
+                viewModel.fetchSongs(input)
         }
     }
 
     private fun setupObservers() {
+        viewModel.openTrackEvent.observe(this, EventObserver {
+            openFeaturesFragment(it)
+        })
+
         viewModel.trackList.observe(this, Observer {
             setupTrackAdapter()
         })

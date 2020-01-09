@@ -7,9 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import com.bumptech.glide.Glide
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.User
 import com.deniz.easify.databinding.FragmentProfileBinding
+import kotlinx.android.synthetic.main.fragment_profile.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -47,7 +49,7 @@ class ProfileFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.user.observe(this) { user ->
-            setupUserFollowerCount(user)
+            setupUserInfo(user)
         }
     }
 
@@ -61,7 +63,14 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun setupUserFollowerCount(user: User) {
+    private fun setupUserInfo(user: User) {
+        // Profile Image
+        view?.context?.let { context ->
+            if (user.images.isNotEmpty())
+                Glide.with(context).load(user.images[0].url).into(profilePicture)
+        }
+
+        // Follower Count
         String.format(
             resources.getString(R.string.fragment_artist_follower_count),
             user.followers.total

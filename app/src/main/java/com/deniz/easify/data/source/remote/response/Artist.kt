@@ -29,5 +29,5 @@ data class Artist(
     data class Follower(
         @SerializedName("total")
         val total: Int
-    )
+    ) : Serializable
 }

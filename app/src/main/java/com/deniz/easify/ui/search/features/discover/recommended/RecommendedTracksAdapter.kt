@@ -16,9 +16,9 @@ import com.deniz.easify.databinding.ViewholderRecommendedTracksBinding
 class RecommendedTracksAdapter(private val viewModel: RecommendedTracksViewModel) :
     ListAdapter<Track, RecommendedTracksAdapter.ViewHolder>(RecommendedTrackDiffCallback()) {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val artist = getItem(position)
+        val track = getItem(position)
 
-        holder.bind(viewModel, artist)
+        holder.bind(viewModel, track)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
