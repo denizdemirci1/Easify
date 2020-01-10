@@ -3,14 +3,67 @@
     xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
     app:startDestination="@id/searchFragment">
 
+    <!-- Start of Search Fragment and its flow -->
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.deniz.easify.ui.search.SearchFragment"
         android:label="SearchFragment" >
         <action
             android:id="@+id/action_searchFragment_to_featuresFragment"
-            app:destination="@id/featuresFragment" />
+            app:destination="@id/featuresFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/featuresFragment"
+        android:name="com.deniz.easify.ui.search.features.FeaturesFragment"
+        android:label="FeaturesFragment">
+        <argument
+            android:name="track"
+            app:argType="com.deniz.easify.data.source.remote.response.Track"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_featuresFragment_to_discoverFragment"
+            app:destination="@id/discoverFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/discoverFragment"
+        android:name="com.deniz.easify.ui.search.features.discover.DiscoverFragment"
+        android:label="DiscoverFragment" >
+        <argument
+            android:name="features"
+            app:argType="com.deniz.easify.data.source.remote.response.FeaturesObject"
+            app:nullable="true"
+            android:defaultValue="@null" />
+        <action
+            android:id="@+id/action_discoverFragment_to_recommendedTracksFragment"
+            app:destination="@id/recommendedTracksFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/recommendedTracksFragment"
+        android:name="com.deniz.easify.ui.search.features.discover.recommended.RecommendedTracksFragment"
+        android:label="RecommendedTracksFragment" >
+        <argument
+            android:name="recommendations"
+            app:argType="com.deniz.easify.data.source.remote.response.RecommendationsObject"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <!-- End of Search Fragment and its flow -->
+
 
     <fragment
         android:id="@+id/trackFragment"
@@ -23,6 +76,7 @@
             android:defaultValue="@null" />
     </fragment>
 
+    <!-- Start of Profile Fragment and its flow -->
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.deniz.easify.ui.profile.ProfileFragment"
@@ -91,6 +145,7 @@
             app:argType="com.deniz.easify.data.source.remote.response.TopTrack"
             app:nullable="true" />
     </fragment>
+
     <fragment
         android:id="@+id/followedArtistsFragment"
         android:name="com.deniz.easify.ui.profile.followings.FollowedArtistsFragment"
@@ -110,6 +165,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
     <fragment
         android:id="@+id/followFragment"
         android:name="com.deniz.easify.ui.profile.followings.follow.FollowFragment"
@@ -122,6 +178,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+
     <fragment
         android:id="@+id/artistFragment"
         android:name="com.deniz.easify.ui.profile.followings.artist.ArtistFragment"
@@ -132,41 +189,5 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
-    <fragment
-        android:id="@+id/featuresFragment"
-        android:name="com.deniz.easify.ui.search.features.FeaturesFragment"
-        android:label="FeaturesFragment">
-        <argument
-            android:name="track"
-            app:argType="com.deniz.easify.data.source.remote.response.Track"
-            app:nullable="true" />
-        <action
-            android:id="@+id/action_featuresFragment_to_discoverFragment"
-            app:destination="@id/discoverFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/discoverFragment"
-        android:name="com.deniz.easify.ui.search.features.discover.DiscoverFragment"
-        android:label="DiscoverFragment" >
-        <argument
-            android:name="features"
-            app:argType="com.deniz.easify.data.source.remote.response.FeaturesObject"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <action
-            android:id="@+id/action_discoverFragment_to_recommendedTracksFragment"
-            app:destination="@id/recommendedTracksFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/recommendedTracksFragment"
-        android:name="com.deniz.easify.ui.search.features.discover.recommended.RecommendedTracksFragment"
-        android:label="RecommendedTracksFragment" >
-        <argument
-            android:name="recommendations"
-            app:argType="com.deniz.easify.data.source.remote.response.RecommendationsObject"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
-
 
 </navigation>
