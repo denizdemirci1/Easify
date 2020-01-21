@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:layout_margin="16dp"
-            android:background="@color/colorSpotifyBlack"
+            android:background="@drawable/bg_search"
 
             app:layout_constraintTop_toTopOf="parent">
 
@@ -34,17 +34,19 @@
                 android:textColor="@color/colorSpotifyWhite"
                 android:textAlignment="center"
                 android:maxLines="1"
-                android:background="@drawable/bg_search"
+                android:paddingStart="16dp"
+                android:paddingEnd="4dp"
                 android:inputType="textCapWords"
+                android:background="@drawable/bg_search"
 
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/clear"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/clear"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_clear"
@@ -52,7 +54,7 @@
 
                 app:layout_constraintTop_toTopOf="@id/search"
                 app:layout_constraintBottom_toBottomOf="@id/search"
-                app:layout_constraintEnd_toEndOf="@id/search"/>
+                app:layout_constraintEnd_toEndOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
