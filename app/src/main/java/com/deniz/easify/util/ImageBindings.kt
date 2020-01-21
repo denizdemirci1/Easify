@@ -3,9 +3,6 @@ package com.deniz.easify.util
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
-import com.deniz.easify.R
-import com.deniz.easify.data.source.remote.response.User
-import com.makeramen.roundedimageview.RoundedImageView
 
 /**
  * @User: deniz.demirci

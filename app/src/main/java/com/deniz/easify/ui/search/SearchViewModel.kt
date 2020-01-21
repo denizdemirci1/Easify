@@ -1,5 +1,6 @@
 package com.deniz.easify.ui.search
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -30,12 +31,17 @@ class SearchViewModel(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    val tracksToShow = ArrayList<Track>()
+
     fun fetchSongs(q: String) {
+        if (q.length < 2)
+            return
+
         viewModelScope.launch {
             repository.fetchTrack(q).let { result ->
                 when (result) {
                     is Success -> {
-                        val tracksToShow = ArrayList<Track>()
                         tracksToShow.clear()
                         tracksToShow.addAll(result.data.tracks.items)
                         tracksToShow.filter { track ->

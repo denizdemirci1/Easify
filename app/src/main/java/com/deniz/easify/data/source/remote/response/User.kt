@@ -18,8 +18,6 @@ data class User(
     val externalUrls: ExternalUrl,
     @SerializedName("followers")
     val followers: Follower,
-    @SerializedName("href")
-    val href: String,
     @SerializedName("id")
     val id: String,
     @SerializedName("images")

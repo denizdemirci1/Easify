@@ -15,4 +15,4 @@ data class Image(
     val url: String,
     @SerializedName("width")
     val width: Int
-): Serializable
+) : Serializable

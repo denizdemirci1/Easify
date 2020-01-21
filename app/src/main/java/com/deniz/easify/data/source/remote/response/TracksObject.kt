@@ -9,5 +9,5 @@ import com.google.gson.annotations.SerializedName
 
 data class TracksObject(
     @SerializedName("tracks")
-    val tracks: Tracks
+    var tracks: Tracks
 )

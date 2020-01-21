@@ -19,4 +19,4 @@ data class Album(
     val name: String,
     @SerializedName("uri")
     val uri: String
-): Serializable
+) : Serializable

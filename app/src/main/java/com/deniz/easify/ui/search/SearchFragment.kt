@@ -73,9 +73,7 @@ class SearchFragment : Fragment() {
         binding.search.afterTextChanged { input ->
             binding.clear.visibility = if (input.isNotEmpty()) View.VISIBLE else View.GONE
             binding.search.hint = if (input.isEmpty()) getString(R.string.search) else ""
-
-            if (input.length > 1)
-                viewModel.fetchSongs(input)
+            viewModel.fetchSongs(input)
         }
     }
 

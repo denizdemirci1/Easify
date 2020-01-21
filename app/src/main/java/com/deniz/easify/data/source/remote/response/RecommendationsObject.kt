@@ -11,4 +11,4 @@ import java.io.Serializable
 data class RecommendationsObject(
     @SerializedName("tracks")
     val tracks: ArrayList<Track>
-): Serializable
+) : Serializable

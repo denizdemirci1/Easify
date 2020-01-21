@@ -17,7 +17,7 @@ class RecommendedTracksViewModel : ViewModel() {
     private val _recommendedTracks = MutableLiveData<ArrayList<Track>>().apply { value = arrayListOf() }
     val recommendedTracks: LiveData<ArrayList<Track>> = _recommendedTracks
 
-    private val _openTrackFragmentEvent= MutableLiveData<Event<Track>>()
+    private val _openTrackFragmentEvent = MutableLiveData<Event<Track>>()
     val openTrackFragmentEvent: LiveData<Event<Track>> = _openTrackFragmentEvent
 
     fun start(recommendations: RecommendationsObject?) {

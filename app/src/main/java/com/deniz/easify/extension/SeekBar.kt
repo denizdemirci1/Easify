@@ -2,7 +2,6 @@ package com.deniz.easify.extension
 
 import android.widget.SeekBar
 
-
 /**
  * @User: deniz.demirci
  * @Date: 2020-01-02
