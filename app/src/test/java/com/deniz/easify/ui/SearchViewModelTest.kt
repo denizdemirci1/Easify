@@ -25,19 +25,19 @@ class SearchViewModelTest {
     @get:Rule
     var instantExecutorRule = InstantTaskExecutorRule()
 
+    // Set the main coroutines dispatcher for unit testing.
+    @ExperimentalCoroutinesApi
+    @get:Rule
+    var mainCoroutineRule = MainCoroutineRule()
+
     // Subject under test
     private lateinit var searchViewModel: SearchViewModel
 
     // Use a fake repository to be injected into the viewModel
     private val spotifyRepository = FakeRepository()
 
-    // Set the main coroutines dispatcher for unit testing.
-    @ExperimentalCoroutinesApi
-    @get:Rule
-    var mainCoroutineRule = MainCoroutineRule()
-
     @Before
-    fun setupSearchViewModel() {
+    fun setup() {
         searchViewModel = SearchViewModel(spotifyRepository)
     }
 
