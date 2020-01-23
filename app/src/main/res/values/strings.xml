@@ -62,6 +62,9 @@
     <!-- Playlist Fragment -->
     <string name="fragment_playlist_title">Your Playlists</string>
 
+    <!-- Playlist Detail Fragment -->
+    <string name="fragment_playlist_detail_removed">%s is removed from this playlist</string>
+
     <!-- Followed Artists Fragment -->
     <string name="fragment_followed_artists_title">Artists You Follow</string>
     <string name="fragment_followed_artists_follow_more">Follow More</string>

@@ -14,7 +14,7 @@ import com.deniz.easify.databinding.ViewholderPlaylistBinding
  */
 
 class PlaylistAdapter(private val viewModel: PlaylistViewModel) :
-    ListAdapter<Playlist, PlaylistAdapter.ViewHolder>(FollowedArtistsDiffCallback()) {
+    ListAdapter<Playlist, PlaylistAdapter.ViewHolder>(PlaylistsDiffCallback()) {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val playlist = getItem(position)
@@ -52,7 +52,7 @@ class PlaylistAdapter(private val viewModel: PlaylistViewModel) :
  * Used by ListAdapter to calculate the minimum number of changes between and old list and a new
  * list that's been passed to `submitList`.
  */
-class FollowedArtistsDiffCallback : DiffUtil.ItemCallback<Playlist>() {
+class PlaylistsDiffCallback : DiffUtil.ItemCallback<Playlist>() {
     override fun areItemsTheSame(oldItem: Playlist, newItem: Playlist): Boolean {
         return oldItem.id == newItem.id
     }

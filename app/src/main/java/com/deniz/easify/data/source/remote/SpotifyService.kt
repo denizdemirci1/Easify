@@ -1,6 +1,7 @@
 package com.deniz.easify.data.source.remote
 
 import com.deniz.easify.data.source.remote.request.PlayBody
+import com.deniz.easify.data.source.remote.request.RemoveTracksBody
 import com.deniz.easify.data.source.remote.response.*
 import retrofit2.http.*
 
@@ -102,6 +103,17 @@ interface SpotifyService {
     suspend fun fetchPlaylists(
         @Path(path_id) id: String
     ): PlaylistObject
+
+    @GET("playlists/{id}/tracks")
+    suspend fun fetchPlaylistTracks(
+        @Path(path_id) id: String
+    ): PlaylistTracksObject
+
+    @HTTP(method = "DELETE", path = "playlists/{id}/tracks", hasBody = true)
+    suspend fun removeTrackFromPlaylist(
+        @Path(path_id) id: String,
+        @Body removeTracksBody: RemoveTracksBody
+    )
 
     @GET("recommendations")
     suspend fun fetchRecommendations(

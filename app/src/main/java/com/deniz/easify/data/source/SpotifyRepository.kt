@@ -3,6 +3,7 @@ package com.deniz.easify.data.source
 import com.deniz.easify.data.Result
 import com.deniz.easify.data.source.remote.SpotifyService
 import com.deniz.easify.data.source.remote.request.PlayBody
+import com.deniz.easify.data.source.remote.request.RemoveTracksBody
 import com.deniz.easify.data.source.remote.response.*
 
 /**
@@ -87,6 +88,23 @@ class SpotifyRepository(private val service: SpotifyService) : Repository {
         return try {
             val playlistObject = service.fetchPlaylists(id)
             Result.Success(playlistObject)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun fetchPlaylistTracks(id: String): Result<PlaylistTracksObject> {
+        return try {
+            val playlistTracksObject = service.fetchPlaylistTracks(id)
+            Result.Success(playlistTracksObject)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun removeTrackFromPlaylist(id: String, removeTracksBody: RemoveTracksBody){
+        try {
+            service.removeTrackFromPlaylist(id, removeTracksBody)
         } catch (e: Exception) {
             Result.Error(e)
         }

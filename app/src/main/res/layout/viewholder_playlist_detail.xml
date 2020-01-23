@@ -5,30 +5,32 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
-            name="playlist"
-            type="com.deniz.easify.data.source.remote.response.Playlist" />
+            name="track"
+            type="com.deniz.easify.data.source.remote.response.Track" />
 
         <variable
             name="viewmodel"
-            type="com.deniz.easify.ui.profile.playlists.PlaylistViewModel" />
+            type="com.deniz.easify.ui.profile.playlists.detail.PlaylistDetailViewModel" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/playlist_layout"
+        android:id="@+id/track_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorSpotifyBlack"
 
-        android:onClick="@{() -> viewmodel.openPlaylist(playlist)}">
+        android:onClick="@{() -> viewmodel.openTrack(track)}">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/playlist_image"
+            android:id="@+id/track_image"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:scaleType="fitCenter"
-            app:imageUrl="@{playlist.images.get(playlist.images.size()-1).url}"
+            app:imageUrl="@{track.album.images.get(track.album.images.size()-1).url}"
 
             android:layout_margin="16dp"
 
@@ -37,20 +39,32 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/playlist_name"
+            android:id="@+id/track_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
 
-            android:text="@{playlist.name}"
+            android:text="@{track.name}"
             android:textColor="@color/colorSpotifyWhite"
             android:textStyle="bold"
             android:textSize="16sp"
 
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@id/playlist_image"
+            app:layout_constraintStart_toEndOf="@id/track_image"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_clear"
+            android:visibility="@{viewmodel.editable ? View.VISIBLE : View.GONE}"
+
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
 

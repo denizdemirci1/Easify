@@ -2,6 +2,7 @@ package com.deniz.easify.data.source
 
 import com.deniz.easify.data.Result
 import com.deniz.easify.data.source.remote.request.PlayBody
+import com.deniz.easify.data.source.remote.request.RemoveTracksBody
 import com.deniz.easify.data.source.remote.response.*
 
 /**
@@ -34,6 +35,10 @@ interface Repository {
     suspend fun unfollowArtist(id: String)
 
     suspend fun fetchPlaylists(id: String): Result<PlaylistObject>
+
+    suspend fun fetchPlaylistTracks(id: String): Result<PlaylistTracksObject>
+
+    suspend fun removeTrackFromPlaylist(id: String, removeTracksBody: RemoveTracksBody)
 
     suspend fun fetchRecommendations(
         danceability: Float,

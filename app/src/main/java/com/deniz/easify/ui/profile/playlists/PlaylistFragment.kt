@@ -1,5 +1,7 @@
 package com.deniz.easify.ui.profile.playlists
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,8 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import com.deniz.easify.R
+import com.deniz.easify.data.source.remote.response.Playlist
 import com.deniz.easify.databinding.FragmentPlaylistBinding
+import com.deniz.easify.util.EventObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -50,6 +55,10 @@ class PlaylistFragment : Fragment() {
         viewModel.playlists.observe(this) {
             setupPlaylistAdapter()
         }
+
+        viewModel.openPlaylistEvent.observe(this, EventObserver {
+            openPlaylistDetailFragment(it.first, it.second)
+        })
     }
 
     private fun setupPlaylistAdapter() {
@@ -60,5 +69,10 @@ class PlaylistFragment : Fragment() {
         } else {
             Log.i("SearchFragment", "ViewModel not initialized when attempting to set up adapter.")
         }
+    }
+
+    private fun openPlaylistDetailFragment(playlist: Playlist, editable: Boolean) {
+        val action = PlaylistFragmentDirections.actionPlaylistFragmentToPlaylistDetailFragment(playlist, editable)
+        findNavController().navigate(action)
     }
 }
