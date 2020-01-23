@@ -1,8 +1,8 @@
 package com.deniz.easify.data
 
+import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.remote.request.PlayBody
-import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.remote.response.*
 import io.mockk.mockk
 

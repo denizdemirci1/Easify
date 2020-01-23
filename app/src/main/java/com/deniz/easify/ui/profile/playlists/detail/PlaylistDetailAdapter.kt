@@ -35,7 +35,7 @@ class PlaylistDetailAdapter(private val viewModel: PlaylistDetailViewModel) :
             binding.track = playlistTracks.track
             binding.remove.setOnClickListener {
                 binding.trackLayout.visibility = View.GONE
-                viewModel.removeTrack(playlistTracks.track)}
+                viewModel.removeTrack(playlistTracks.track) }
             binding.executePendingBindings()
         }
 

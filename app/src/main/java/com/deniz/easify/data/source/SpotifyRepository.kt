@@ -102,7 +102,7 @@ class SpotifyRepository(private val service: SpotifyService) : Repository {
         }
     }
 
-    override suspend fun removeTrackFromPlaylist(id: String, removeTracksBody: RemoveTracksBody){
+    override suspend fun removeTrackFromPlaylist(id: String, removeTracksBody: RemoveTracksBody) {
         try {
             service.removeTrackFromPlaylist(id, removeTracksBody)
         } catch (e: Exception) {

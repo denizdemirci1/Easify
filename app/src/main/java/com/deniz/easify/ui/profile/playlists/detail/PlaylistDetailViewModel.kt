@@ -5,16 +5,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.deniz.easify.data.source.Repository
-import com.deniz.easify.data.source.remote.response.PlaylistTracks
-import com.deniz.easify.data.source.remote.response.Track
-import com.deniz.easify.util.Event
-import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.Result.Error
+import com.deniz.easify.data.Result.Success
+import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.remote.parseNetworkError
 import com.deniz.easify.data.source.remote.request.RemoveTracksBody
 import com.deniz.easify.data.source.remote.request.Uri
 import com.deniz.easify.data.source.remote.response.Playlist
+import com.deniz.easify.data.source.remote.response.PlaylistTracks
+import com.deniz.easify.data.source.remote.response.Track
+import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
 /**
@@ -45,7 +45,7 @@ class PlaylistDetailViewModel(
     val showSnackbarMessage: LiveData<Event<String>> = _showSnackbarMessage
 
     private val playlistsTracksToShow = ArrayList<PlaylistTracks>()
-    private lateinit var playlistId : String
+    private lateinit var playlistId: String
 
     fun start(playlist: Playlist?, editable: Boolean) {
         playlist?.let {

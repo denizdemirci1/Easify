@@ -1,7 +1,5 @@
 package com.deniz.easify.ui.profile.playlists
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -67,7 +65,7 @@ class PlaylistFragment : Fragment() {
             playlistAdapter = PlaylistAdapter(viewModel)
             binding.playlistsRecyclerView.adapter = playlistAdapter
         } else {
-            Log.i("SearchFragment", "ViewModel not initialized when attempting to set up adapter.")
+            Log.i("PlaylistFragment", "ViewModel not initialized when attempting to set up adapter.")
         }
     }
 

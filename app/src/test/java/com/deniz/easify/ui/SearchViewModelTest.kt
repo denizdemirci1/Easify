@@ -10,8 +10,6 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
-import org.robolectric.RobolectricTestRunner
 
 /**
  * @User: deniz.demirci
@@ -84,5 +82,4 @@ class SearchViewModelTest {
         // Then the [trackToShow] is populated
         Truth.assertThat(searchViewModel.tracksToShow).isEmpty()
     }
-
 }
