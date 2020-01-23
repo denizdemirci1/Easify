@@ -83,6 +83,15 @@ class SpotifyRepository(private val service: SpotifyService) : Repository {
         }
     }
 
+    override suspend fun fetchPlaylists(id: String): Result<PlaylistObject> {
+        return try {
+            val playlistObject = service.fetchPlaylists(id)
+            Result.Success(playlistObject)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
     override suspend fun play(playBody: PlayBody) {
         try {
             service.play(playBody)

@@ -32,7 +32,9 @@ class SplashActivity : AppCompatActivity() {
                 "user-top-read," +
                 "user-follow-read," +
                 "user-follow-modify," +
-                "user-modify-playback-state"
+                "user-modify-playback-state," +
+                "playlist-read-private," +
+                "playlist-read-collaborative"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

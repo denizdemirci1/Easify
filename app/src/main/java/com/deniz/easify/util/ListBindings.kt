@@ -3,11 +3,13 @@ package com.deniz.easify.util
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.deniz.easify.data.source.remote.response.Artist
+import com.deniz.easify.data.source.remote.response.Playlist
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.ui.profile.favorites.topArtists.TopArtistsAdapter
 import com.deniz.easify.ui.profile.favorites.topTracks.TopTracksAdapter
 import com.deniz.easify.ui.profile.followings.FollowedArtistsAdapter
 import com.deniz.easify.ui.profile.followings.follow.FollowAdapter
+import com.deniz.easify.ui.profile.playlists.PlaylistAdapter
 import com.deniz.easify.ui.search.TrackAdapter
 import com.deniz.easify.ui.search.features.discover.recommended.RecommendedTracksAdapter
 
@@ -48,4 +50,9 @@ fun setArtists(listView: RecyclerView, items: List<Artist>) {
 @BindingAdapter("app:recommendations")
 fun setRecommendations(listView: RecyclerView, items: List<Track>) {
     (listView.adapter as RecommendedTracksAdapter).submitList(items)
+}
+
+@BindingAdapter("app:playlists")
+fun setPlaylists(listView: RecyclerView, items: List<Playlist>) {
+    (listView.adapter as PlaylistAdapter).submitList(items)
 }

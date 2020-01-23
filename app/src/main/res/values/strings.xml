@@ -41,8 +41,10 @@
     <!-- Profile Fragment -->
     <string name="fragment_profile_favorites_label">Find out your top artists or tracks</string>
     <string name="fragment_profile_followed_artists_label">See the artists you follow and follow more</string>
+    <string name="fragment_profile_playlists_label">See and edit your playlists</string>
     <string name="fragment_profile_favorites">Favorites</string>
     <string name="fragment_profile_followed_artists">Following</string>
+    <string name="fragment_profile_playlists">Playlists</string>
 
     <!-- Favorites Fragment -->
     <string name="fragment_favorites_hint_type">Type</string>
@@ -56,6 +58,9 @@
 
     <!-- Top Tracks Fragment -->
     <string name="fragment_top_tracks_title">Your Top %d Tracks</string>
+
+    <!-- Playlist Fragment -->
+    <string name="fragment_playlist_title">Your Playlists</string>
 
     <!-- Followed Artists Fragment -->
     <string name="fragment_followed_artists_title">Artists You Follow</string>

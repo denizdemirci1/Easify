@@ -98,6 +98,11 @@ interface SpotifyService {
         @Query(query_limit) limit: Int = 50
     ): ArtistsResponse
 
+    @GET("users/{id}/playlists")
+    suspend fun fetchPlaylists(
+        @Path(path_id) id: String
+    ): PlaylistObject
+
     @GET("recommendations")
     suspend fun fetchRecommendations(
         @Query(query_seed_tracks) seedTrackId: String,

@@ -33,6 +33,8 @@ interface Repository {
 
     suspend fun unfollowArtist(id: String)
 
+    suspend fun fetchPlaylists(id: String): Result<PlaylistObject>
+
     suspend fun fetchRecommendations(
         danceability: Float,
         energy: Float,

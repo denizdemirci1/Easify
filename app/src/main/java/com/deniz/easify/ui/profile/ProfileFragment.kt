@@ -61,6 +61,10 @@ class ProfileFragment : Fragment() {
         binding.followedArtists.setOnClickListener {
             openFollowedArtistsFragment()
         }
+
+        binding.playlists.setOnClickListener {
+            openPlaylistsFragment()
+        }
     }
 
     private fun setupUserInfo(user: User) {
@@ -84,6 +88,11 @@ class ProfileFragment : Fragment() {
 
     private fun openFollowedArtistsFragment() {
         val action = ProfileFragmentDirections.actionProfileFragmentToFollowedArtistsFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun openPlaylistsFragment() {
+        val action = ProfileFragmentDirections.actionProfileFragmentToPlaylistFragment()
         findNavController().navigate(action)
     }
 }
