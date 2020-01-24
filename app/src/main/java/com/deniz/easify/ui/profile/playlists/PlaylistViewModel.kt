@@ -39,11 +39,8 @@ class PlaylistViewModel(
     private val _playlistClickedEvent = MutableLiveData<Event<Pair<Playlist, Boolean>>>()
     val playlistClickedEvent: LiveData<Event<Pair<Playlist, Boolean>>> = _playlistClickedEvent
 
-    private val _trackAddedMessage = MutableLiveData<Event<Pair<String, String>>>()
-    val trackAddedMessage: LiveData<Event<Pair<String, String>>> = _trackAddedMessage
-
-    private val _trackAlreadyExistsMessage = MutableLiveData<Event<Pair<String, String>>>()
-    val trackAlreadyExistsMessage: LiveData<Event<Pair<String, String>>> = _trackAlreadyExistsMessage
+    private val _trackAddingResult = MutableLiveData<Event<Pair<Pair<String, String>, Boolean>>>()
+    val trackAddingResult: LiveData<Event<Pair<Pair<String, String>, Boolean>>> = _trackAddingResult
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -96,13 +93,13 @@ class PlaylistViewModel(
                         // if track already exist in the playlist, return
                         for (playlistTrack in result.data.playlistTracks){
                             if (playlistTrack.track.id == track.id) {
-                                _trackAlreadyExistsMessage.value = Event(Pair(track.name, playlist.name))
+                                _trackAddingResult.value = Event(Pair(Pair(track.name, playlist.name), false))
                                 return@launch
                             }
                         }
                         // if track doesn't exist in the playlist, add
                         repository.addTrackToPlaylist(playlist.id, track.uri)
-                        _trackAddedMessage.value = Event(Pair(track.name, playlist.name))
+                        _trackAddingResult.value = Event(Pair(Pair(track.name, playlist.name), true))
                     }
                     is Result.Error -> _errorMessage.value = parseNetworkError(result.exception)
                 }

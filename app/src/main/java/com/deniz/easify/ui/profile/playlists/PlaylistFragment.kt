@@ -72,20 +72,17 @@ class PlaylistFragment : Fragment() {
             }
         })
 
-        viewModel.trackAddedMessage.observe(this, EventObserver {
-            val message = String.format(
-                resources.getString(R.string.fragment_playlist_track_added_to_playlist),
-                it.first,
-                it.second)
-            showSnackbar(message)
-        })
-
-        viewModel.trackAlreadyExistsMessage.observe(this, EventObserver {
-            val message = String.format(
-                resources.getString(R.string.fragment_playlist_track_already_exists_in_playlist),
-                it.first,
-                it.second)
-            showSnackbar(message)
+        viewModel.trackAddingResult.observe(this, EventObserver {
+            if (it.second)
+                showSnackbar(
+                    getString(R.string.fragment_playlist_track_added_to_playlist),
+                    it.first.first,
+                    it.first.second)
+            else
+                showSnackbar(
+                    getString(R.string.fragment_playlist_track_already_exists_in_playlist),
+                    it.first.first,
+                    it.first.second)
         })
     }
 
@@ -104,8 +101,13 @@ class PlaylistFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun showSnackbar(message: String) {
+    private fun showSnackbar(info: String, trackName: String, playlistName: String) {
         view?.let {
+            val message = String.format(
+                info,
+                trackName,
+                playlistName)
+
             val snackbar = Snackbar.make(it, message, Snackbar.LENGTH_LONG)
 
             // add color
