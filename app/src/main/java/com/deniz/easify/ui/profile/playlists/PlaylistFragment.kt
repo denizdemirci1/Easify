@@ -72,11 +72,19 @@ class PlaylistFragment : Fragment() {
             }
         })
 
-        viewModel.showSnackbarMessage.observe(this, EventObserver {
+        viewModel.trackAddedMessage.observe(this, EventObserver {
             val message = String.format(
                 resources.getString(R.string.fragment_playlist_track_added_to_playlist),
-                it.second,
-                it.first)
+                it.first,
+                it.second)
+            showSnackbar(message)
+        })
+
+        viewModel.trackAlreadyExistsMessage.observe(this, EventObserver {
+            val message = String.format(
+                resources.getString(R.string.fragment_playlist_track_already_exists_in_playlist),
+                it.first,
+                it.second)
             showSnackbar(message)
         })
     }

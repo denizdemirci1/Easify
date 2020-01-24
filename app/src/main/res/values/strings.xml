@@ -63,6 +63,7 @@
     <string name="fragment_playlist_title_see">Your Playlists</string>
     <string name="fragment_playlist_title_add">Pick a Playlist to Add Track</string>
     <string name="fragment_playlist_track_added_to_playlist">%s is added to %s</string>
+    <string name="fragment_playlist_track_already_exists_in_playlist">%s already exists in %s</string>
 
     <!-- Playlist Detail Fragment -->
     <string name="fragment_playlist_detail_removed">%s is removed from this playlist</string>
