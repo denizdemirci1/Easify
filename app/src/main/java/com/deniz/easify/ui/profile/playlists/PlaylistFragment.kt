@@ -14,6 +14,7 @@ import com.deniz.easify.data.source.remote.response.Playlist
 import com.deniz.easify.databinding.FragmentPlaylistBinding
 import com.deniz.easify.util.EventObserver
 import com.google.android.material.snackbar.Snackbar
+import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -49,13 +50,19 @@ class PlaylistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.start(args.track)
-        viewModel.fetchPlaylists()
         setupObservers()
     }
 
     private fun setupObservers() {
         viewModel.playlists.observe(this) {
             setupPlaylistAdapter()
+        }
+
+        viewModel.reason.observe( this) {
+            binding.title.text = when (it) {
+                PlaylistViewModel.Reason.ADD -> getString(R.string.fragment_playlist_title_add)
+                PlaylistViewModel.Reason.SEE -> getString(R.string.fragment_playlist_title_see)
+            }
         }
 
         viewModel.playlistClickedEvent.observe(this, EventObserver {

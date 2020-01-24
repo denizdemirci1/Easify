@@ -67,6 +67,9 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="16dp"
+
+            android:scrollbars="vertical"
+            android:scrollbarThumbVertical="@drawable/bg_scrollbar"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:followedArtists="@{viewmodel.artists}"
 

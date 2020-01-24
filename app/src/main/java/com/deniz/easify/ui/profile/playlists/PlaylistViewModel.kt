@@ -53,18 +53,25 @@ class PlaylistViewModel(
     fun start(track: Track?) {
         track?.let {
             _reason.value = Reason.ADD
+            fetchPlaylists(true)
             return
         }
         _reason.value = Reason.SEE
+        fetchPlaylists(false)
     }
 
-    fun fetchPlaylists() {
+    private fun fetchPlaylists(onlyEditablePlaylists: Boolean) {
         viewModelScope.launch {
             repository.fetchPlaylists(authManager.user!!.id).let { result ->
                 when (result) {
                     is Result.Success -> {
                         playlistsToShow.clear()
-                        playlistsToShow.addAll(result.data.playlists)
+                        playlistsToShow.addAll(
+                            if (onlyEditablePlaylists)
+                                result.data.playlists.filter { it.owner.id == authManager.user!!.id }
+                            else
+                                result.data.playlists
+                        )
                         _playlists.value = ArrayList(playlistsToShow)
                     }
                     is Result.Error -> _errorMessage.value = parseNetworkError(result.exception)

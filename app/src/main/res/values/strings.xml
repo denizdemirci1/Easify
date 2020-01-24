@@ -60,7 +60,8 @@
     <string name="fragment_top_tracks_title">Your Top %d Tracks</string>
 
     <!-- Playlist Fragment -->
-    <string name="fragment_playlist_title">Your Playlists</string>
+    <string name="fragment_playlist_title_see">Your Playlists</string>
+    <string name="fragment_playlist_title_add">Pick a Playlist to Add Track</string>
     <string name="fragment_playlist_track_added_to_playlist">%s is added to %s</string>
 
     <!-- Playlist Detail Fragment -->
