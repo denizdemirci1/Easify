@@ -2,10 +2,8 @@ package com.deniz.easify.util
 
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.deniz.easify.data.source.remote.response.Artist
-import com.deniz.easify.data.source.remote.response.Playlist
-import com.deniz.easify.data.source.remote.response.PlaylistTracks
-import com.deniz.easify.data.source.remote.response.Track
+import com.deniz.easify.data.source.remote.response.*
+import com.deniz.easify.ui.history.HistoryAdapter
 import com.deniz.easify.ui.profile.favorites.topArtists.TopArtistsAdapter
 import com.deniz.easify.ui.profile.favorites.topTracks.TopTracksAdapter
 import com.deniz.easify.ui.profile.followings.FollowedArtistsAdapter
@@ -37,6 +35,11 @@ fun setTopArtists(listView: RecyclerView, items: List<Artist>) {
 @BindingAdapter("app:tracks")
 fun setTopTracks(listView: RecyclerView, items: List<Track>) {
     (listView.adapter as TopTracksAdapter).submitList(items)
+}
+
+@BindingAdapter("app:tracks")
+fun setRecentlyPlayedTracks(listView: RecyclerView, items: List<History>) {
+    (listView.adapter as HistoryAdapter).submitList(items)
 }
 
 @BindingAdapter("app:followedArtists")

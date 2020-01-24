@@ -1,29 +1,29 @@
-package com.deniz.easify.ui.search
+package com.deniz.easify.ui.history
 
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.deniz.easify.data.Result.Error
-import com.deniz.easify.data.Result.Success
+import com.deniz.easify.data.Result
 import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.remote.parseNetworkError
+import com.deniz.easify.data.source.remote.response.History
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
 /**
  * @User: deniz.demirci
- * @Date: 2019-11-25
+ * @Date: 2020-01-24
  */
 
-class SearchViewModel(
+class HistoryViewModel(
     private val repository: Repository
 ) : ViewModel() {
 
-    private val _trackList = MutableLiveData<ArrayList<Track>>().apply { value = arrayListOf() }
-    val trackList: LiveData<ArrayList<Track>> = _trackList
+    private val _historyList = MutableLiveData<ArrayList<History>>().apply { value = arrayListOf() }
+    val historyList: LiveData<ArrayList<History>> = _historyList
 
     private val _openTrackEvent = MutableLiveData<Event<Track>>()
     val openTrackEvent: LiveData<Event<Track>> = _openTrackEvent
@@ -35,24 +35,18 @@ class SearchViewModel(
     val errorMessage: LiveData<String> = _errorMessage
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    val tracksToShow = ArrayList<Track>()
+    val historyToShow = ArrayList<History>()
 
-    fun fetchSongs(q: String) {
-        if (q.length < 2)
-            return
-
+    fun fetchRecentlyPlayedSongs() {
         viewModelScope.launch {
-            repository.fetchTrack(q).let { result ->
+            repository.fetchRecentlyPlayed().let { result ->
                 when (result) {
-                    is Success -> {
-                        tracksToShow.clear()
-                        tracksToShow.addAll(result.data.tracks.items)
-                        tracksToShow.filter { track ->
-                            track.name.contains(q) || track.artists[0].name.contains(q)
-                        }
-                        _trackList.value = ArrayList(tracksToShow)
+                    is Result.Success -> {
+                        historyToShow.clear()
+                        historyToShow.addAll(result.data.history.filter { it.track.album.images.isNotEmpty() })
+                        _historyList.value = ArrayList(historyToShow)
                     }
-                    is Error -> _errorMessage.value = parseNetworkError(result.exception)
+                    is Result.Error -> _errorMessage.value = parseNetworkError(result.exception)
                 }
             }
         }

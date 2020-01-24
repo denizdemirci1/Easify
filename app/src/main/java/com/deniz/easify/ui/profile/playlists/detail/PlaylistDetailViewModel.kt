@@ -55,9 +55,10 @@ class PlaylistDetailViewModel(
 
             return
         }
-        Log.i("PlaylistDetailViewModel", "missing playlist id")
+        Log.i("PlaylistDetailViewModel", "missing playlist object")
     }
 
+    // TODO: fetches 100 songs at once. Fix this issue
     private fun fetchPlaylistTracks(playlistId: String) {
         viewModelScope.launch {
             repository.fetchPlaylistTracks(playlistId).let { result ->

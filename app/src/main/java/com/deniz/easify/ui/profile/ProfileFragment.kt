@@ -92,7 +92,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun openPlaylistsFragment() {
-        val action = ProfileFragmentDirections.actionProfileFragmentToPlaylistFragment()
+        val action = ProfileFragmentDirections.actionProfileFragmentToPlaylistFragment(track = null)
         findNavController().navigate(action)
     }
 }

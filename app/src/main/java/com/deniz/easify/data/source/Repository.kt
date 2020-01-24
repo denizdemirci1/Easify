@@ -16,6 +16,8 @@ interface Repository {
 
     suspend fun fetchTrack(q: String): Result<TracksObject>
 
+    suspend fun fetchRecentlyPlayed(): Result<HistoryObject>
+
     suspend fun fetchTrackFeatures(id: String): Result<FeaturesObject>
 
     suspend fun fetchArtists(q: String): Result<ArtistsResponse>
@@ -39,6 +41,8 @@ interface Repository {
     suspend fun fetchPlaylistTracks(id: String): Result<PlaylistTracksObject>
 
     suspend fun removeTrackFromPlaylist(id: String, removeTracksBody: RemoveTracksBody)
+
+    suspend fun addTrackToPlaylist(id: String, uris: String)
 
     suspend fun fetchRecommendations(
         danceability: Float,

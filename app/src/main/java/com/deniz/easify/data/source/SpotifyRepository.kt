@@ -31,6 +31,15 @@ class SpotifyRepository(private val service: SpotifyService) : Repository {
         }
     }
 
+    override suspend fun fetchRecentlyPlayed(): Result<HistoryObject> {
+        return try {
+            val history = service.fetchRecentlyPlayed()
+            Result.Success(history)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
     override suspend fun fetchTrackFeatures(id: String): Result<FeaturesObject> {
         return try {
             val trackFeatures = service.fetchTrackFeatures(id)
@@ -105,6 +114,14 @@ class SpotifyRepository(private val service: SpotifyService) : Repository {
     override suspend fun removeTrackFromPlaylist(id: String, removeTracksBody: RemoveTracksBody) {
         try {
             service.removeTrackFromPlaylist(id, removeTracksBody)
+        } catch (e: Exception) {
+            Result.Error(e)
+        }
+    }
+
+    override suspend fun addTrackToPlaylist(id: String, uris: String) {
+        try {
+            service.addTrackToPlaylist(id, uris)
         } catch (e: Exception) {
             Result.Error(e)
         }

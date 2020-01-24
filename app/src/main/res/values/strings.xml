@@ -12,7 +12,7 @@
     <string name="dialog_ok">OK</string>
 
     <string name="search">Search</string>
-    <string name="track">Track</string>
+    <string name="history">History</string>
     <string name="profile">Profile</string>
 
     <!-- Features Fragment -->
@@ -35,8 +35,8 @@
 
     <string name="fragment_discover_title">Search For Your Taste</string>
 
-    <!-- Track Fragment -->
-    <string name="fragment_track_playing_from">PLAYING FROM ALBUM</string>
+    <!-- History Fragment -->
+    <string name="fragment_history_title">Recently Played</string>
 
     <!-- Profile Fragment -->
     <string name="fragment_profile_favorites_label">Find out your top artists or tracks</string>
@@ -61,6 +61,7 @@
 
     <!-- Playlist Fragment -->
     <string name="fragment_playlist_title">Your Playlists</string>
+    <string name="fragment_playlist_track_added_to_playlist">%s is added to %s</string>
 
     <!-- Playlist Detail Fragment -->
     <string name="fragment_playlist_detail_removed">%s is removed from this playlist</string>

@@ -18,6 +18,7 @@ interface SpotifyService {
         const val query_q = "q"
         const val query_type = "type"
         const val query_ids = "ids"
+        const val query_uris = "uris"
         const val query_limit = "limit"
         const val query_time_range = "time_range"
 
@@ -35,6 +36,7 @@ interface SpotifyService {
 
         const val path_type = "type"
         const val path_id = "id"
+        const val playlist_id = "playlist_id"
     }
 
     @GET("me")
@@ -46,6 +48,12 @@ interface SpotifyService {
         @Query(query_type) type: String = "track",
         @Query(query_limit) limit: Int = 50
     ): TracksObject
+
+    @GET("me/player/recently-played")
+    suspend fun fetchRecentlyPlayed(
+        @Query(query_type) type: String = "track",
+        @Query(query_limit) limit: Int = 50
+    ): HistoryObject
 
     @GET("audio-features/{id}")
     suspend fun fetchTrackFeatures(
@@ -113,6 +121,12 @@ interface SpotifyService {
     suspend fun removeTrackFromPlaylist(
         @Path(path_id) id: String,
         @Body removeTracksBody: RemoveTracksBody
+    )
+
+    @POST("playlists/{playlist_id}/tracks")
+    suspend fun addTrackToPlaylist(
+        @Path(playlist_id) id: String,
+        @Query(query_uris) uris: String
     )
 
     @GET("recommendations")

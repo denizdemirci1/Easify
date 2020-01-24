@@ -82,6 +82,10 @@ class SearchFragment : Fragment() {
             openFeaturesFragment(it)
         })
 
+        viewModel.openPlaylistsPageEvent.observe(this, EventObserver {
+            openPlaylistFragment(it)
+        })
+
         viewModel.trackList.observe(this, Observer {
             setupTrackAdapter()
         })
@@ -89,6 +93,11 @@ class SearchFragment : Fragment() {
 
     private fun openFeaturesFragment(track: Track) {
         val action = SearchFragmentDirections.actionSearchFragmentToFeaturesFragment(track)
+        findNavController().navigate(action)
+    }
+
+    private fun openPlaylistFragment(track: Track) {
+        val action = SearchFragmentDirections.actionSearchFragmentToPlaylistFragment(track)
         findNavController().navigate(action)
     }
 }

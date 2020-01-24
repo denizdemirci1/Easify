@@ -5,6 +5,7 @@ import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.SpotifyRepository
 import com.deniz.easify.data.source.remote.SpotifyInterceptor
 import com.deniz.easify.data.source.remote.SpotifyService
+import com.deniz.easify.ui.history.HistoryViewModel
 import com.deniz.easify.ui.profile.ProfileViewModel
 import com.deniz.easify.ui.profile.favorites.FavoritesViewModel
 import com.deniz.easify.ui.profile.favorites.topArtists.TopArtistsViewModel
@@ -19,7 +20,6 @@ import com.deniz.easify.ui.search.features.FeaturesViewModel
 import com.deniz.easify.ui.search.features.discover.DiscoverViewModel
 import com.deniz.easify.ui.search.features.discover.recommended.RecommendedTracksViewModel
 import com.deniz.easify.ui.splash.SplashViewModel
-import com.deniz.easify.ui.track.TrackViewModel
 import com.deniz.easify.util.AuthManager
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
@@ -39,7 +39,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 val viewModelModule = module {
     viewModel { SplashViewModel(get(), get()) }
     viewModel { SearchViewModel(get()) }
-    viewModel { TrackViewModel(get()) }
+    viewModel { HistoryViewModel(get()) }
     viewModel { ProfileViewModel(get(), get()) }
     viewModel { FavoritesViewModel(get()) }
     viewModel { TopArtistsViewModel(get()) }

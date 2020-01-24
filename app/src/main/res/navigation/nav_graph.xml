@@ -15,6 +15,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_searchFragment_to_playlistFragment"
+            app:destination="@id/playlistFragment" />
     </fragment>
 
     <fragment
@@ -64,17 +67,6 @@
     </fragment>
     <!-- End of Search Fragment and its flow -->
 
-
-    <fragment
-        android:id="@+id/trackFragment"
-        android:name="com.deniz.easify.ui.track.TrackFragment"
-        android:label="TrackFragment" >
-        <argument
-            android:name="track"
-            app:argType="com.deniz.easify.data.source.remote.response.Track"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
 
     <!-- Start of Profile Fragment and its flow -->
     <fragment
@@ -208,6 +200,11 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <argument
+            android:name="track"
+            app:argType="com.deniz.easify.data.source.remote.response.Track"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
     <fragment
@@ -226,6 +223,26 @@
         <action
             android:id="@+id/action_playlistDetailFragment_to_featuresFragment"
             app:destination="@id/featuresFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.deniz.easify.ui.history.HistoryFragment"
+        android:label="HistoryFragment" >
+        <action
+            android:id="@+id/action_historyFragment_to_featuresFragment"
+            app:destination="@id/featuresFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_historyFragment_to_playlistFragment"
+            app:destination="@id/playlistFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
