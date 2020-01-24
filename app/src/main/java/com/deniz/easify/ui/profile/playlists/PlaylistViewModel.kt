@@ -80,11 +80,28 @@ class PlaylistViewModel(
         }
     }
 
-    // TODO: what happens if track is already in playlist. check!
+    /**
+     * Check if the track is already in the selected playlist.
+     * if it is -> return
+     * if it is not -> add track to the playlist
+     */
     fun addTrackToPlaylist(track: Track, playlist: Playlist) {
         viewModelScope.launch {
-            repository.addTrackToPlaylist(playlist.id, track.uri)
-            _showSnackbarMessage.value = Event(Pair(playlist.name, track.name))
+            repository.fetchPlaylistTracks(playlist.id).let { result ->
+                when (result) {
+                    is Result.Success -> {
+                        // if track already exist in the playlist, return
+                        for (playlistTrack in result.data.playlistTracks){
+                            if (playlistTrack.track.id == track.id)
+                                return@launch
+                        }
+                        // if track doesn't exist in the playlist, add
+                        repository.addTrackToPlaylist(playlist.id, track.uri)
+                        _showSnackbarMessage.value = Event(Pair(playlist.name, track.name))
+                    }
+                    is Result.Error -> _errorMessage.value = parseNetworkError(result.exception)
+                }
+            }
         }
     }
 
