@@ -38,29 +38,55 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/track_name"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/song_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-
-            android:text="@{track.name}"
-            android:textColor="@color/colorSpotifyWhite"
-            android:textStyle="bold"
-            android:textSize="16sp"
-
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@id/track_image"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toStartOf="@id/remove">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/track_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+
+                android:text="@{track.name}"
+                android:textColor="@color/colorSpotifyWhite"
+                android:textStyle="bold"
+
+                app:layout_constraintBottom_toTopOf="@id/track_owner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/track_owner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+
+                android:text="@{track.artists.get(0).name}"
+                android:textColor="@color/colorSpotifyWhite"
+
+                app:layout_constraintTop_toBottomOf="@id/track_title"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/remove"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_clear"
+            android:layout_marginEnd="16dp"
+
+            android:src="@drawable/ic_remove"
             android:visibility="@{viewmodel.editable ? View.VISIBLE : View.GONE}"
 
             app:layout_constraintTop_toTopOf="parent"

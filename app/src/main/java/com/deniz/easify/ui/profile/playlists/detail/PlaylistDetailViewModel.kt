@@ -51,6 +51,8 @@ class PlaylistDetailViewModel(
     private var requestCount = 0
     private var deletedTrackCount = 0
 
+    private var removedTrackIds = ArrayList<String>()
+
     fun start(playlist: Playlist?, editable: Boolean) {
         playlist?.let {
             fetchPlaylistTracks(playlist.id).also { this.playlistId = playlist.id }
@@ -71,9 +73,10 @@ class PlaylistDetailViewModel(
                         playlistsTracksToShow.addAll(
                             result.data.playlistTracks
                                 .filter { playlistTracks ->
-                                    playlistTracks.track.album.images.size > 0 .also {
-                                        if (playlistTracks.track.album.images.isNullOrEmpty())
-                                            deletedTrackCount ++
+                                    playlistTracks.track.album.images.size > 0 && !removedTrackIds.contains(playlistTracks.track.id)
+                                        .also {
+                                            if (playlistTracks.track.album.images.isNullOrEmpty() || removedTrackIds.contains(playlistTracks.track.id))
+                                                deletedTrackCount ++
                                     }
                                 }
                         )
@@ -102,6 +105,8 @@ class PlaylistDetailViewModel(
     }
 
     fun removeTrack(track: Track) {
+        playlistsTracksToShow.removeAll { it.track.id == track.id }
+        removedTrackIds.add(track.id)
         removeTrackFromPlaylist(track)
     }
 }
