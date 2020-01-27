@@ -68,7 +68,7 @@ class PlaylistFragment : Fragment() {
         viewModel.playlistClickedEvent.observe(this, EventObserver {
             when (viewModel.reason.value) {
                 PlaylistViewModel.Reason.SEE -> openPlaylistDetailFragment(it.first, it.second)
-                PlaylistViewModel.Reason.ADD -> viewModel.addTrackToPlaylist(args.track!!, it.first)
+                PlaylistViewModel.Reason.ADD -> viewModel.fetchPlaylistTracks(args.track!!, it.first)
             }
         })
 

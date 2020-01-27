@@ -8,6 +8,7 @@ import com.deniz.easify.data.Result
 import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.remote.parseNetworkError
 import com.deniz.easify.data.source.remote.response.Playlist
+import com.deniz.easify.data.source.remote.response.PlaylistTracks
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.util.AuthManager
 import com.deniz.easify.util.Event
@@ -56,6 +57,21 @@ class PlaylistViewModel(
 
     private val playlistsToShow = ArrayList<Playlist>()
 
+    private val playlistsTracksToShow = ArrayList<PlaylistTracks>()
+
+    /**
+     * @param requestCount: To determine offset value for fetchPlaylistTracks request
+     * @param deletedTrackCount: To calculate fetched track count with total track count in playlist
+     */
+    private var requestCount = 0
+    private var deletedTrackCount = 0
+
+    /**
+     * To keep ids of clicked playlists so if its clicked before, that means the track is already
+     * there. So we show snackbar to say "the track already exists" and return from the function
+     */
+    private var clickedPlaylistIds = ArrayList<String>()
+
     fun start(track: Track?) {
         track?.let {
             _reason.value = Reason.ADD
@@ -91,21 +107,46 @@ class PlaylistViewModel(
      * if it is -> return
      * if it is not -> add track to the playlist
      */
-    fun addTrackToPlaylist(track: Track, playlist: Playlist) {
+    private fun addTrackToPlaylist(track: Track, playlist: Playlist) {
         viewModelScope.launch {
-            repository.fetchPlaylistTracks(playlist.id).let { result ->
+            clickedPlaylistIds.add(playlist.id)
+            // if track already exist in the playlist, return
+            for (playlistTrack in playlistsTracksToShow){
+                if (playlistTrack.track.id == track.id) {
+                    _trackAddingResult.value = Event(Pair(Pair(track.name, playlist.name), false))
+                    return@launch
+                }
+            }
+            // if track doesn't exist in the playlist, add
+            repository.addTrackToPlaylist(playlist.id, track.uri)
+            _trackAddingResult.value = Event(Pair(Pair(track.name, playlist.name), true))
+        }
+    }
+
+    fun fetchPlaylistTracks(track: Track, playlist: Playlist) {
+        if (clickedPlaylistIds.contains(playlist.id)) {
+            _trackAddingResult.value = Event(Pair(Pair(track.name, playlist.name), false))
+            return
+        }
+
+        viewModelScope.launch {
+            repository.fetchPlaylistTracks(playlist.id, requestCount * 100).let { result ->
                 when (result) {
                     is Result.Success -> {
-                        // if track already exist in the playlist, return
-                        for (playlistTrack in result.data.playlistTracks){
-                            if (playlistTrack.track.id == track.id) {
-                                _trackAddingResult.value = Event(Pair(Pair(track.name, playlist.name), false))
-                                return@launch
-                            }
-                        }
-                        // if track doesn't exist in the playlist, add
-                        repository.addTrackToPlaylist(playlist.id, track.uri)
-                        _trackAddingResult.value = Event(Pair(Pair(track.name, playlist.name), true))
+                        requestCount ++
+                        playlistsTracksToShow.addAll(
+                            result.data.playlistTracks
+                                .filter { playlistTracks ->
+                                    playlistTracks.track.album.images.size > 0 .also {
+                                        if (playlistTracks.track.album.images.isNullOrEmpty())
+                                            deletedTrackCount ++
+                                    }
+                                }
+                        )
+                        if (playlistsTracksToShow.size + deletedTrackCount < result.data.total)
+                            fetchPlaylistTracks(track, playlist)
+                        else
+                            addTrackToPlaylist(track, playlist)
                     }
                     is Result.Error -> _errorMessage.value = parseNetworkError(result.exception)
                 }

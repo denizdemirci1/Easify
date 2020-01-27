@@ -38,7 +38,7 @@ interface Repository {
 
     suspend fun fetchPlaylists(id: String): Result<PlaylistObject>
 
-    suspend fun fetchPlaylistTracks(id: String): Result<PlaylistTracksObject>
+    suspend fun fetchPlaylistTracks(id: String, offset: Int): Result<PlaylistTracksObject>
 
     suspend fun removeTrackFromPlaylist(id: String, removeTracksBody: RemoveTracksBody)
 

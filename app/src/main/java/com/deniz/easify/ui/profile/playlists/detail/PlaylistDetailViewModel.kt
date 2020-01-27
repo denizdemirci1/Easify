@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.deniz.easify.data.Result
 import com.deniz.easify.data.Result.Error
 import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.Repository
@@ -47,6 +48,9 @@ class PlaylistDetailViewModel(
     private val playlistsTracksToShow = ArrayList<PlaylistTracks>()
     private lateinit var playlistId: String
 
+    private var requestCount = 0
+    private var deletedTrackCount = 0
+
     fun start(playlist: Playlist?, editable: Boolean) {
         playlist?.let {
             fetchPlaylistTracks(playlist.id).also { this.playlistId = playlist.id }
@@ -58,15 +62,25 @@ class PlaylistDetailViewModel(
         Log.i("PlaylistDetailViewModel", "missing playlist object")
     }
 
-    // TODO: fetches 100 songs at once. Fix this issue
     private fun fetchPlaylistTracks(playlistId: String) {
         viewModelScope.launch {
-            repository.fetchPlaylistTracks(playlistId).let { result ->
+            repository.fetchPlaylistTracks(playlistId, requestCount * 100).let { result ->
                 when (result) {
                     is Success -> {
-                        playlistsTracksToShow.clear()
-                        playlistsTracksToShow.addAll(result.data.playlistTracks.filter { it.track.album.images.size > 0 })
-                        _tracks.value = ArrayList(playlistsTracksToShow)
+                        requestCount ++
+                        playlistsTracksToShow.addAll(
+                            result.data.playlistTracks
+                                .filter { playlistTracks ->
+                                    playlistTracks.track.album.images.size > 0 .also {
+                                        if (playlistTracks.track.album.images.isNullOrEmpty())
+                                            deletedTrackCount ++
+                                    }
+                                }
+                        )
+                        if (playlistsTracksToShow.size + deletedTrackCount < result.data.total)
+                            fetchPlaylistTracks(playlistId)
+                        else
+                            _tracks.value = ArrayList(playlistsTracksToShow)
                     }
                     is Error -> _errorMessage.value = parseNetworkError(result.exception)
                 }

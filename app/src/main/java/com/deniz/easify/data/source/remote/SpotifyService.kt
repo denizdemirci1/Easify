@@ -21,6 +21,7 @@ interface SpotifyService {
         const val query_uris = "uris"
         const val query_limit = "limit"
         const val query_time_range = "time_range"
+        const val query_offset = "offset"
 
         //region recommendations
         const val query_seed_tracks = "seed_tracks"
@@ -114,7 +115,8 @@ interface SpotifyService {
 
     @GET("playlists/{id}/tracks")
     suspend fun fetchPlaylistTracks(
-        @Path(path_id) id: String
+        @Path(path_id) id: String,
+        @Query(query_offset) offset: Int
     ): PlaylistTracksObject
 
     @HTTP(method = "DELETE", path = "playlists/{id}/tracks", hasBody = true)
