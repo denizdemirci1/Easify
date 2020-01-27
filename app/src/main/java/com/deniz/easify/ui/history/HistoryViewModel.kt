@@ -43,7 +43,11 @@ class HistoryViewModel(
                 when (result) {
                     is Result.Success -> {
                         historyToShow.clear()
-                        historyToShow.addAll(result.data.history.filter { it.track.album.images.isNotEmpty() })
+                        historyToShow.addAll(
+                            result.data.history
+                                .filter { it.track.album.images.isNotEmpty() }
+                                .distinctBy { it.track.id }
+                        )
                         _historyList.value = ArrayList(historyToShow)
                     }
                     is Result.Error -> _errorMessage.value = parseNetworkError(result.exception)

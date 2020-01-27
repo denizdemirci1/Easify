@@ -39,6 +39,12 @@ class PlaylistViewModel(
     private val _playlistClickedEvent = MutableLiveData<Event<Pair<Playlist, Boolean>>>()
     val playlistClickedEvent: LiveData<Event<Pair<Playlist, Boolean>>> = _playlistClickedEvent
 
+    /**
+     * The form of _trackAddingResult is a pair that holds a pair and a boolean
+     * The inner pair holds trackName and playlistName
+     *
+     * Pair <Pair(trackName, playlistName), isSuccessfullyAdded>
+     */
     private val _trackAddingResult = MutableLiveData<Event<Pair<Pair<String, String>, Boolean>>>()
     val trackAddingResult: LiveData<Event<Pair<Pair<String, String>, Boolean>>> = _trackAddingResult
 

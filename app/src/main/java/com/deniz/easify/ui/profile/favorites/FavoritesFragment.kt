@@ -46,6 +46,7 @@ class FavoritesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
+        // TODO: Change EditTexts to be DropDown Boxes
         val root = inflater.inflate(R.layout.fragment_favorites, container, false)
         binding = FragmentFavoritesBinding.bind(root).apply {
             this.viewmodel = viewModel
