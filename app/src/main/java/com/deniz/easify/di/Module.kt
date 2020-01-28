@@ -14,6 +14,7 @@ import com.deniz.easify.ui.profile.followings.FollowedArtistsViewModel
 import com.deniz.easify.ui.profile.followings.artist.ArtistViewModel
 import com.deniz.easify.ui.profile.followings.follow.FollowViewModel
 import com.deniz.easify.ui.profile.playlists.PlaylistViewModel
+import com.deniz.easify.ui.profile.playlists.create.CreatePlaylistViewModel
 import com.deniz.easify.ui.profile.playlists.detail.PlaylistDetailViewModel
 import com.deniz.easify.ui.search.SearchViewModel
 import com.deniz.easify.ui.search.features.FeaturesViewModel
@@ -51,6 +52,7 @@ val viewModelModule = module {
     viewModel { DiscoverViewModel(get()) }
     viewModel { RecommendedTracksViewModel() }
     viewModel { PlaylistViewModel(get(), get()) }
+    viewModel { CreatePlaylistViewModel(get(), get()) }
     viewModel { PlaylistDetailViewModel(get()) }
 }
 

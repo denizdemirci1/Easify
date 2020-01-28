@@ -9,12 +9,17 @@ apply plugin: 'io.fabric'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
+
+    ext.major = 0
+    ext.minor = 0
+    ext.patch = 1
+
     defaultConfig {
         applicationId "com.deniz.easify"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode major * 10000 + minor * 100 + patch
+        versionName String.valueOf(major) + "." + String.valueOf(minor) + "." + String.valueOf(patch)
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }

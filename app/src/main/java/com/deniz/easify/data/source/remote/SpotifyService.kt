@@ -1,5 +1,6 @@
 package com.deniz.easify.data.source.remote
 
+import com.deniz.easify.data.source.remote.request.CreatePlaylistBody
 import com.deniz.easify.data.source.remote.request.PlayBody
 import com.deniz.easify.data.source.remote.request.RemoveTracksBody
 import com.deniz.easify.data.source.remote.response.*
@@ -38,6 +39,7 @@ interface SpotifyService {
         const val path_type = "type"
         const val path_id = "id"
         const val playlist_id = "playlist_id"
+        const val user_id = "user_id"
     }
 
     @GET("me")
@@ -112,6 +114,12 @@ interface SpotifyService {
     suspend fun fetchPlaylists(
         @Path(path_id) id: String
     ): PlaylistObject
+
+    @POST("users/{user_id}/playlists")
+    suspend fun createPlaylist(
+        @Body createPlaylistBody: CreatePlaylistBody,
+        @Path(user_id) id: String
+    )
 
     @GET("playlists/{id}/tracks")
     suspend fun fetchPlaylistTracks(

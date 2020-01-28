@@ -65,6 +65,15 @@
     <string name="fragment_playlist_track_added_to_playlist">%s is added to %s</string>
     <string name="fragment_playlist_track_already_exists_in_playlist">%s already exists in %s</string>
 
+    <!-- Create Playlist Fragment -->
+    <string name="fragment_create_playlist_title">Create a Playlist</string>
+    <string name="fragment_create_playlist_hint_name">Name</string>
+    <string name="fragment_create_playlist_hint_description">Description</string>
+    <string name="fragment_create_playlist_hint_public">Public</string>
+    <string name="fragment_create_playlist_create">Create</string>
+    <string name="fragment_create_playlist_default_playlist_name">Easify</string>
+    <string name="fragment_create_playlist_default_playlist_description">Created via Easify</string>
+
     <!-- Playlist Detail Fragment -->
     <string name="fragment_playlist_detail_removed">%s is removed from this playlist</string>
 

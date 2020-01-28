@@ -51,6 +51,7 @@ class PlaylistFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.start(args.track)
         setupObservers()
+        setupListeners()
     }
 
     private fun setupObservers() {
@@ -86,6 +87,12 @@ class PlaylistFragment : Fragment() {
         })
     }
 
+    private fun setupListeners() {
+        binding.add.setOnClickListener {
+            openCreatePlaylistFragment()
+        }
+    }
+
     private fun setupPlaylistAdapter() {
         val viewModel = binding.viewmodel
         if (viewModel != null) {
@@ -98,6 +105,11 @@ class PlaylistFragment : Fragment() {
 
     private fun openPlaylistDetailFragment(playlist: Playlist, editable: Boolean) {
         val action = PlaylistFragmentDirections.actionPlaylistFragmentToPlaylistDetailFragment(playlist, editable)
+        findNavController().navigate(action)
+    }
+
+    private fun openCreatePlaylistFragment() {
+        val action = PlaylistFragmentDirections.actionPlaylistFragmentToCreatePlaylistFragment()
         findNavController().navigate(action)
     }
 

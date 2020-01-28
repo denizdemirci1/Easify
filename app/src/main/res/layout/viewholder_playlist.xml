@@ -28,7 +28,7 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:scaleType="fitCenter"
-            app:imageUrl="@{playlist.images.get(playlist.images.size()-1).url}"
+            app:playlistImage="@{playlist}"
 
             android:layout_margin="16dp"
 
