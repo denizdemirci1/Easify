@@ -4,7 +4,9 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.deniz.easify.R
+import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.data.source.remote.response.Playlist
+import com.deniz.easify.data.source.remote.response.Track
 
 /**
  * @User: deniz.demirci
@@ -15,9 +17,40 @@ import com.deniz.easify.data.source.remote.response.Playlist
  * This file is used to bind images to an image view in layout file.
  */
 
-@BindingAdapter("imageUrl")
-fun loadTrackImage(view: AppCompatImageView, url: String?) {
-    Glide.with(view.context).load(url).into(view)
+@BindingAdapter("trackImage")
+fun loadTrackImage(view: AppCompatImageView, track: Track) {
+    if (track.album.images.isNullOrEmpty()) {
+        view.setImageResource(R.drawable.ic_music_note)
+    } else {
+        Glide.with(view.context).load(track.album.images[track.album.images.size - 1].url).into(view)
+    }
+}
+
+@BindingAdapter("trackImageBig")
+fun loadBigTrackImage(view: AppCompatImageView, track: Track) {
+    if (track.album.images.isNullOrEmpty()) {
+        view.setImageResource(R.drawable.ic_music_note)
+    } else {
+        Glide.with(view.context).load(track.album.images[0].url).into(view)
+    }
+}
+
+@BindingAdapter("artistImage")
+fun loadArtistImage(view: AppCompatImageView, artist: Artist) {
+    if (artist.images.isNullOrEmpty()) {
+        view.setImageResource(R.drawable.ic_person)
+    } else {
+        Glide.with(view.context).load(artist.images[artist.images.size - 1].url).into(view)
+    }
+}
+
+@BindingAdapter("artistImageBig")
+fun loadBigArtistImage(view: AppCompatImageView, artist: Artist) {
+    if (artist.images.isNullOrEmpty()) {
+        view.setImageResource(R.drawable.ic_person)
+    } else {
+        Glide.with(view.context).load(artist.images[0].url).into(view)
+    }
 }
 
 @BindingAdapter("playlistImage")

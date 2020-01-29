@@ -76,6 +76,7 @@
 
     <!-- Playlist Detail Fragment -->
     <string name="fragment_playlist_detail_removed">%s is removed from this playlist</string>
+    <string name="fragment_playlist_detail_empty_playlist">This playlist is empty</string>
 
     <!-- Followed Artists Fragment -->
     <string name="fragment_followed_artists_title">Artists You Follow</string>

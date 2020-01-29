@@ -27,7 +27,7 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:scaleType="fitCenter"
-            app:imageUrl="@{artist.images.get(artist.images.size()-1).url}"
+            app:artistImage="@{artist}"
 
             android:layout_margin="16dp"
 

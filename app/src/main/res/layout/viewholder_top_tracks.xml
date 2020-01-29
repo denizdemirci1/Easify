@@ -26,7 +26,7 @@
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:scaleType="fitCenter"
-            app:imageUrl="@{track.album.images.get(track.album.images.size()-1).url}"
+            app:trackImage="@{track}"
 
             android:layout_margin="16dp"
 

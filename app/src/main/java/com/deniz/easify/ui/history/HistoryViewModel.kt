@@ -44,9 +44,7 @@ class HistoryViewModel(
                     is Result.Success -> {
                         historyToShow.clear()
                         historyToShow.addAll(
-                            result.data.history
-                                .filter { it.track.album.images.isNotEmpty() }
-                                .distinctBy { it.track.id }
+                            result.data.history.distinctBy { it.track.id }
                         )
                         _historyList.value = ArrayList(historyToShow)
                     }

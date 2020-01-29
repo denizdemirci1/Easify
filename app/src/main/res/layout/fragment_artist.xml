@@ -37,7 +37,7 @@
                     android:layout_height="300dp"
                     android:layout_marginTop="32dp"
 
-                    app:imageUrl="@{viewmodel.artist.images.get(1).url}"
+                    app:artistImageBig="@{viewmodel.artist}"
 
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

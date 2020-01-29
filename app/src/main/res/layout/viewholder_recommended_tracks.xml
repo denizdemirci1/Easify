@@ -29,7 +29,7 @@
             android:layout_margin="16dp"
             android:scaleType="fitCenter"
 
-            app:imageUrl="@{track.album.images.get(track.album.images.size()-1).url}"
+            app:trackImage="@{track}"
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"

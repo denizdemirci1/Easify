@@ -81,6 +81,9 @@ class PlaylistDetailFragment : Fragment() {
     }
 
     private fun openFeaturesFragment(track: Track) {
+        if (track.album.images.isNullOrEmpty())
+            return
+
         val action = PlaylistDetailFragmentDirections.actionPlaylistDetailFragmentToFeaturesFragment(track)
         findNavController().navigate(action)
     }

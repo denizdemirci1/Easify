@@ -26,9 +26,9 @@ class PlaylistViewModel(
 
     /**
      * There are three sources to this fragment. SearchFragment, HistoryFragment, ProfileFragment
-     * @SearchFragment: Came with a track. Pick a playlist and ADD this track to it.
-     * @HistoryFragment: Came with a track. Pick a playlist and ADD this track to it.
-     * @ProfileFragment: Came without a track. Pick a playlist and SEE detail of the playlist.
+     * @SearchFragment: Came with a track. Pick a playlist and [ADD] this track to it.
+     * @HistoryFragment: Came with a track. Pick a playlist and [ADD] this track to it.
+     * @ProfileFragment: Came without a track. Pick a playlist and [SEE] detail of the playlist.
      */
     enum class Reason {
         SEE, ADD
@@ -60,8 +60,8 @@ class PlaylistViewModel(
     private val playlistsTracksToShow = ArrayList<PlaylistTracks>()
 
     /**
-     * @param requestCount: To determine offset value for fetchPlaylistTracks request
-     * @param deletedTrackCount: To calculate fetched track count with total track count in playlist
+     * [requestCount]: To determine offset value for fetchPlaylistTracks request
+     * [deletedTrackCount]: To calculate fetched track count with total track count in playlist
      */
     private var requestCount = 0
     private var deletedTrackCount = 0
@@ -134,16 +134,8 @@ class PlaylistViewModel(
                 when (result) {
                     is Result.Success -> {
                         requestCount ++
-                        playlistsTracksToShow.addAll(
-                            result.data.playlistTracks
-                                .filter { playlistTracks ->
-                                    playlistTracks.track.album.images.size > 0 .also {
-                                        if (playlistTracks.track.album.images.isNullOrEmpty())
-                                            deletedTrackCount ++
-                                    }
-                                }
-                        )
-                        if (playlistsTracksToShow.size + deletedTrackCount < result.data.total)
+                        playlistsTracksToShow.addAll(result.data.playlistTracks)
+                        if (playlistsTracksToShow.size < result.data.total)
                             fetchPlaylistTracks(track, playlist)
                         else
                             addTrackToPlaylist(track, playlist)

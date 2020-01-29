@@ -42,6 +42,12 @@ class PlaylistDetailViewModel(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
+
+    private val _showNoTracksLayout = MutableLiveData<Boolean>()
+    val showNoTracksLayout: LiveData<Boolean> = _showNoTracksLayout
+
     private val _showSnackbarMessage = MutableLiveData<Event<String>>()
     val showSnackbarMessage: LiveData<Event<String>> = _showSnackbarMessage
 
@@ -49,11 +55,12 @@ class PlaylistDetailViewModel(
     private lateinit var playlistId: String
 
     private var requestCount = 0
-    private var deletedTrackCount = 0
 
     private var removedTrackIds = ArrayList<String>()
 
     fun start(playlist: Playlist?, editable: Boolean) {
+        _showNoTracksLayout.value = false
+
         playlist?.let {
             fetchPlaylistTracks(playlist.id).also { this.playlistId = playlist.id }
             _title.value = playlist.name
@@ -66,26 +73,25 @@ class PlaylistDetailViewModel(
 
     private fun fetchPlaylistTracks(playlistId: String) {
         viewModelScope.launch {
+            _loading.value = true
             repository.fetchPlaylistTracks(playlistId, requestCount * 100).let { result ->
                 when (result) {
                     is Success -> {
                         requestCount ++
-                        playlistsTracksToShow.addAll(
-                            result.data.playlistTracks
-                                .filter { playlistTracks ->
-                                    playlistTracks.track.album.images.size > 0 && !removedTrackIds.contains(playlistTracks.track.id)
-                                        .also {
-                                            if (playlistTracks.track.album.images.isNullOrEmpty() || removedTrackIds.contains(playlistTracks.track.id))
-                                                deletedTrackCount ++
-                                    }
-                                }
-                        )
-                        if (playlistsTracksToShow.size + deletedTrackCount < result.data.total)
+                        playlistsTracksToShow.addAll(result.data.playlistTracks)
+                        if (playlistsTracksToShow.size < result.data.total)
                             fetchPlaylistTracks(playlistId)
-                        else
+                        else {
                             _tracks.value = ArrayList(playlistsTracksToShow)
+                            _loading.value = false
+                            if (playlistsTracksToShow.isEmpty())
+                                _showNoTracksLayout.value = true
+                        }
                     }
-                    is Error -> _errorMessage.value = parseNetworkError(result.exception)
+                    is Error -> {
+                        _errorMessage.value = parseNetworkError(result.exception)
+                        _loading.value = false
+                    }
                 }
             }
         }

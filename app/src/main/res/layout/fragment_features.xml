@@ -74,7 +74,7 @@
                         android:layout_height="300dp"
                         android:layout_marginTop="32dp"
 
-                        app:imageUrl="@{viewmodel.track.album.images.get(1).url}"
+                        app:trackImageBig="@{viewmodel.track}"
 
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
