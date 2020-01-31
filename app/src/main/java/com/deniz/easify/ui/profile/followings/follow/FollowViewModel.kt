@@ -37,7 +37,7 @@ class FollowViewModel(
                     is Success -> {
                         val artistsToShow = ArrayList<Artist>()
                         artistsToShow.clear()
-                        artistsToShow.addAll(result.data.artists.items.filter { it.images.isNotEmpty() })
+                        artistsToShow.addAll(result.data.artists.items)
                         _artists.value = ArrayList(artistsToShow)
                     }
                     is Error -> _errorMessage.value = parseNetworkError(result.exception)
