@@ -58,11 +58,11 @@ class PlaylistDetailFragment : Fragment() {
             setupPlaylistDetailAdapter()
         }
 
-        viewModel.openTrackEvent.observe(this, EventObserver {
+        viewModel.openTrackEvent.observe(viewLifecycleOwner, EventObserver {
             openFeaturesFragment(it)
         })
 
-        viewModel.showSnackbarMessage.observe(this, EventObserver { trackName ->
+        viewModel.showSnackbarMessage.observe(viewLifecycleOwner, EventObserver { trackName ->
             val message = String.format(
                 resources.getString(R.string.fragment_playlist_detail_removed),
                 trackName)

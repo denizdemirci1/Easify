@@ -66,11 +66,11 @@ class TopTracksFragment : Fragment() {
             setupTopTracksAdapter()
         }
 
-        viewModel.openTrackEvent.observe(this, EventObserver {
+        viewModel.openTrackEvent.observe(viewLifecycleOwner, EventObserver {
             openFeaturesFragment(it)
         })
 
-        viewModel.openPlaylistsPageEvent.observe(this, EventObserver {
+        viewModel.openPlaylistsPageEvent.observe(viewLifecycleOwner, EventObserver {
             openPlaylistFragment(it)
         })
     }

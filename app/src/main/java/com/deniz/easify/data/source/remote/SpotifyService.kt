@@ -94,14 +94,14 @@ interface SpotifyService {
     suspend fun fetchTopArtists(
         @Path(path_type) type: String? = "artists",
         @Query(query_time_range) timeRange: String?,
-        @Query(query_limit) limit: Int? = 20
+        @Query(query_limit) limit: Int? = 50
     ): TopArtist
 
     @GET("me/top/{type}")
     suspend fun fetchTopTracks(
         @Path(path_type) type: String? = "tracks",
         @Query(query_time_range) timeRange: String?,
-        @Query(query_limit) limit: Int? = 20
+        @Query(query_limit) limit: Int? = 50
     ): TopTrack
 
     @GET("me/following")

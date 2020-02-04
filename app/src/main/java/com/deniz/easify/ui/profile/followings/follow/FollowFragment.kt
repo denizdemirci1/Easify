@@ -57,6 +57,7 @@ class FollowFragment : Fragment() {
 
         binding.clear.setOnClickListener {
             binding.search.setText("")
+            binding.search.hint = ""
         }
 
         binding.search.afterTextChanged { input ->
@@ -70,7 +71,7 @@ class FollowFragment : Fragment() {
             setupFollowAdapter()
         }
 
-        viewModel.openArtistFragmentEvent.observe(this, EventObserver {
+        viewModel.openArtistFragmentEvent.observe(viewLifecycleOwner, EventObserver {
             navigateToArtistFragment(it)
         })
     }

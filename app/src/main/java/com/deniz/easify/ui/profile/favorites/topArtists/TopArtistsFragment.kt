@@ -65,7 +65,7 @@ class TopArtistsFragment : Fragment() {
             setupTopArtistsAdapter()
         }
 
-        viewModel.openArtistFragmentEvent.observe(this, EventObserver {
+        viewModel.openArtistFragmentEvent.observe(viewLifecycleOwner, EventObserver {
             navigateToArtistFragment(it)
         })
     }

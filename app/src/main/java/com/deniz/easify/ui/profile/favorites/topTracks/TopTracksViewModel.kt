@@ -13,9 +13,7 @@ import com.deniz.easify.util.Event
  * @Date: 2019-12-04
  */
 
-class TopTracksViewModel(
-    private val repository: Repository
-) : ViewModel() {
+class TopTracksViewModel: ViewModel() {
 
     private val _topTrack = MutableLiveData<TopTrack>()
     val topTrack: LiveData<TopTrack> = _topTrack

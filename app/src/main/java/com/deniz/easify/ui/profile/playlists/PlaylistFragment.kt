@@ -66,14 +66,14 @@ class PlaylistFragment : Fragment() {
             }
         }
 
-        viewModel.playlistClickedEvent.observe(this, EventObserver {
+        viewModel.playlistClickedEvent.observe(viewLifecycleOwner, EventObserver {
             when (viewModel.reason.value) {
                 PlaylistViewModel.Reason.SEE -> openPlaylistDetailFragment(it.first, it.second)
                 PlaylistViewModel.Reason.ADD -> viewModel.fetchPlaylistTracks(args.track!!, it.first)
             }
         })
 
-        viewModel.trackAddingResult.observe(this, EventObserver {
+        viewModel.trackAddingResult.observe(viewLifecycleOwner, EventObserver {
             if (it.second)
                 showSnackbar(
                     getString(R.string.fragment_playlist_track_added_to_playlist),

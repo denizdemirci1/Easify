@@ -43,8 +43,8 @@ val viewModelModule = module {
     viewModel { HistoryViewModel(get()) }
     viewModel { ProfileViewModel(get(), get()) }
     viewModel { FavoritesViewModel(get()) }
-    viewModel { TopArtistsViewModel(get()) }
-    viewModel { TopTracksViewModel(get()) }
+    viewModel { TopArtistsViewModel() }
+    viewModel { TopTracksViewModel() }
     viewModel { FollowedArtistsViewModel(get()) }
     viewModel { FollowViewModel(get()) }
     viewModel { ArtistViewModel(get()) }

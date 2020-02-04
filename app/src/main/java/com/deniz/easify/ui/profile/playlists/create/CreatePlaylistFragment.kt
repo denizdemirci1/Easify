@@ -67,7 +67,7 @@ class CreatePlaylistFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.navigate.observe(this, EventObserver{
+        viewModel.navigate.observe(viewLifecycleOwner, EventObserver{
             navigateBackToPlaylistsFragment()
         })
     }

@@ -49,18 +49,7 @@ class SplashActivity : AppCompatActivity() {
 
     private fun setObservers() {
         viewModel.authenticate.observe(this) {
-            val builder = AuthenticationRequest.Builder(
-                BuildConfig.SPOTIFY_CLIENT_ID,
-                AuthenticationResponse.Type.TOKEN,
-                resources.getString(R.string.spotify_uri_callback)
-            )
-
-            builder.setScopes(arrayOf(SCOPES))
-
-            AuthenticationClient.openLoginActivity(
-                this,
-                SPOTIFY_REQUEST_CODE,
-                builder.build())
+            openSpotifyLoginActivity()
         }
 
         viewModel.errorMessage.observe(this) {
@@ -68,9 +57,28 @@ class SplashActivity : AppCompatActivity() {
         }
 
         viewModel.navigateToMain.observe(this) {
-            startActivity(Intent(this, MainActivity::class.java))
-            finishAffinity()
+            openMainActivity()
         }
+    }
+
+    private fun openSpotifyLoginActivity() {
+        val builder = AuthenticationRequest.Builder(
+            BuildConfig.SPOTIFY_CLIENT_ID,
+            AuthenticationResponse.Type.TOKEN,
+            getString(R.string.spotify_uri_callback)
+        )
+
+        builder.setScopes(arrayOf(SCOPES))
+
+        AuthenticationClient.openLoginActivity(
+            this,
+            SPOTIFY_REQUEST_CODE,
+            builder.build())
+    }
+
+    private fun openMainActivity() {
+        startActivity(Intent(this, MainActivity::class.java))
+        finishAffinity()
     }
 
     private fun showNetworkError(message: String) {

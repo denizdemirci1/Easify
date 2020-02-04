@@ -85,7 +85,7 @@ class DiscoverFragment : Fragment() {
             initializeFeatures(it)
         }
 
-        viewModel.recommendationsEvent.observe(this, EventObserver {
+        viewModel.recommendationsEvent.observe(viewLifecycleOwner, EventObserver {
             navigateToRecommendedTracksFragment(it)
         })
     }

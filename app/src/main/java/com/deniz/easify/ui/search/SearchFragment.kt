@@ -68,6 +68,7 @@ class SearchFragment : Fragment() {
 
         binding.clear.setOnClickListener {
             binding.search.setText("")
+            binding.search.hint = ""
         }
 
         binding.search.afterTextChanged { input ->
@@ -78,11 +79,11 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.openTrackEvent.observe(this, EventObserver {
+        viewModel.openTrackEvent.observe(viewLifecycleOwner, EventObserver {
             openFeaturesFragment(it)
         })
 
-        viewModel.openPlaylistsPageEvent.observe(this, EventObserver {
+        viewModel.openPlaylistsPageEvent.observe(viewLifecycleOwner, EventObserver {
             openPlaylistFragment(it)
         })
 

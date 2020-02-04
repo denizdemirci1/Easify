@@ -13,9 +13,7 @@ import com.deniz.easify.util.Event
  * @Date: 2019-12-02
  */
 
-class TopArtistsViewModel(
-    private val repository: Repository
-) : ViewModel() {
+class TopArtistsViewModel: ViewModel() {
 
     private val _openArtistFragmentEvent = MutableLiveData<Event<Artist>>()
     val openArtistFragmentEvent: LiveData<Event<Artist>> = _openArtistFragmentEvent

@@ -58,7 +58,7 @@ class RecommendedTracksFragment : Fragment() {
             setUpRecommendedTracksAdapter()
         }
 
-        viewModel.openTrackFragmentEvent.observe(this, EventObserver {
+        viewModel.openTrackFragmentEvent.observe(viewLifecycleOwner, EventObserver {
             openTrackOnSpotify(it)
         })
     }

@@ -60,7 +60,7 @@ class FollowedArtistsFragment : Fragment() {
             showError(it)
         }
 
-        viewModel.openArtistFragmentEvent.observe(this, EventObserver {
+        viewModel.openArtistFragmentEvent.observe(viewLifecycleOwner, EventObserver {
             navigateToArtistFragment(it)
         })
     }

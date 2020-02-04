@@ -66,11 +66,11 @@ class FavoritesFragment : Fragment() {
 
     private fun setupObservers() {
 
-        viewModel.topArtist.observe(this, EventObserver {
+        viewModel.topArtist.observe(viewLifecycleOwner, EventObserver {
             openTopArtistsFragment(it)
         })
 
-        viewModel.topTracks.observe(this, EventObserver {
+        viewModel.topTracks.observe(viewLifecycleOwner, EventObserver {
             openTopTracksFragment(it)
         })
 
@@ -111,8 +111,11 @@ class FavoritesFragment : Fragment() {
             }
 
             val amount = when {
+                binding.limit.text.toString() == "0" -> {
+                    showError(getString(R.string.fragment_favorites_amount_zero_error))
+                    return@setOnClickListener
+                }
                 binding.limit.text.toString().isNotEmpty() -> Integer.parseInt(binding.limit.text.toString())
-                binding.limit.text.toString() == "0" -> null
                 else -> null
             }
 
