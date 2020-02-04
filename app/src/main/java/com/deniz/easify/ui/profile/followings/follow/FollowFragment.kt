@@ -10,6 +10,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Artist
+import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.FragmentFollowBinding
 import com.deniz.easify.extension.afterTextChanged
 import com.deniz.easify.util.EventObserver
@@ -45,7 +46,7 @@ class FollowFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setupFollowAdapter()
         setupListeners()
         setupObservers()
     }
@@ -68,7 +69,7 @@ class FollowFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.artists.observe(this) {
-            setupFollowAdapter()
+            onViewDataChange(it)
         }
 
         viewModel.openArtistFragmentEvent.observe(viewLifecycleOwner, EventObserver {
@@ -84,6 +85,10 @@ class FollowFragment : Fragment() {
         } else {
             Log.i("FollowFragment", "ViewModel not initialized when attempting to set up adapter.")
         }
+    }
+
+    private fun onViewDataChange(artists: ArrayList<Artist>) {
+        followAdapter.submitList(artists)
     }
 
     private fun navigateToArtistFragment(artist: Artist) {

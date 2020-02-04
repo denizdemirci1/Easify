@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.deniz.easify.R
+import com.deniz.easify.data.source.remote.response.History
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.FragmentHistoryBinding
 import com.deniz.easify.util.EventObserver
@@ -45,8 +46,9 @@ class HistoryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchRecentlyPlayedSongs()
+        setupHistoryAdapter()
         setupObservers()
+        viewModel.fetchRecentlyPlayedSongs()
     }
 
     private fun setupObservers() {
@@ -59,7 +61,7 @@ class HistoryFragment : Fragment() {
         })
 
         viewModel.historyList.observe(this) {
-            setupHistoryAdapter()
+            onViewDataChange(it)
         }
     }
 
@@ -71,6 +73,10 @@ class HistoryFragment : Fragment() {
         } else {
             Log.i("SearchFragment", "ViewModel not initialized when attempting to set up adapter.")
         }
+    }
+
+    private fun onViewDataChange(history: ArrayList<History>) {
+        historyAdapter.submitList(history)
     }
 
     private fun openFeaturesFragment(track: Track) {

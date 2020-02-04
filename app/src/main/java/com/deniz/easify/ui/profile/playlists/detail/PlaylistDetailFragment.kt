@@ -10,6 +10,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.deniz.easify.R
+import com.deniz.easify.data.source.remote.response.PlaylistTracks
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.FragmentPlaylistDetailBinding
 import com.deniz.easify.util.EventObserver
@@ -50,12 +51,13 @@ class PlaylistDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.start(args.playlist, args.editable)
+        setupPlaylistDetailAdapter()
         setupObservers()
     }
 
     private fun setupObservers() {
         viewModel.tracks.observe(this) {
-            setupPlaylistDetailAdapter()
+            onViewDataChange(it)
         }
 
         viewModel.openTrackEvent.observe(viewLifecycleOwner, EventObserver {
@@ -78,6 +80,10 @@ class PlaylistDetailFragment : Fragment() {
         } else {
             Log.i("PlaylistDetailFragment", "ViewModel not initialized when attempting to set up adapter.")
         }
+    }
+
+    private fun onViewDataChange(playlistTracks: ArrayList<PlaylistTracks>) {
+        playlistDetailAdapter.submitList(playlistTracks)
     }
 
     private fun openFeaturesFragment(track: Track) {

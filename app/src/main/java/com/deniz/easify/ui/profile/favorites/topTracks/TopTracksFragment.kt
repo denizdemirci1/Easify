@@ -10,6 +10,7 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.deniz.easify.R
+import com.deniz.easify.data.source.remote.response.TopTrack
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.FragmentTopTracksBinding
 import com.deniz.easify.util.EventObserver
@@ -28,7 +29,7 @@ class TopTracksFragment : Fragment() {
 
     private val args: TopTracksFragmentArgs by navArgs()
 
-    private var topTracksAdapter: TopTracksAdapter? = null
+    private lateinit var topTracksAdapter: TopTracksAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,8 +50,10 @@ class TopTracksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setToolbarTitle()
-        viewModel.start(args.favorites)
+        setupTopTracksAdapter()
         setupObservers()
+        viewModel.start(args.favorites)
+
     }
 
     private fun setToolbarTitle() {
@@ -63,7 +66,7 @@ class TopTracksFragment : Fragment() {
 
     private fun setupObservers() {
         viewModel.topTrack.observe(this) {
-            setupTopTracksAdapter()
+            onViewDataChange(it)
         }
 
         viewModel.openTrackEvent.observe(viewLifecycleOwner, EventObserver {
@@ -83,6 +86,10 @@ class TopTracksFragment : Fragment() {
         } else {
             Log.i("TopTracksFragment", "ViewModel not initialized when attempting to set up adapter.")
         }
+    }
+
+    private fun onViewDataChange(topTrack: TopTrack) {
+        topTracksAdapter.submitList(topTrack.items)
     }
 
     private fun openFeaturesFragment(track: Track) {

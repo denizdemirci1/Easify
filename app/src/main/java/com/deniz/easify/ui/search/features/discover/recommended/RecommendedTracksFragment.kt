@@ -29,7 +29,7 @@ class RecommendedTracksFragment : Fragment() {
 
     private val args: RecommendedTracksFragmentArgs by navArgs()
 
-    private var recommendedTracksAdapter: RecommendedTracksAdapter? = null
+    private lateinit var recommendedTracksAdapter: RecommendedTracksAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +48,7 @@ class RecommendedTracksFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpRecommendedTracksAdapter()
         viewModel.start(args.recommendations)
         setObservers()
     }
@@ -55,7 +56,7 @@ class RecommendedTracksFragment : Fragment() {
     private fun setObservers() {
         viewModel.recommendedTracks.observe(this) {
             setUpTitle(it.size)
-            setUpRecommendedTracksAdapter()
+            onViewDataChange(it)
         }
 
         viewModel.openTrackFragmentEvent.observe(viewLifecycleOwner, EventObserver {
@@ -78,6 +79,10 @@ class RecommendedTracksFragment : Fragment() {
         } else {
             Log.i("FollowedArtistsFragment", "ViewModel not initialized when attempting to set up adapter.")
         }
+    }
+
+    private fun onViewDataChange(tracks: ArrayList<Track>) {
+        recommendedTracksAdapter.submitList(tracks)
     }
 
     private fun openTrackOnSpotify(track: Track) {

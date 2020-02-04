@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Artist
+import com.deniz.easify.data.source.remote.response.TopArtist
 import com.deniz.easify.databinding.FragmentTopArtistsBinding
 import com.deniz.easify.util.EventObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -28,7 +29,7 @@ class TopArtistsFragment : Fragment() {
 
     private val args: TopArtistsFragmentArgs by navArgs()
 
-    private var topArtistsAdapter: TopArtistsAdapter? = null
+    private lateinit var topArtistsAdapter: TopArtistsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,21 +49,23 @@ class TopArtistsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set toolbar title
+        setToolbarTitle()
+        setupTopArtistsAdapter()
+        setupObservers()
+        viewModel.start(args.favorites)
+    }
+
+    private fun setToolbarTitle() {
         val toolbarTitle = String.format(
             resources.getString(R.string.fragment_top_artists_title),
             args.favorites?.items?.size
         )
         binding.title.text = toolbarTitle
-
-        viewModel.start(args.favorites)
-
-        setupObservers()
     }
 
     private fun setupObservers() {
         viewModel.topArtist.observe(this) {
-            setupTopArtistsAdapter()
+            onViewDataChange(it)
         }
 
         viewModel.openArtistFragmentEvent.observe(viewLifecycleOwner, EventObserver {
@@ -78,6 +81,10 @@ class TopArtistsFragment : Fragment() {
         } else {
             Log.i("TopArtistsFragment", "ViewModel not initialized when attempting to set up adapter.")
         }
+    }
+
+    private fun onViewDataChange(topArtist: TopArtist) {
+        topArtistsAdapter.submitList(topArtist.items)
     }
 
     private fun navigateToArtistFragment(artist: Artist) {

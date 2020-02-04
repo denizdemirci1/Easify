@@ -60,7 +60,6 @@
             android:scrollbars="vertical"
             android:scrollbarThumbVertical="@drawable/bg_scrollbar"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:recommendations="@{viewmodel.recommendedTracks}"
 
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintBottom_toBottomOf="parent"/>

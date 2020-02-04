@@ -14,7 +14,6 @@ import com.deniz.easify.data.source.remote.response.Playlist
 import com.deniz.easify.databinding.FragmentPlaylistBinding
 import com.deniz.easify.util.EventObserver
 import com.google.android.material.snackbar.Snackbar
-import org.koin.android.ext.android.bind
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -30,7 +29,7 @@ class PlaylistFragment : Fragment() {
 
     private val args: PlaylistFragmentArgs by navArgs()
 
-    private lateinit var playlistAdapter: PlaylistAdapter
+    private lateinit var playlistsAdapter: PlaylistsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,13 +49,14 @@ class PlaylistFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.start(args.track)
+        setupPlaylistAdapter()
         setupObservers()
         setupListeners()
     }
 
     private fun setupObservers() {
         viewModel.playlists.observe(this) {
-            setupPlaylistAdapter()
+            onViewDataChange(it)
         }
 
         viewModel.reason.observe( this) {
@@ -96,11 +96,15 @@ class PlaylistFragment : Fragment() {
     private fun setupPlaylistAdapter() {
         val viewModel = binding.viewmodel
         if (viewModel != null) {
-            playlistAdapter = PlaylistAdapter(viewModel)
-            binding.playlistsRecyclerView.adapter = playlistAdapter
+            playlistsAdapter = PlaylistsAdapter(viewModel)
+            binding.playlistsRecyclerView.adapter = playlistsAdapter
         } else {
             Log.i("PlaylistFragment", "ViewModel not initialized when attempting to set up adapter.")
         }
+    }
+
+    private fun onViewDataChange(playlists: ArrayList<Playlist>) {
+        playlistsAdapter.submitList(playlists)
     }
 
     private fun openPlaylistDetailFragment(playlist: Playlist, editable: Boolean) {

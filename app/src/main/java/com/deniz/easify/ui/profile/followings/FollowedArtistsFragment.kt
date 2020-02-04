@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Artist
+import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.FragmentFollowedArtistsBinding
 import com.deniz.easify.util.EventObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,7 +27,7 @@ class FollowedArtistsFragment : Fragment() {
 
     private val viewModel by viewModel<FollowedArtistsViewModel>()
 
-    private var followedArtistsAdapter: FollowedArtistsAdapter? = null
+    private lateinit var followedArtistsAdapter: FollowedArtistsAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -46,14 +47,15 @@ class FollowedArtistsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchFollowedArtists()
+        setupFollowedArtistsAdapter()
         setObservers()
         setListeners()
+        viewModel.fetchFollowedArtists()
     }
 
     private fun setObservers() {
         viewModel.artists.observe(this) {
-            setupFollowedArtistsAdapter()
+            onViewDataChange(it)
         }
 
         viewModel.errorMessage.observe(this) {
@@ -73,6 +75,10 @@ class FollowedArtistsFragment : Fragment() {
         } else {
             Log.i("FollowedArtistsFragment", "ViewModel not initialized when attempting to set up adapter.")
         }
+    }
+
+    private fun onViewDataChange(artists: ArrayList<Artist>) {
+        followedArtistsAdapter.submitList(artists)
     }
 
     private fun setListeners() {

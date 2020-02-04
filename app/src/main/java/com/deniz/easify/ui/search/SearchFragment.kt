@@ -26,7 +26,7 @@ class SearchFragment : Fragment() {
 
     private val viewModel by viewModel<SearchViewModel>()
 
-    private lateinit var trackAdapter: TrackAdapter
+    private lateinit var searchAdapter: SearchAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,13 +49,14 @@ class SearchFragment : Fragment() {
 
         setupListeners()
         setupObservers()
+        setupTrackAdapter()
     }
 
     private fun setupTrackAdapter() {
         val viewModel = binding.viewmodel
         if (viewModel != null) {
-            trackAdapter = TrackAdapter(viewModel)
-            binding.tracksRecyclerView.adapter = trackAdapter
+            searchAdapter = SearchAdapter(viewModel)
+            binding.tracksRecyclerView.adapter = searchAdapter
         } else {
             Log.i("SearchFragment", "ViewModel not initialized when attempting to set up adapter.")
         }
@@ -88,8 +89,12 @@ class SearchFragment : Fragment() {
         })
 
         viewModel.trackList.observe(this, Observer {
-            setupTrackAdapter()
+            onViewDataChange(it)
         })
+    }
+
+    private fun onViewDataChange(tracks: ArrayList<Track>) {
+        searchAdapter.submitList(tracks)
     }
 
     private fun openFeaturesFragment(track: Track) {
