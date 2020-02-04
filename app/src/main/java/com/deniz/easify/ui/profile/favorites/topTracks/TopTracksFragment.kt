@@ -7,9 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.deniz.easify.R
+import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.FragmentTopTracksBinding
+import com.deniz.easify.util.EventObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -45,22 +48,31 @@ class TopTracksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Set toolbar title
+        setToolbarTitle()
+        viewModel.start(args.favorites)
+        setupObservers()
+    }
+
+    private fun setToolbarTitle() {
         val toolbarTitle = String.format(
-            resources.getString(R.string.fragment_top_tracks_title),
+            getString(R.string.fragment_top_tracks_title),
             args.favorites?.items?.size
         )
         binding.title.text = toolbarTitle
-
-        viewModel.start(args.favorites)
-
-        setupObservers()
     }
 
     private fun setupObservers() {
         viewModel.topTrack.observe(this) {
             setupTopTracksAdapter()
         }
+
+        viewModel.openTrackEvent.observe(this, EventObserver {
+            openFeaturesFragment(it)
+        })
+
+        viewModel.openPlaylistsPageEvent.observe(this, EventObserver {
+            openPlaylistFragment(it)
+        })
     }
 
     private fun setupTopTracksAdapter() {
@@ -71,5 +83,15 @@ class TopTracksFragment : Fragment() {
         } else {
             Log.i("TopTracksFragment", "ViewModel not initialized when attempting to set up adapter.")
         }
+    }
+
+    private fun openFeaturesFragment(track: Track) {
+        val action = TopTracksFragmentDirections.actionTopTracksFragmentToFeaturesFragment(track)
+        findNavController().navigate(action)
+    }
+
+    private fun openPlaylistFragment(track: Track) {
+        val action = TopTracksFragmentDirections.actionTopTracksFragmentToPlaylistFragment(track)
+        findNavController().navigate(action)
     }
 }

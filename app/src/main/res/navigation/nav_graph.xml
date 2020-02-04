@@ -9,8 +9,7 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.deniz.easify.ui.search.SearchFragment"
-        android:label="SearchFragment"
-        tools:layout="@layout/fragment_search">
+        android:label="SearchFragment">
         <action
             android:id="@+id/action_searchFragment_to_featuresFragment"
             app:destination="@id/featuresFragment"
@@ -26,8 +25,7 @@
     <fragment
         android:id="@+id/featuresFragment"
         android:name="com.deniz.easify.ui.search.features.FeaturesFragment"
-        android:label="FeaturesFragment"
-        tools:layout="@layout/fragment_features">
+        android:label="FeaturesFragment">
         <argument
             android:name="track"
             app:argType="com.deniz.easify.data.source.remote.response.Track"
@@ -44,8 +42,7 @@
     <fragment
         android:id="@+id/discoverFragment"
         android:name="com.deniz.easify.ui.search.features.discover.DiscoverFragment"
-        android:label="DiscoverFragment"
-        tools:layout="@layout/fragment_discover">
+        android:label="DiscoverFragment">
         <argument
             android:name="features"
             app:argType="com.deniz.easify.data.source.remote.response.FeaturesObject"
@@ -63,8 +60,7 @@
     <fragment
         android:id="@+id/recommendedTracksFragment"
         android:name="com.deniz.easify.ui.search.features.discover.recommended.RecommendedTracksFragment"
-        android:label="RecommendedTracksFragment"
-        tools:layout="@layout/fragment_recommended_tracks">
+        android:label="RecommendedTracksFragment">
         <argument
             android:name="recommendations"
             app:argType="com.deniz.easify.data.source.remote.response.RecommendationsObject"
@@ -78,8 +74,7 @@
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.deniz.easify.ui.profile.ProfileFragment"
-        android:label="ProfileFragment"
-        tools:layout="@layout/fragment_profile">
+        android:label="ProfileFragment">
         <action
             android:id="@+id/action_profileFragment_to_favoritesFragment"
             app:destination="@id/favoritesFragment"
@@ -106,8 +101,7 @@
     <fragment
         android:id="@+id/favoritesFragment"
         android:name="com.deniz.easify.ui.profile.favorites.FavoritesFragment"
-        android:label="FavoritesFragment"
-        tools:layout="@layout/fragment_favorites">
+        android:label="FavoritesFragment">
         <action
             android:id="@+id/action_favoritesFragment_to_topArtistsFragment"
             app:destination="@id/topArtistsFragment"
@@ -127,8 +121,7 @@
     <fragment
         android:id="@+id/topArtistsFragment"
         android:name="com.deniz.easify.ui.profile.favorites.topArtists.TopArtistsFragment"
-        android:label="TopArtistsFragment"
-        tools:layout="@layout/fragment_top_artists">
+        android:label="TopArtistsFragment">
         <argument
             android:name="favorites"
             android:defaultValue="@null"
@@ -146,20 +139,32 @@
     <fragment
         android:id="@+id/topTracksFragment"
         android:name="com.deniz.easify.ui.profile.favorites.topTracks.TopTracksFragment"
-        android:label="TopTracksFragment"
-        tools:layout="@layout/fragment_top_tracks">
+        android:label="TopTracksFragment">
         <argument
             android:name="favorites"
             android:defaultValue="@null"
             app:argType="com.deniz.easify.data.source.remote.response.TopTrack"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_topTracksFragment_to_playlistFragment"
+            app:destination="@id/playlistFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_topTracksFragment_to_featuresFragment"
+            app:destination="@id/featuresFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
         android:id="@+id/followedArtistsFragment"
         android:name="com.deniz.easify.ui.profile.followings.FollowedArtistsFragment"
-        android:label="FollowedArtistsFragment"
-        tools:layout="@layout/fragment_followed_artists">
+        android:label="FollowedArtistsFragment">
         <action
             android:id="@+id/action_followedArtistsFragment_to_followFragment"
             app:destination="@id/followFragment"
@@ -179,8 +184,7 @@
     <fragment
         android:id="@+id/followFragment"
         android:name="com.deniz.easify.ui.profile.followings.follow.FollowFragment"
-        android:label="FollowFragment"
-        tools:layout="@layout/fragment_follow">
+        android:label="FollowFragment">
         <action
             android:id="@+id/action_followFragment_to_artistFragment"
             app:destination="@id/artistFragment"
@@ -193,8 +197,7 @@
     <fragment
         android:id="@+id/artistFragment"
         android:name="com.deniz.easify.ui.profile.followings.artist.ArtistFragment"
-        android:label="ArtistFragment"
-        tools:layout="@layout/fragment_artist">
+        android:label="ArtistFragment">
         <argument
             android:name="artist"
             app:argType="com.deniz.easify.data.source.remote.response.Artist"
@@ -205,8 +208,7 @@
     <fragment
         android:id="@+id/playlistFragment"
         android:name="com.deniz.easify.ui.profile.playlists.PlaylistFragment"
-        android:label="PlaylistFragment"
-        tools:layout="@layout/fragment_playlist">
+        android:label="PlaylistFragment">
         <action
             android:id="@+id/action_playlistFragment_to_playlistDetailFragment"
             app:destination="@id/playlistDetailFragment"
@@ -231,8 +233,7 @@
     <fragment
         android:id="@+id/playlistDetailFragment"
         android:name="com.deniz.easify.ui.profile.playlists.detail.PlaylistDetailFragment"
-        android:label="PlaylistDetailFragment"
-        tools:layout="@layout/fragment_playlist_detail">
+        android:label="PlaylistDetailFragment">
         <argument
             android:name="playlist"
             app:argType="com.deniz.easify.data.source.remote.response.Playlist"
@@ -254,8 +255,7 @@
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.deniz.easify.ui.history.HistoryFragment"
-        android:label="HistoryFragment"
-        tools:layout="@layout/fragment_history">
+        android:label="HistoryFragment">
         <action
             android:id="@+id/action_historyFragment_to_featuresFragment"
             app:destination="@id/featuresFragment"
@@ -274,7 +274,6 @@
     <fragment
         android:id="@+id/createPlaylistFragment"
         android:name="com.deniz.easify.ui.profile.playlists.create.CreatePlaylistFragment"
-        android:label="CreatePlaylistFragment"
-        tools:layout="@layout/fragment_create_playlist"/>
+        android:label="CreatePlaylistFragment"/>
 
 </navigation>
