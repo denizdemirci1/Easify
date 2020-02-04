@@ -81,7 +81,7 @@ class DiscoverFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.trackFeatures.observe(this) {
+        viewModel.trackFeatures.observe(viewLifecycleOwner) {
             initializeFeatures(it)
         }
 

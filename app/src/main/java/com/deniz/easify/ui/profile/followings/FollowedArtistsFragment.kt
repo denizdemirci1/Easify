@@ -11,7 +11,6 @@ import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Artist
-import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.FragmentFollowedArtistsBinding
 import com.deniz.easify.util.EventObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -54,11 +53,11 @@ class FollowedArtistsFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.artists.observe(this) {
+        viewModel.artists.observe(viewLifecycleOwner) {
             onViewDataChange(it)
         }
 
-        viewModel.errorMessage.observe(this) {
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
             showError(it)
         }
 

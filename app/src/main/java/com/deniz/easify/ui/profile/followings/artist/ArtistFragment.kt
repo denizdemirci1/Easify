@@ -51,11 +51,11 @@ class ArtistFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.artist.observe(this) { artist ->
+        viewModel.artist.observe(viewLifecycleOwner) { artist ->
             setupViews(artist)
         }
 
-        viewModel.showSnackbarMessage.observe(this) {
+        viewModel.showSnackbarMessage.observe(viewLifecycleOwner) {
             val snackbarMessage = when (it) {
                 ArtistViewModel.Follow.FOLLOW -> {
                     String.format(

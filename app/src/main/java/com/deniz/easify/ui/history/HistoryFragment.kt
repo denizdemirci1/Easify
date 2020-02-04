@@ -60,7 +60,7 @@ class HistoryFragment : Fragment() {
             openPlaylistFragment(it)
         })
 
-        viewModel.historyList.observe(this) {
+        viewModel.historyList.observe(viewLifecycleOwner) {
             onViewDataChange(it)
         }
     }

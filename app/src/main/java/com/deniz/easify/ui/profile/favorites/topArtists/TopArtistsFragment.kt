@@ -64,7 +64,7 @@ class TopArtistsFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.topArtist.observe(this) {
+        viewModel.topArtist.observe(viewLifecycleOwner) {
             onViewDataChange(it)
         }
 

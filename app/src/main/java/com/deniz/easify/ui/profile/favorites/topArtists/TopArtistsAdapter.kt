@@ -1,11 +1,11 @@
 package com.deniz.easify.ui.profile.favorites.topArtists
 
-import com.deniz.easify.ui.base.BaseListAdapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.databinding.ViewholderTopArtistsBinding
+import com.deniz.easify.ui.base.BaseListAdapter
 import com.deniz.easify.ui.base.BaseViewHolder
 
 /**
@@ -18,7 +18,7 @@ class TopArtistsAdapter(private val viewModel: TopArtistsViewModel) : BaseListAd
     contentsSame = { old, new -> old == new }
 ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, inflater: LayoutInflater, viewType: Int) : RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, inflater: LayoutInflater, viewType: Int): RecyclerView.ViewHolder {
         return TopArtistViewHolder(parent, inflater)
     }
 

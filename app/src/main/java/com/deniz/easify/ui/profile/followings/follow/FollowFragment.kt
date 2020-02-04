@@ -10,7 +10,6 @@ import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Artist
-import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.FragmentFollowBinding
 import com.deniz.easify.extension.afterTextChanged
 import com.deniz.easify.util.EventObserver
@@ -68,7 +67,7 @@ class FollowFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.artists.observe(this) {
+        viewModel.artists.observe(viewLifecycleOwner) {
             onViewDataChange(it)
         }
 

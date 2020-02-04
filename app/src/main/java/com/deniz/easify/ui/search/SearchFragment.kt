@@ -88,7 +88,7 @@ class SearchFragment : Fragment() {
             openPlaylistFragment(it)
         })
 
-        viewModel.trackList.observe(this, Observer {
+        viewModel.trackList.observe(viewLifecycleOwner, Observer {
             onViewDataChange(it)
         })
     }

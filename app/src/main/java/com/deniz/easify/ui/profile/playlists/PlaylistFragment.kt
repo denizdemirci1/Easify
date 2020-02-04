@@ -55,11 +55,11 @@ class PlaylistFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.playlists.observe(this) {
+        viewModel.playlists.observe(viewLifecycleOwner) {
             onViewDataChange(it)
         }
 
-        viewModel.reason.observe( this) {
+        viewModel.reason.observe(viewLifecycleOwner) {
             binding.title.text = when (it) {
                 PlaylistViewModel.Reason.ADD -> getString(R.string.fragment_playlist_title_add)
                 PlaylistViewModel.Reason.SEE -> getString(R.string.fragment_playlist_title_see)

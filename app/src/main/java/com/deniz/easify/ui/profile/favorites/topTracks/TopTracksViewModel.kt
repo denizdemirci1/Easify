@@ -3,7 +3,6 @@ package com.deniz.easify.ui.profile.favorites.topTracks
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.remote.response.TopTrack
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.util.Event
@@ -13,7 +12,7 @@ import com.deniz.easify.util.Event
  * @Date: 2019-12-04
  */
 
-class TopTracksViewModel: ViewModel() {
+class TopTracksViewModel : ViewModel() {
 
     private val _topTrack = MutableLiveData<TopTrack>()
     val topTrack: LiveData<TopTrack> = _topTrack

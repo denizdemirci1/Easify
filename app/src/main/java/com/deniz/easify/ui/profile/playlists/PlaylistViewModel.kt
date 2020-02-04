@@ -111,7 +111,7 @@ class PlaylistViewModel(
         viewModelScope.launch {
             clickedPlaylistIds.add(playlist.id)
             // if track already exist in the playlist, return
-            for (playlistTrack in playlistsTracksToShow){
+            for (playlistTrack in playlistsTracksToShow) {
                 if (playlistTrack.track.id == track.id) {
                     _trackAddingResult.value = Event(Pair(Pair(track.name, playlist.name), false))
                     return@launch

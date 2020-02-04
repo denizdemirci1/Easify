@@ -8,6 +8,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.BuildConfig
 import com.deniz.easify.R
 import com.deniz.easify.ui.main.MainActivity
+import com.deniz.easify.util.EventObserver
 import com.spotify.sdk.android.authentication.AuthenticationClient
 import com.spotify.sdk.android.authentication.AuthenticationRequest
 import com.spotify.sdk.android.authentication.AuthenticationResponse
@@ -24,7 +25,6 @@ class SplashActivity : AppCompatActivity() {
 
     companion object {
         private const val SPOTIFY_REQUEST_CODE = 1337
-        // TODO: Edit Scopes
         private const val SCOPES = "user-read-recently-played," +
                 "user-library-modify," +
                 "user-read-email," +
@@ -56,9 +56,9 @@ class SplashActivity : AppCompatActivity() {
             showNetworkError(it)
         }
 
-        viewModel.navigateToMain.observe(this) {
+        viewModel.navigateToMain.observe(this, EventObserver {
             openMainActivity()
-        }
+        })
     }
 
     private fun openSpotifyLoginActivity() {

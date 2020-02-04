@@ -50,15 +50,19 @@ class FeaturesFragment : Fragment() {
 
     private fun setListeners() {
         binding.search.setOnClickListener {
-            val action = FeaturesFragmentDirections.actionFeaturesFragmentToDiscoverFragment(viewModel.trackFeatures.value)
-            findNavController().navigate(action)
+            openDiscoverFragment(viewModel.trackFeatures.value)
         }
     }
 
     private fun setObservers() {
-        viewModel.trackFeatures.observe(this) {
+        viewModel.trackFeatures.observe(viewLifecycleOwner) {
             setFeatures(it)
         }
+    }
+
+    private fun openDiscoverFragment(trackFeatures: FeaturesObject?) {
+        val action = FeaturesFragmentDirections.actionFeaturesFragmentToDiscoverFragment(trackFeatures)
+        findNavController().navigate(action)
     }
 
     //region Features Are Set Here

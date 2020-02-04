@@ -48,7 +48,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.user.observe(this) { user ->
+        viewModel.user.observe(viewLifecycleOwner) { user ->
             setupUserInfo(user)
         }
     }

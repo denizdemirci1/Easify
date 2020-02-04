@@ -54,7 +54,7 @@ class RecommendedTracksFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.recommendedTracks.observe(this) {
+        viewModel.recommendedTracks.observe(viewLifecycleOwner) {
             setUpTitle(it.size)
             onViewDataChange(it)
         }

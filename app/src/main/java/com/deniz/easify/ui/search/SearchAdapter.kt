@@ -1,11 +1,11 @@
 package com.deniz.easify.ui.search
 
-import com.deniz.easify.data.source.remote.response.Track
-import com.deniz.easify.ui.base.BaseListAdapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.ViewholderSearchBinding
+import com.deniz.easify.ui.base.BaseListAdapter
 import com.deniz.easify.ui.base.BaseViewHolder
 
 /**
@@ -35,7 +35,7 @@ class SearchAdapter(private val viewModel: SearchViewModel) : BaseListAdapter<Tr
      * @return A new ViewHolder that holds a View of the given view type.
      * @see BaseListAdapter.onCreateViewHolder
      */
-    override fun onCreateViewHolder(parent: ViewGroup, inflater: LayoutInflater, viewType: Int) : RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, inflater: LayoutInflater, viewType: Int): RecyclerView.ViewHolder {
         return SearchViewHolder(parent, inflater)
     }
 
@@ -75,5 +75,4 @@ class SearchViewHolder(
         binding.track = track
         binding.executePendingBindings()
     }
-
 }

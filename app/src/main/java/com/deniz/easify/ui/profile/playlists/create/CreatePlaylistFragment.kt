@@ -17,7 +17,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * @Date: 2020-01-28
  */
 
-
 class CreatePlaylistFragment : Fragment() {
 
     private lateinit var binding: FragmentCreatePlaylistBinding
@@ -67,7 +66,7 @@ class CreatePlaylistFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.navigate.observe(viewLifecycleOwner, EventObserver{
+        viewModel.navigate.observe(viewLifecycleOwner, EventObserver {
             navigateBackToPlaylistsFragment()
         })
     }

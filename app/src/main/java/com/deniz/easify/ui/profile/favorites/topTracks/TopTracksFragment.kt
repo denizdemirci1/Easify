@@ -53,7 +53,6 @@ class TopTracksFragment : Fragment() {
         setupTopTracksAdapter()
         setupObservers()
         viewModel.start(args.favorites)
-
     }
 
     private fun setToolbarTitle() {
@@ -65,7 +64,7 @@ class TopTracksFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.topTrack.observe(this) {
+        viewModel.topTrack.observe(viewLifecycleOwner) {
             onViewDataChange(it)
         }
 

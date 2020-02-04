@@ -56,7 +56,7 @@ class PlaylistDetailFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.tracks.observe(this) {
+        viewModel.tracks.observe(viewLifecycleOwner) {
             onViewDataChange(it)
         }
 

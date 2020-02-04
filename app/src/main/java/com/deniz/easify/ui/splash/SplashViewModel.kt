@@ -9,6 +9,7 @@ import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.remote.parseNetworkError
 import com.deniz.easify.util.AuthManager
+import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
 /**
@@ -24,22 +25,18 @@ class SplashViewModel(
     private val _authenticate = MutableLiveData<Boolean>()
     val authenticate: LiveData<Boolean> = _authenticate
 
-    private val _navigateToMain = MutableLiveData<Boolean>()
-    val navigateToMain: LiveData<Boolean> = _navigateToMain
+    private val _navigateToMain = MutableLiveData<Event<Boolean>>()
+    val navigateToMain: LiveData<Event<Boolean>> = _navigateToMain
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
     fun saveToken(accessToken: String) {
-        viewModelScope.launch {
-            authManager.token = accessToken
-        }
+        authManager.token = accessToken
     }
 
     fun clearToken() {
-        viewModelScope.launch {
-            authManager.token = ""
-        }
+        authManager.token = ""
     }
 
     fun fetchUser() {
@@ -49,7 +46,7 @@ class SplashViewModel(
                     is Success -> {
                         authManager.user = result.data
                         authManager.tokenRefreshed = false
-                        _navigateToMain.value = true
+                        _navigateToMain.value = Event(true)
                     }
                     is Error -> {
                         authManager.token = null

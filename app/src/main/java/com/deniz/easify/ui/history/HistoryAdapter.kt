@@ -1,12 +1,12 @@
 package com.deniz.easify.ui.history
 
-import com.deniz.easify.data.source.remote.response.Track
-import com.deniz.easify.ui.base.BaseListAdapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.deniz.easify.data.source.remote.response.History
+import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.ViewholderHistoryBinding
+import com.deniz.easify.ui.base.BaseListAdapter
 import com.deniz.easify.ui.base.BaseViewHolder
 
 /**
@@ -19,7 +19,7 @@ class HistoryAdapter(private val viewModel: HistoryViewModel) : BaseListAdapter<
     contentsSame = { old, new -> old == new }
 ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, inflater: LayoutInflater, viewType: Int) : RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, inflater: LayoutInflater, viewType: Int): RecyclerView.ViewHolder {
         return HistoryViewHolder(parent, inflater)
     }
 

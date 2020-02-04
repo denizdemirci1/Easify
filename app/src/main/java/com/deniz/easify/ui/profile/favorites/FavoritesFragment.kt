@@ -74,7 +74,7 @@ class FavoritesFragment : Fragment() {
             openTopTracksFragment(it)
         })
 
-        viewModel.errorMessage.observe(this) {
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
             showError(it)
         }
     }
