@@ -300,6 +300,7 @@
             android:textColor="@color/colorSpotifyWhite"
             android:textSize="24sp"
             android:background="@drawable/button_green"
+            android:visibility="@{viewmodel.showDiscoverButton ? View.VISIBLE : View.GONE}"
 
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
