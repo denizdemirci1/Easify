@@ -4,7 +4,7 @@
 
     <data>
         <variable
-            name="splashViewModel"
+            name="viewModel"
             type="com.deniz.easify.ui.splash.SplashViewModel" />
     </data>
 

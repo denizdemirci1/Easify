@@ -2,12 +2,16 @@ package com.deniz.easify.ui.splash
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.BuildConfig
 import com.deniz.easify.R
-import com.deniz.easify.ui.main.MainActivity
+import com.deniz.easify.databinding.FragmentSplashBinding
 import com.deniz.easify.util.EventObserver
 import com.spotify.sdk.android.authentication.AuthenticationClient
 import com.spotify.sdk.android.authentication.AuthenticationRequest
@@ -16,10 +20,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * @User: deniz.demirci
- * @Date: 2019-11-11
+ * @Date: 2020-02-06
  */
 
-class SplashActivity : AppCompatActivity() {
+
+class SplashFragment : Fragment() {
+
+    private lateinit var binding: FragmentSplashBinding
 
     private val viewModel by viewModel<SplashViewModel>()
 
@@ -39,15 +46,31 @@ class SplashActivity : AppCompatActivity() {
                 "playlist-modify-private"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
 
-        viewModel.authenticateSpotify()
-        setObservers()
+        val root = inflater.inflate(R.layout.fragment_splash, container, false)
+        binding = FragmentSplashBinding.bind(root).apply {
+            this.viewModel = viewModel
+        }
+        // Set the lifecycle owner to the lifecycle of the view
+        binding.lifecycleOwner = this.viewLifecycleOwner
+
+        return binding.root
     }
 
-    private fun setObservers() {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.authenticateSpotify()
+        setupObservers()
+    }
+
+
+    private fun setupObservers() {
         viewModel.authenticate.observe(this) {
             openSpotifyLoginActivity()
         }
@@ -57,7 +80,7 @@ class SplashActivity : AppCompatActivity() {
         }
 
         viewModel.navigateToMain.observe(this, EventObserver {
-            openMainActivity()
+            openSearchFragment()
         })
     }
 
@@ -71,26 +94,26 @@ class SplashActivity : AppCompatActivity() {
         builder.setScopes(arrayOf(SCOPES))
 
         AuthenticationClient.openLoginActivity(
-            this,
+            requireActivity(),
             SPOTIFY_REQUEST_CODE,
             builder.build())
     }
 
-    private fun openMainActivity() {
-        startActivity(Intent(this, MainActivity::class.java))
-        finishAffinity()
+    private fun openSearchFragment() {
+        val action = SplashFragmentDirections.actionSplashFragmentToSearchFragment()
+        findNavController().navigate(action)
     }
 
     private fun showNetworkError(message: String) {
-        this@SplashActivity.let {
+        requireActivity().let {
             MaterialDialog(it).show {
                 title(R.string.dialog_error_title)
                 message(text = message)
                 positiveButton(R.string.dialog_positive_button_text) {
                     viewModel.authenticateSpotify()
                 }
-                negativeButton(R.string.dialog_negative_button_text) {
-                    finish()
+                negativeButton(R.string.dialog_negative_button_text) { _ ->
+                    it.finish()
                 }
             }
         }

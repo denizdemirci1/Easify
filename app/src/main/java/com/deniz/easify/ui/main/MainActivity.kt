@@ -1,5 +1,6 @@
 package com.deniz.easify.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -9,6 +10,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.deniz.easify.R
 import com.deniz.easify.extension.disableCurrentFragmentRecreating
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -38,4 +40,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp() =
         findNavController(R.id.nav_host_fragment).navigateUp()
+
+    /**
+     * To be able to call onActivityResult from SplashFragment for Spotify Callback
+     */
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val splashFragment = supportFragmentManager.fragments[0].childFragmentManager.fragments[0]
+        splashFragment?.onActivityResult(requestCode, resultCode, data)
+    }
 }
