@@ -10,10 +10,12 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.deniz.easify.R
+import com.deniz.easify.data.FakeRepository
 import com.deniz.easify.data.source.remote.response.FeaturesObject
 import com.deniz.easify.ui.search.features.discover.DiscoverFragment
 import com.deniz.easify.ui.search.features.discover.DiscoverFragmentArgs
 import com.deniz.easify.ui.search.features.discover.DiscoverFragmentDirections
+import com.deniz.easify.ui.search.features.discover.DiscoverViewModel
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi

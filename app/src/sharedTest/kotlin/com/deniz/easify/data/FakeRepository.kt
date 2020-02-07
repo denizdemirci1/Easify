@@ -2,7 +2,9 @@ package com.deniz.easify.data
 
 import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.Repository
+import com.deniz.easify.data.source.remote.request.CreatePlaylistBody
 import com.deniz.easify.data.source.remote.request.PlayBody
+import com.deniz.easify.data.source.remote.request.RemoveTracksBody
 import com.deniz.easify.data.source.remote.response.*
 import io.mockk.mockk
 
@@ -41,6 +43,10 @@ class FakeRepository : Repository {
                 total = 2)
         )
         return Success(tracksObject)
+    }
+
+    override suspend fun fetchRecentlyPlayed(): Result<HistoryObject> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun fetchTrackFeatures(id: String): Result<FeaturesObject> {
@@ -85,6 +91,29 @@ class FakeRepository : Repository {
 
     override suspend fun unfollowArtist(id: String) {
         TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun fetchPlaylists(id: String): Result<PlaylistObject> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun createPlaylist(createPlaylistBody: CreatePlaylistBody, userId: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun fetchPlaylistTracks(
+        id: String,
+        offset: Int
+    ): Result<PlaylistTracksObject> {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun removeTrackFromPlaylist(id: String, removeTracksBody: RemoveTracksBody) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override suspend fun addTrackToPlaylist(id: String, uris: String) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override suspend fun fetchRecommendations(

@@ -24,6 +24,19 @@ android {
         multiDexEnabled true
     }
 
+    sourceSets {
+        String sharedTestDir = 'src/sharedTest/kotlin'
+        test {
+            java.srcDir sharedTestDir
+        }
+        androidTest {
+            java.srcDir sharedTestDir
+        }
+        main.java.srcDirs += 'src/main/kotlin'
+        test.java.srcDirs += 'src/test/kotlin'
+        androidTest.java.srcDirs += 'src/androidTest/kotlin'
+    }
+
     buildTypes {
         Properties properties = new Properties()
         properties.load(project.rootProject.file('local.properties').newDataInputStream())
