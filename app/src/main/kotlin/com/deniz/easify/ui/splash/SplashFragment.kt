@@ -71,16 +71,14 @@ class SplashFragment : Fragment() {
 
 
     private fun setupObservers() {
-        viewModel.authenticate.observe(this) {
-            openSpotifyLoginActivity()
-        }
+        viewModel.event.observe(viewLifecycleOwner, EventObserver { event ->
+            when (event) {
+                SplashViewEvent.Authenticate -> openSpotifyLoginActivity()
 
-        viewModel.errorMessage.observe(this) {
-            showNetworkError(it)
-        }
+                SplashViewEvent.OpenSearchFragment -> openSearchFragment()
 
-        viewModel.navigateToMain.observe(this, EventObserver {
-            openSearchFragment()
+                is SplashViewEvent.ShowError -> showNetworkError(event.message)
+            }
         })
     }
 

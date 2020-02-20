@@ -1,4 +1,4 @@
-package com.deniz.easify.util
+package com.deniz.easify.util.bindings
 
 import android.annotation.SuppressLint
 import androidx.appcompat.widget.AppCompatSeekBar

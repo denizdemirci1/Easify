@@ -1,4 +1,4 @@
-package com.deniz.easify.ui.search.features
+package com.deniz.easify.ui.search
 
 import com.deniz.easify.data.source.remote.response.Track
 

@@ -1,4 +1,4 @@
-package com.deniz.easify.util
+package com.deniz.easify.util.bindings
 
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.databinding.BindingAdapter

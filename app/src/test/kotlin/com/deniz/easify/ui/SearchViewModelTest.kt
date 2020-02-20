@@ -1,18 +1,13 @@
 package com.deniz.easify.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.Observer
 import com.deniz.easify.data.FakeTrackRepository
-import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.ui.search.SearchViewModel
-import com.deniz.easify.ui.search.features.SearchViewEvent
-import com.deniz.easify.util.Event
+import com.deniz.easify.ui.search.SearchViewEvent
 import com.deniz.easify.util.EventObserver
 import com.deniz.easify.util.MainCoroutineRule
 import com.google.common.truth.Truth
 import io.mockk.mockk
-import io.mockk.verify
-import junit.framework.Assert
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After

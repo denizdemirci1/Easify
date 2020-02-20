@@ -30,6 +30,9 @@ class FollowViewModel(
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
 
+    private val _showClearIcon = MutableLiveData<Boolean>(false)
+    val showClearIcon: LiveData<Boolean> = _showClearIcon
+
     fun fetchArtists(q: String) {
         viewModelScope.launch {
             artistRepository.fetchArtists(q).let { result ->
@@ -52,5 +55,9 @@ class FollowViewModel(
     // Called by Data Binding.
     fun openArtistFragment(artist: Artist) {
         _openArtistFragmentEvent.value = Event(artist)
+    }
+
+    fun showClearIcon(show: Boolean) {
+        _showClearIcon.value = show
     }
 }

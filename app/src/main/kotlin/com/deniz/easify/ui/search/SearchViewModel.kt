@@ -10,7 +10,6 @@ import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.data.source.repositories.TrackRepository
-import com.deniz.easify.ui.search.features.SearchViewEvent
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
@@ -25,6 +24,9 @@ class SearchViewModel(
 
     private val _event = MutableLiveData<Event<SearchViewEvent>>()
     val event: LiveData<Event<SearchViewEvent>> = _event
+
+    private val _showClearIcon = MutableLiveData<Boolean>(false)
+    val showClearIcon: LiveData<Boolean> = _showClearIcon
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     val tracksToShow = ArrayList<Track>()
@@ -72,5 +74,9 @@ class SearchViewModel(
 
     fun openPlaylistsPage(track: Track) {
         sendEvent(SearchViewEvent.OpenPlaylistPage(track))
+    }
+
+    fun showClearIcon(show: Boolean) {
+        _showClearIcon.value = show
     }
 }
