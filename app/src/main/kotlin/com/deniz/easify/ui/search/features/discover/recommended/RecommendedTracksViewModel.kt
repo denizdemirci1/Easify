@@ -10,7 +10,6 @@ import com.deniz.easify.data.source.remote.response.FeaturesObject
 import com.deniz.easify.data.source.remote.response.RecommendationsObject
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.data.source.repositories.BrowseRepository
-import com.deniz.easify.data.source.repositories.PlayerRepository
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 

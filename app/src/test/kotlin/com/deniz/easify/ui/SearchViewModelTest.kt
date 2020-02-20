@@ -1,12 +1,21 @@
 package com.deniz.easify.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import androidx.lifecycle.Observer
 import com.deniz.easify.data.FakeTrackRepository
+import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.ui.search.SearchViewModel
+import com.deniz.easify.ui.search.features.SearchViewEvent
+import com.deniz.easify.util.Event
+import com.deniz.easify.util.EventObserver
 import com.deniz.easify.util.MainCoroutineRule
 import com.google.common.truth.Truth
+import io.mockk.mockk
+import io.mockk.verify
+import junit.framework.Assert
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -34,53 +43,50 @@ class SearchViewModelTest {
     // Use a fake repository to be injected into the viewModel
     private lateinit var trackRepository : FakeTrackRepository
 
+    private lateinit var eventObserver: EventObserver<SearchViewEvent>
+
     @Before
     fun setup() {
+        eventObserver = mockk(relaxed = true)
         trackRepository = FakeTrackRepository()
         searchViewModel = SearchViewModel(trackRepository)
     }
 
     @Test
     fun `when input length is greater than 2, there are tracks to show`() = mainCoroutineRule.runBlockingTest {
-        // Given an initialized searchViewModel
-
-        // When fetchSongs is called with input size > 2
         searchViewModel.fetchSongs("brooklyn")
-
-        // Then the [trackToShow] is populated
         Truth.assertThat(searchViewModel.tracksToShow).isNotEmpty()
     }
 
     @Test
     fun `when input length is equal to 2, there are tracks to show`() = mainCoroutineRule.runBlockingTest {
-        // Given an initialized searchViewModel
-
-        // When fetchSongs is called with input size = 2
         searchViewModel.fetchSongs("br")
-
-        // Then the [trackToShow] is populated
-        Truth.assertThat(searchViewModel.tracksToShow).isNotEmpty()
+        Truth.assertThat(searchViewModel.event.value?.getContentIfNotHandled())
+            .isInstanceOf(SearchViewEvent.NotifyDataChanged::class.java)
     }
 
     @Test
     fun `when input length is smaller than 2, there are no tracks to show`() = mainCoroutineRule.runBlockingTest {
-        // Given an initialized searchViewModel
-
-        // When fetchSongs is called with input size < 2
         searchViewModel.fetchSongs("b")
-
-        // Then the [trackToShow] is populated
         Truth.assertThat(searchViewModel.tracksToShow).isEmpty()
     }
 
     @Test
     fun `when input length is zero, there are no tracks to show`() = mainCoroutineRule.runBlockingTest {
-        // Given an initialized searchViewModel
-
-        // When fetchSongs is called with input size < 2
         searchViewModel.fetchSongs("")
-
-        // Then the [trackToShow] is populated
         Truth.assertThat(searchViewModel.tracksToShow).isEmpty()
+    }
+
+    @Test
+    fun `when search returns error, event is ShowError`() = mainCoroutineRule.runBlockingTest {
+        trackRepository.shouldReturnError = true
+        searchViewModel.fetchSongs("br")
+        Truth.assertThat(searchViewModel.event.value?.getContentIfNotHandled())
+            .isInstanceOf(SearchViewEvent.ShowError::class.java)
+    }
+
+    @After
+    fun tearDown() {
+        searchViewModel.event.removeObserver(eventObserver)
     }
 }

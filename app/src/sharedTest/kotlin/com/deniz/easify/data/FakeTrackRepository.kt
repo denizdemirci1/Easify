@@ -1,11 +1,10 @@
 package com.deniz.easify.data
 
 import com.deniz.easify.data.source.remote.response.FeaturesObject
-import com.deniz.easify.data.source.remote.response.Track
-import com.deniz.easify.data.source.remote.response.Tracks
 import com.deniz.easify.data.source.remote.response.TracksObject
 import com.deniz.easify.data.source.repositories.TrackRepository
 import io.mockk.mockk
+import java.lang.Exception
 
 /**
  * @User: deniz.demirci
@@ -14,19 +13,13 @@ import io.mockk.mockk
 
 class FakeTrackRepository : TrackRepository {
 
+    var shouldReturnError = false
+
     override suspend fun fetchTrack(q: String): Result<TracksObject> {
-        val track1 = mockk<Track>()
-        val track2 = mockk<Track>()
-        val tracksObject = TracksObject(
-            tracks = Tracks(
-                items = arrayListOf(track1, track2),
-                limit = 2,
-                next = null,
-                offset = 0,
-                previous = null,
-                total = 2)
-        )
-        return Result.Success(tracksObject)
+        if (shouldReturnError) {
+            return Result.Error(Exception("fetchTrack() failed"))
+        }
+        return Result.Success(mockk())
     }
 
     override suspend fun fetchTrackFeatures(id: String): Result<FeaturesObject> {

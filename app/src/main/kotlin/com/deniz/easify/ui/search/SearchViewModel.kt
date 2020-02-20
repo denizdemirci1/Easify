@@ -10,6 +10,7 @@ import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.data.source.repositories.TrackRepository
+import com.deniz.easify.ui.search.features.SearchViewEvent
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
@@ -22,20 +23,16 @@ class SearchViewModel(
     private val trackRepository: TrackRepository
 ) : ViewModel() {
 
-    private val _trackList = MutableLiveData<ArrayList<Track>>().apply { value = arrayListOf() }
-    val trackList: LiveData<ArrayList<Track>> = _trackList
-
-    private val _openTrackEvent = MutableLiveData<Event<Track>>()
-    val openTrackEvent: LiveData<Event<Track>> = _openTrackEvent
-
-    private val _openPlaylistsPageEvent = MutableLiveData<Event<Track>>()
-    val openPlaylistsPageEvent: LiveData<Event<Track>> = _openPlaylistsPageEvent
-
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> = _errorMessage
+    private val _event = MutableLiveData<Event<SearchViewEvent>>()
+    val event: LiveData<Event<SearchViewEvent>> = _event
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     val tracksToShow = ArrayList<Track>()
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun sendEvent(event: SearchViewEvent) {
+        _event.value = Event(event)
+    }
 
     fun fetchSongs(q: String) {
         if (q.length < 2)
@@ -50,12 +47,17 @@ class SearchViewModel(
                         tracksToShow.filter { track ->
                             track.name.contains(q) || track.artists[0].name.contains(q)
                         }
-                        _trackList.value = ArrayList(tracksToShow)
+                        sendEvent(SearchViewEvent.NotifyDataChanged(ArrayList(tracksToShow)))
                     }
-                    is Error -> _errorMessage.value =
-                        parseNetworkError(
-                            result.exception
+
+                    is Error -> {
+                        sendEvent(
+                            SearchViewEvent.ShowError(
+                                parseNetworkError(result.exception)
+                            )
                         )
+                    }
+
                 }
             }
         }
@@ -65,10 +67,10 @@ class SearchViewModel(
      * Called by Data Binding.
      */
     fun openTrack(track: Track) {
-        _openTrackEvent.value = Event(track)
+        sendEvent(SearchViewEvent.OpenTrack(track))
     }
 
     fun openPlaylistsPage(track: Track) {
-        _openPlaylistsPageEvent.value = Event(track)
+        sendEvent(SearchViewEvent.OpenPlaylistPage(track))
     }
 }

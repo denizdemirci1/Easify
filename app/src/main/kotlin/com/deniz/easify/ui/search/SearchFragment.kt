@@ -8,10 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.FragmentSearchBinding
 import com.deniz.easify.extension.afterTextChanged
+import com.deniz.easify.ui.search.features.SearchViewEvent
 import com.deniz.easify.util.EventObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -80,21 +82,30 @@ class SearchFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.openTrackEvent.observe(viewLifecycleOwner, EventObserver {
-            openFeaturesFragment(it)
-        })
+        viewModel.event.observe(viewLifecycleOwner, EventObserver { event ->
+            when (event) {
+                is SearchViewEvent.OpenTrack -> openFeaturesFragment(event.track)
 
-        viewModel.openPlaylistsPageEvent.observe(viewLifecycleOwner, EventObserver {
-            openPlaylistFragment(it)
-        })
+                is SearchViewEvent.OpenPlaylistPage -> openPlaylistFragment(event.track)
 
-        viewModel.trackList.observe(viewLifecycleOwner, Observer {
-            onViewDataChange(it)
+                is SearchViewEvent.NotifyDataChanged -> onViewDataChange(event.trackList)
+
+                is SearchViewEvent.ShowError -> showError(event.message)
+
+            }
         })
     }
 
     private fun onViewDataChange(tracks: ArrayList<Track>) {
         searchAdapter.submitList(tracks)
+    }
+
+    private fun showError(message: String) {
+        MaterialDialog(requireContext()).show {
+            title(R.string.dialog_error_title)
+            message(text = message)
+            positiveButton(R.string.dialog_ok)
+        }
     }
 
     private fun openFeaturesFragment(track: Track) {
