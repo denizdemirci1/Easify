@@ -101,7 +101,7 @@ class PlaylistDetailViewModel(
             val uri = listOf(Uri(track.uri))
             repository.removeTrackFromPlaylist(playlistId, RemoveTracksBody(uri))
             _showSnackbarMessage.value = Event(track.name)
-            fetchPlaylistTracks(playlistId)
+            _tracks.value = ArrayList(playlistsTracksToShow)
         }
     }
 
@@ -110,8 +110,7 @@ class PlaylistDetailViewModel(
     }
 
     fun removeTrack(track: Track) {
-        playlistsTracksToShow.removeAll { it.track.id == track.id }
-        removedTrackIds.add(track.id)
+        playlistsTracksToShow.removeAll { it.track.id == track.id}
         removeTrackFromPlaylist(track)
     }
 }

@@ -3,26 +3,64 @@ package com.deniz.easify.ui.search.features.discover.recommended
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.deniz.easify.data.Result
+import com.deniz.easify.data.source.Repository
+import com.deniz.easify.data.source.remote.parseNetworkError
+import com.deniz.easify.data.source.remote.response.FeaturesObject
 import com.deniz.easify.data.source.remote.response.RecommendationsObject
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.util.Event
+import kotlinx.coroutines.launch
 
 /**
  * @User: deniz.demirci
  * @Date: 2020-01-02
  */
 
-class RecommendedTracksViewModel : ViewModel() {
-
-    private val _recommendedTracks = MutableLiveData<ArrayList<Track>>().apply { value = arrayListOf() }
-    val recommendedTracks: LiveData<ArrayList<Track>> = _recommendedTracks
+class RecommendedTracksViewModel(
+    private val repository: Repository
+) : ViewModel() {
 
     private val _openTrackFragmentEvent = MutableLiveData<Event<Track>>()
     val openTrackFragmentEvent: LiveData<Event<Track>> = _openTrackFragmentEvent
 
-    fun start(recommendations: RecommendationsObject?) {
-        recommendations?.let {
-            _recommendedTracks.value = it.tracks
+    private val _recommendedTracks = MutableLiveData<RecommendationsObject>()
+    val recommendedTracks: LiveData<RecommendationsObject> = _recommendedTracks
+
+    private val _errorMessage = MutableLiveData<Event<String>>()
+    val errorMessage: LiveData<Event<String>> = _errorMessage
+
+    fun start(features: FeaturesObject?) {
+        features?.let {
+            fetchRecommendations(features)
+            return
+        }
+
+        _errorMessage.value = Event("Could not load the features you set from previous page." +
+                "Please go back and try again.")
+    }
+
+    private fun fetchRecommendations(features: FeaturesObject) {
+        viewModelScope.launch {
+            repository.fetchRecommendations(
+                features.danceability,
+                features.energy,
+                features.speechiness,
+                features.acousticness,
+                features.instrumentalness,
+                features.liveness,
+                features.valence,
+                features.tempo,
+                features.id
+            ).let { result ->
+                when (result) {
+                    is Result.Success -> {
+                        _recommendedTracks.value = result.data
+                    }
+                    is Result.Error -> _errorMessage.value = Event(parseNetworkError(result.exception))
+                }
+            }
         }
     }
 

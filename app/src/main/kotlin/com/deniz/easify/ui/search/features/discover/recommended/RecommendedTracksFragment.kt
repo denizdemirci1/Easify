@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.navArgs
+import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.FragmentRecommendedTracksBinding
@@ -49,26 +50,27 @@ class RecommendedTracksFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpRecommendedTracksAdapter()
-        viewModel.start(args.recommendations)
+        viewModel.start(args.features)
         setObservers()
     }
 
     private fun setObservers() {
         viewModel.recommendedTracks.observe(viewLifecycleOwner) {
-            setUpTitle(it.size)
-            onViewDataChange(it)
+            setUpTitle(it.tracks.size)
+            onViewDataChange(it.tracks)
         }
 
-        viewModel.openTrackFragmentEvent.observe(viewLifecycleOwner, EventObserver {
-            openTrackOnSpotify(it)
+        viewModel.errorMessage.observe(viewLifecycleOwner, EventObserver { message ->
+            showError(message)
+        })
+
+        viewModel.openTrackFragmentEvent.observe(viewLifecycleOwner, EventObserver { track ->
+            openTrackOnSpotify(track)
         })
     }
 
     private fun setUpTitle(value: Int) {
-        val text = String.format(
-            resources.getString(R.string.fragment_recommended_tracks_title),
-            value)
-        binding.title.text = text
+        binding.title.text = getString(R.string.fragment_recommended_tracks_title, value)
     }
 
     private fun setUpRecommendedTracksAdapter() {
@@ -83,6 +85,16 @@ class RecommendedTracksFragment : Fragment() {
 
     private fun onViewDataChange(tracks: ArrayList<Track>) {
         recommendedTracksAdapter.submitList(tracks)
+    }
+
+    private fun showError(message: String) {
+        view?.context?.let {
+            MaterialDialog(it).show {
+                title(R.string.dialog_error_title)
+                message(text = message)
+                positiveButton(R.string.dialog_ok)
+            }
+        }
     }
 
     private fun openTrackOnSpotify(track: Track) {

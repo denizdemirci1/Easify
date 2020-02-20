@@ -18,15 +18,10 @@ import kotlinx.coroutines.launch
  * @Date: 2020-01-02
  */
 
-class DiscoverViewModel(
-    private val repository: Repository
-) : ViewModel() {
+class DiscoverViewModel: ViewModel() {
 
     private val _trackFeatures = MutableLiveData<FeaturesObject>()
     val trackFeatures: LiveData<FeaturesObject> = _trackFeatures
-
-    private val _recommendationsEvent = MutableLiveData<Event<RecommendationsObject>>()
-    val recommendationsEvent: LiveData<Event<RecommendationsObject>> = _recommendationsEvent
 
     private val _errorMessage = MutableLiveData<String>()
     val errorMessage: LiveData<String> = _errorMessage
@@ -34,46 +29,11 @@ class DiscoverViewModel(
     private val _showDiscoverButton = MutableLiveData<Boolean>().apply { value = true }
     val showDiscoverButton: LiveData<Boolean> = _showDiscoverButton
 
-    private var seedTrackId: String? = null
-
     fun start(features: FeaturesObject?) {
         features?.let {
             _trackFeatures.value = it
-            seedTrackId = it.id
             return
         }
         _showDiscoverButton.value = false
-    }
-
-    fun fetchRecommendations(
-        danceability: Float,
-        energy: Float,
-        speechiness: Float,
-        acousticness: Float,
-        instrumentalness: Float,
-        liveness: Float,
-        valence: Float,
-        tempo: Float
-    ) {
-        viewModelScope.launch {
-            repository.fetchRecommendations(
-                danceability,
-                energy,
-                speechiness,
-                acousticness,
-                instrumentalness,
-                liveness,
-                valence,
-                tempo,
-                seedTrackId!!
-            ).let { result ->
-                when (result) {
-                    is Success -> {
-                        _recommendationsEvent.value = Event(result.data)
-                    }
-                    is Error -> _errorMessage.value = parseNetworkError(result.exception)
-                }
-            }
-        }
     }
 }

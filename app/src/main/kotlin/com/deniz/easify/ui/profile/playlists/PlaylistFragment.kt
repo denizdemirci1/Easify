@@ -76,14 +76,14 @@ class PlaylistFragment : Fragment() {
         viewModel.trackAddingResult.observe(viewLifecycleOwner, EventObserver {
             if (it.second)
                 showSnackbar(
-                    getString(R.string.fragment_playlist_track_added_to_playlist),
-                    it.first.first,
-                    it.first.second)
+                    getString(R.string.fragment_playlist_track_added_to_playlist,
+                        it.first.first,
+                        it.first.second))
             else
                 showSnackbar(
-                    getString(R.string.fragment_playlist_track_already_exists_in_playlist),
-                    it.first.first,
-                    it.first.second)
+                    getString(R.string.fragment_playlist_track_already_exists_in_playlist,
+                        it.first.first,
+                        it.first.second))
         })
     }
 
@@ -117,13 +117,8 @@ class PlaylistFragment : Fragment() {
         findNavController().navigate(action)
     }
 
-    private fun showSnackbar(info: String, trackName: String, playlistName: String) {
+    private fun showSnackbar(message: String) {
         view?.let {
-            val message = String.format(
-                info,
-                trackName,
-                playlistName)
-
             val snackbar = Snackbar.make(it, message, Snackbar.LENGTH_LONG)
 
             // add color

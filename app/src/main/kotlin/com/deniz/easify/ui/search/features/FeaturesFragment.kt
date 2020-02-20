@@ -80,59 +80,42 @@ class FeaturesFragment : Fragment() {
     }
 
     private fun setDanceability(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_danceability),
-            value * 100)
-        binding.danceability.text = text
+        binding.danceability.text =
+            getString(R.string.fragment_features_danceability, (value * 100))
     }
 
     private fun setEnergy(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_energy),
-            value * 100)
-        binding.energy.text = text
+        binding.energy.text =
+            getString(R.string.fragment_features_energy, (value * 100))
     }
 
     private fun setSpeechiness(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_speechiness),
-            value * 100)
-        binding.speechiness.text = text
+        binding.speechiness.text =
+            getString(R.string.fragment_features_speechiness, (value * 100))
     }
 
     private fun setAcousticness(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_acousticness),
-            value * 100)
-        binding.acousticness.text = text
+        binding.acousticness.text =
+            getString(R.string.fragment_features_acousticness, (value * 100))
     }
 
     private fun setInstrumentalness(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_instrumentalness),
-            value * 100)
-        binding.instrumentalness.text = text
+        binding.instrumentalness.text =
+            getString(R.string.fragment_features_instrumentalness, (value * 100))
     }
 
     private fun setLiveness(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_liveness),
-            value * 100)
-        binding.liveness.text = text
+        binding.liveness.text =
+            getString(R.string.fragment_features_liveness, (value * 100))
     }
 
     private fun setValence(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_valence),
-            value * 100)
-        binding.valence.text = text
+        binding.valence.text =
+            getString(R.string.fragment_features_valence, (value * 100))
     }
 
     private fun setTempo(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_tempo),
-            value)
-        binding.tempo.text = text
+        binding.tempo.text = getString(R.string.fragment_features_tempo, value)
     }
     // endregion
 }
