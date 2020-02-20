@@ -152,10 +152,6 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$test_arch_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
-    testImplementation "org.robolectric:robolectric:$test_robolectric_version"
-    testImplementation "androidx.test.espresso:espresso-core:$test_espresso_version"
-    testImplementation "androidx.test.espresso:espresso-contrib:$test_espresso_version"
-    testImplementation "androidx.test.espresso:espresso-intents:$test_espresso_version"
     testImplementation "com.google.truth:truth:$test_truth_version"
 
     // UI Tests

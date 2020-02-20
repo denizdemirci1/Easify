@@ -2,6 +2,7 @@ package com.deniz.easify.data
 
 import com.deniz.easify.data.source.remote.response.User
 import com.deniz.easify.data.source.repositories.UserRepository
+import io.mockk.mockk
 
 /**
  * @User: deniz.demirci
@@ -10,20 +11,28 @@ import com.deniz.easify.data.source.repositories.UserRepository
 
 class FakeUserRepository : UserRepository {
 
+    var shouldReturnError = false
+
     override suspend fun fetchUser(): Result<User>? {
-        return Result.Success(
-            User(
-                "TR",
-                "Deniz Demirci",
-                "d.demirci93@gmail.com",
-                User.ExternalUrl("https://open.spotify.com/user/11131803020"),
-                User.Follower(37),
-                "11131803020",
-                arrayListOf(),
-                "premium",
-                "user",
-                "spotify:user:11131803020"
-            )
-        )
+        return if (shouldReturnError)
+            Result.Error(Exception("fetchUser() failed"))
+        else
+            Result.Success(mockk())
     }
+
+    override fun saveToken(accessToken: String?) {
+        val fakeToken = accessToken
+    }
+
+    override fun getToken() = "token"
+
+    override fun clearToken() {}
+
+    override fun saveUser(user: User?) {}
+
+    override fun setTokenRefreshed(refreshed: Boolean) {
+        val fakeTokenRefreshed = refreshed
+    }
+
+    override fun getTokenRefreshed() = false
 }

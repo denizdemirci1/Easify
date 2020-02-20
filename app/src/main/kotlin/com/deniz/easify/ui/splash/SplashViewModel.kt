@@ -20,7 +20,6 @@ import kotlinx.coroutines.launch
  */
 
 class SplashViewModel(
-    private val authManager: AuthManager,
     private val userRepository: UserRepository
 ) : ViewModel() {
 
@@ -33,11 +32,11 @@ class SplashViewModel(
     }
 
     fun saveToken(accessToken: String) {
-        authManager.token = accessToken
+        userRepository.saveToken(accessToken)
     }
 
     fun clearToken() {
-        authManager.token = ""
+        userRepository.clearToken()
     }
 
     fun fetchUser() {
@@ -45,12 +44,12 @@ class SplashViewModel(
             userRepository.fetchUser().let { result ->
                 when (result) {
                     is Success -> {
-                        authManager.user = result.data
-                        authManager.tokenRefreshed = false
+                        userRepository.saveUser(result.data)
+                        userRepository.setTokenRefreshed(false)
                         sendEvent(SplashViewEvent.OpenSearchFragment)
                     }
                     is Error -> {
-                        authManager.token = null
+                        userRepository.saveToken(null)
                         handleAuthError(parseNetworkError(result.exception))
                     }
                 }
@@ -59,7 +58,7 @@ class SplashViewModel(
     }
 
     fun authenticateSpotify() {
-        if (!authManager.token.isNullOrEmpty()) {
+        if (!userRepository.getToken().isNullOrEmpty()) {
             fetchUser()
             return
         }
@@ -73,11 +72,11 @@ class SplashViewModel(
      * If it fails again, then show the error.
      */
     fun handleAuthError(message: String) {
-        if (authManager.tokenRefreshed) {
+        if (userRepository.getTokenRefreshed()) {
             sendEvent(SplashViewEvent.ShowError(message))
-            authManager.tokenRefreshed = false
+            userRepository.setTokenRefreshed(false)
         } else {
-            authManager.tokenRefreshed = true
+            userRepository.setTokenRefreshed(true)
             authenticateSpotify()
         }
     }
