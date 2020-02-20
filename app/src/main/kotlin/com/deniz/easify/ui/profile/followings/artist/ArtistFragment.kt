@@ -58,15 +58,11 @@ class ArtistFragment : Fragment() {
         viewModel.showSnackbarMessage.observe(viewLifecycleOwner) {
             val snackbarMessage = when (it) {
                 ArtistViewModel.Follow.FOLLOW -> {
-                    String.format(
-                        resources.getString(R.string.fragment_artist_snackbar_followed),
-                        args.artist?.name)
+                    getString(R.string.fragment_artist_snackbar_followed, args.artist?.name)
                 }
 
                 ArtistViewModel.Follow.UNFOLLOW -> {
-                    String.format(
-                        resources.getString(R.string.fragment_artist_snackbar_unfollowed),
-                        args.artist?.name)
+                    getString(R.string.fragment_artist_snackbar_unfollowed, args.artist?.name)
                 }
             }
 
@@ -79,10 +75,8 @@ class ArtistFragment : Fragment() {
         binding.artistName.text = artist.name
 
         // follower count
-        String.format(
-            resources.getString(R.string.fragment_artist_follower_count),
-            args.artist!!.followers.total
-        ).also { binding.followers.text = it }
+        binding.followers.text =
+            getString(R.string.fragment_artist_follower_count, args.artist!!.followers.total)
 
         // genre(s)
         var genresText = ""

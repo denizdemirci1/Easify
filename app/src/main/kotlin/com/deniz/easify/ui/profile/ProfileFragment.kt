@@ -75,10 +75,8 @@ class ProfileFragment : Fragment() {
         }
 
         // Follower Count
-        String.format(
-            resources.getString(R.string.fragment_artist_follower_count),
-            user.followers.total
-        ).also { binding.followerCount.text = it }
+        binding.followerCount.text =
+            getString(R.string.fragment_artist_follower_count, user.followers.total)
     }
 
     private fun openFavoritesFragment() {

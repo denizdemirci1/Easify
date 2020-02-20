@@ -79,8 +79,8 @@
         android:name="com.deniz.easify.ui.search.features.discover.recommended.RecommendedTracksFragment"
         android:label="RecommendedTracksFragment">
         <argument
-            android:name="recommendations"
-            app:argType="com.deniz.easify.data.source.remote.response.RecommendationsObject"
+            android:name="features"
+            app:argType="com.deniz.easify.data.source.remote.response.FeaturesObject"
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>

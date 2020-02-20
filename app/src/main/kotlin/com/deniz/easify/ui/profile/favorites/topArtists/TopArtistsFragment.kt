@@ -56,11 +56,8 @@ class TopArtistsFragment : Fragment() {
     }
 
     private fun setToolbarTitle() {
-        val toolbarTitle = String.format(
-            resources.getString(R.string.fragment_top_artists_title),
-            args.favorites?.items?.size
-        )
-        binding.title.text = toolbarTitle
+        binding.title.text =
+            getString(R.string.fragment_top_artists_title, args.favorites?.items?.size)
     }
 
     private fun setupObservers() {

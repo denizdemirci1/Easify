@@ -161,6 +161,7 @@ dependencies {
     // UI Tests
     androidTestImplementation "androidx.navigation:navigation-testing:$test_navigation_version"
     androidTestImplementation "androidx.navigation:navigation-runtime-ktx:$test_navigation_version"
+    androidTestImplementation "org.mockito:mockito-android:$test_mockito_version"
     androidTestImplementation "io.mockk:mockk-android:$test_mockk_version"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
     androidTestImplementation "androidx.fragment:fragment-testing:$test_fragment_version"

@@ -13,12 +13,6 @@ data class FeaturesObject(
     val danceability: Float,
     @SerializedName("energy")
     val energy: Float,
-    @SerializedName("key")
-    val key: Int,
-    @SerializedName("loudness")
-    val loudness: Float,
-    @SerializedName("mode")
-    val mode: Int,
     @SerializedName("speechiness")
     val speechiness: Float,
     @SerializedName("acousticness")
@@ -31,14 +25,6 @@ data class FeaturesObject(
     val valence: Float,
     @SerializedName("tempo")
     val tempo: Float,
-    @SerializedName("type")
-    val type: String,
     @SerializedName("id")
-    val id: String,
-    @SerializedName("uri")
-    val uri: String,
-    @SerializedName("duration_ms")
-    val duration_ms: Int,
-    @SerializedName("time_signature")
-    val time_signature: Int
+    val id: String
 ) : Serializable

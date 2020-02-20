@@ -65,10 +65,7 @@ class PlaylistDetailFragment : Fragment() {
         })
 
         viewModel.showSnackbarMessage.observe(viewLifecycleOwner, EventObserver { trackName ->
-            val message = String.format(
-                resources.getString(R.string.fragment_playlist_detail_removed),
-                trackName)
-            showSnackbar(message)
+            showSnackbar(getString(R.string.fragment_playlist_detail_removed, trackName))
         })
     }
 
@@ -76,6 +73,9 @@ class PlaylistDetailFragment : Fragment() {
         val viewModel = binding.viewmodel
         if (viewModel != null) {
             playlistDetailAdapter = PlaylistDetailAdapter(viewModel)
+            playlistDetailAdapter.removeListener = { track ->
+                viewModel.removeTrack(track)
+            }
             binding.tracksRecyclerView.adapter = playlistDetailAdapter
         } else {
             Log.i("PlaylistDetailFragment", "ViewModel not initialized when attempting to set up adapter.")

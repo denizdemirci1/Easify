@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
+import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.History
 import com.deniz.easify.data.source.remote.response.Track
@@ -63,6 +64,10 @@ class HistoryFragment : Fragment() {
         viewModel.historyList.observe(viewLifecycleOwner) {
             onViewDataChange(it)
         }
+
+        viewModel.errorMessage.observe(viewLifecycleOwner) {
+            showError(it)
+        }
     }
 
     private fun setupHistoryAdapter() {
@@ -77,6 +82,16 @@ class HistoryFragment : Fragment() {
 
     private fun onViewDataChange(history: ArrayList<History>) {
         historyAdapter.submitList(history)
+    }
+
+    private fun showError(message: String) {
+        this.context.let {
+            MaterialDialog(it!!).show {
+                title(R.string.dialog_error_title)
+                message(text = message)
+                positiveButton(R.string.dialog_ok)
+            }
+        }
     }
 
     private fun openFeaturesFragment(track: Track) {

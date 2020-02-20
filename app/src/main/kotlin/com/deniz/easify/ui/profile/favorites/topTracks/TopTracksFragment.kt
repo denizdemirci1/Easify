@@ -56,11 +56,8 @@ class TopTracksFragment : Fragment() {
     }
 
     private fun setToolbarTitle() {
-        val toolbarTitle = String.format(
-            getString(R.string.fragment_top_tracks_title),
-            args.favorites?.items?.size
-        )
-        binding.title.text = toolbarTitle
+        binding.title.text = getString(R.string.fragment_top_tracks_title,
+            args.favorites?.items?.size)
     }
 
     private fun setupObservers() {

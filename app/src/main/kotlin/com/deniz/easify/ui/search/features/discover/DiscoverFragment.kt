@@ -26,7 +26,6 @@ class DiscoverFragment : Fragment() {
 
     private lateinit var binding: FragmentDiscoverBinding
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     val viewModel by viewModel<DiscoverViewModel>()
 
     private val args: DiscoverFragmentArgs by navArgs()
@@ -68,8 +67,7 @@ class DiscoverFragment : Fragment() {
         binding.tempoSeek.onProgressChanged { setTempo(it) }
 
         binding.discover.setOnClickListener {
-            it.isEnabled = false
-            viewModel.fetchRecommendations(
+            val features = FeaturesObject(
                 binding.danceabilitySeek.progress.toFloat(),
                 binding.energySeek.progress.toFloat(),
                 binding.speechinessSeek.progress.toFloat(),
@@ -77,8 +75,10 @@ class DiscoverFragment : Fragment() {
                 binding.instrumentalnessSeek.progress.toFloat(),
                 binding.livenessSeek.progress.toFloat(),
                 binding.valenceSeek.progress.toFloat(),
-                binding.tempoSeek.progress.toFloat()
+                binding.tempoSeek.progress.toFloat(),
+                args.features!!.id
             )
+            navigateToRecommendedTracksFragment(features)
         }
     }
 
@@ -86,14 +86,10 @@ class DiscoverFragment : Fragment() {
         viewModel.trackFeatures.observe(viewLifecycleOwner) {
             initializeFeatures(it)
         }
-
-        viewModel.recommendationsEvent.observe(viewLifecycleOwner, EventObserver {
-            navigateToRecommendedTracksFragment(it)
-        })
     }
 
-    private fun navigateToRecommendedTracksFragment(recommendations: RecommendationsObject) {
-        val action = DiscoverFragmentDirections.actionDiscoverFragmentToRecommendedTracksFragment(recommendations)
+    private fun navigateToRecommendedTracksFragment(features: FeaturesObject) {
+        val action = DiscoverFragmentDirections.actionDiscoverFragmentToRecommendedTracksFragment(features)
         findNavController().navigate(action)
     }
 
@@ -115,59 +111,42 @@ class DiscoverFragment : Fragment() {
     }
 
     private fun setDanceability(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_danceability),
-            value)
-        binding.danceability.text = text
+        binding.danceability.text =
+            getString(R.string.fragment_features_danceability, (value * 100))
     }
 
     private fun setEnergy(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_energy),
-            value)
-        binding.energy.text = text
+        binding.energy.text =
+            getString(R.string.fragment_features_energy, (value * 100))
     }
 
     private fun setSpeechiness(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_speechiness),
-            value)
-        binding.speechiness.text = text
+        binding.speechiness.text =
+            getString(R.string.fragment_features_speechiness, (value * 100))
     }
 
     private fun setAcousticness(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_acousticness),
-            value)
-        binding.acousticness.text = text
+        binding.acousticness.text =
+            getString(R.string.fragment_features_acousticness, (value * 100))
     }
 
     private fun setInstrumentalness(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_instrumentalness),
-            value)
-        binding.instrumentalness.text = text
+        binding.instrumentalness.text =
+            getString(R.string.fragment_features_instrumentalness, (value * 100))
     }
 
     private fun setLiveness(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_liveness),
-            value)
-        binding.liveness.text = text
+        binding.liveness.text =
+            getString(R.string.fragment_features_liveness, (value * 100))
     }
 
     private fun setValence(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_valence),
-            value)
-        binding.valence.text = text
+        binding.valence.text =
+            getString(R.string.fragment_features_valence, (value * 100))
     }
 
     private fun setTempo(value: Float) {
-        val text = String.format(
-            resources.getString(R.string.fragment_features_tempo),
-            value)
-        binding.tempo.text = text
+        binding.tempo.text = getString(R.string.fragment_features_tempo, value)
     }
     // endregion
 }

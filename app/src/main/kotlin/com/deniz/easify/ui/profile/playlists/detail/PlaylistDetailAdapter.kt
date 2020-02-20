@@ -17,7 +17,9 @@ import com.deniz.easify.ui.base.BaseViewHolder
 
 // TODO: Can be good for when statement on onBindViewHolder
 
-class PlaylistDetailAdapter(private val viewModel: PlaylistDetailViewModel) : BaseListAdapter<PlaylistTracks>(
+class PlaylistDetailAdapter(
+    private val viewModel: PlaylistDetailViewModel,
+    var removeListener: ((Track) -> Unit)? = null) : BaseListAdapter<PlaylistTracks>(
     itemsSame = { old, new -> old.track.id == new.track.id },
     contentsSame = { old, new -> old == new }
 ) {
@@ -28,7 +30,7 @@ class PlaylistDetailAdapter(private val viewModel: PlaylistDetailViewModel) : Ba
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is PlaylistDetailViewHolder -> holder.bind(viewModel, getItem(position).track)
+            is PlaylistDetailViewHolder -> holder.bind(viewModel, getItem(position).track, removeListener)
         }
     }
 }
@@ -40,12 +42,11 @@ class PlaylistDetailViewHolder(
     binding = ViewholderPlaylistDetailBinding.inflate(inflater, parent, false)
 ) {
 
-    fun bind(viewModel: PlaylistDetailViewModel, track: Track) {
+    fun bind(viewModel: PlaylistDetailViewModel, track: Track, removeListener: ((Track) -> Unit)?) {
         binding.viewmodel = viewModel
         binding.track = track
         binding.remove.setOnClickListener {
-            binding.trackLayout.visibility = View.GONE
-            viewModel.removeTrack(track) }
+            removeListener?.invoke(track) }
         binding.executePendingBindings()
     }
 }

@@ -85,18 +85,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
-                <!--
-                <androidx.appcompat.widget.AppCompatCheckBox
-                    android:id="@+id/danceability_check_box"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:button="@drawable/checkbox_background"
-
-                    app:layout_constraintTop_toTopOf="@id/danceabilitySeek"
-                    app:layout_constraintBottom_toBottomOf="@id/danceabilitySeek"
-                    app:layout_constraintStart_toEndOf="@id/danceabilitySeek"/>
-                -->
-
                 <androidx.appcompat.widget.AppCompatTextView
                     android:id="@+id/energy"
                     android:layout_width="wrap_content"
@@ -239,7 +227,7 @@
                     android:layout_marginTop="16dp"
 
                     android:textColor="@color/colorSpotifyWhite"
-                    tools:text="Liveness: 0.5"
+                    tools:text="valence: 0.5"
 
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -266,7 +254,7 @@
                     android:layout_marginTop="16dp"
 
                     android:textColor="@color/colorSpotifyWhite"
-                    tools:text="Liveness: 0.5"
+                    tools:text="tempo: 120"
 
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
