@@ -14,7 +14,7 @@ val repositoryModule = module {
     single<FollowRepository> { DefaultFollowRepository(get()) }
     single<PersonalizationRepository> { DefaultPersonalizationRepository(get()) }
     single<PlayerRepository> { DefaultPlayerRepository(get()) }
-    single<PlaylistRepository> { DefaultPlaylistRepository(get()) }
+    single<PlaylistRepository> { DefaultPlaylistRepository(get(), get()) }
     single<TrackRepository> { DefaultTrackRepository(get()) }
     single<UserRepository> { DefaultUserRepository(get()) }
 }

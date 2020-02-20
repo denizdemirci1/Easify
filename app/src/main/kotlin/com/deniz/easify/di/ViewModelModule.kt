@@ -28,7 +28,7 @@ val viewModelModule = module {
     viewModel { SplashViewModel(get(), get()) }
     viewModel { SearchViewModel(get()) }
     viewModel { HistoryViewModel(get()) }
-    viewModel { ProfileViewModel(get(), get()) }
+    viewModel { ProfileViewModel(get()) }
     viewModel { FavoritesViewModel(get()) }
     viewModel { TopArtistsViewModel() }
     viewModel { TopTracksViewModel() }
@@ -39,6 +39,6 @@ val viewModelModule = module {
     viewModel { DiscoverViewModel() }
     viewModel { RecommendedTracksViewModel(get()) }
     viewModel { PlaylistViewModel(get(), get()) }
-    viewModel { CreatePlaylistViewModel(get(), get()) }
+    viewModel { CreatePlaylistViewModel(get()) }
     viewModel { PlaylistDetailViewModel(get()) }
 }

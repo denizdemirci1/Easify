@@ -9,6 +9,8 @@ import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.remote.response.FeaturesObject
 import com.deniz.easify.data.source.remote.response.RecommendationsObject
 import com.deniz.easify.data.source.remote.response.Track
+import com.deniz.easify.data.source.repositories.BrowseRepository
+import com.deniz.easify.data.source.repositories.PlayerRepository
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
@@ -18,7 +20,7 @@ import kotlinx.coroutines.launch
  */
 
 class RecommendedTracksViewModel(
-    private val repository: Repository
+    private val browseRepository: BrowseRepository
 ) : ViewModel() {
 
     private val _openTrackFragmentEvent = MutableLiveData<Event<Track>>()
@@ -42,7 +44,7 @@ class RecommendedTracksViewModel(
 
     private fun fetchRecommendations(features: FeaturesObject) {
         viewModelScope.launch {
-            repository.fetchRecommendations(
+            browseRepository.fetchRecommendations(
                 features.danceability,
                 features.energy,
                 features.speechiness,
