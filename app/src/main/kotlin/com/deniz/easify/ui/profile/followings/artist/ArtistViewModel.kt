@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result.Error
 import com.deniz.easify.data.Result.Success
-import com.deniz.easify.data.source.Repository
-import com.deniz.easify.data.source.remote.parseNetworkError
+import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.remote.response.Artist
+import com.deniz.easify.data.source.repositories.FollowRepository
 import kotlinx.coroutines.launch
 
 /**
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
  */
 
 class ArtistViewModel(
-    private val repository: Repository
+    private val followRepository: FollowRepository
 ) : ViewModel() {
 
     enum class Follow {
@@ -48,13 +48,16 @@ class ArtistViewModel(
 
     fun fetchFollowedArtists() {
         viewModelScope.launch {
-            repository.fetchFollowedArtists().let { result ->
+            followRepository.fetchFollowedArtists().let { result ->
                 when (result) {
                     is Success -> {
                         _artists.value = result.data.artists.items
                         setButtonVisibilities(result.data.artists.items)
                     }
-                    is Error -> _errorMessage.value = parseNetworkError(result.exception)
+                    is Error -> _errorMessage.value =
+                        parseNetworkError(
+                            result.exception
+                        )
                 }
             }
         }
@@ -62,14 +65,14 @@ class ArtistViewModel(
 
     fun followArtist(id: String) {
         viewModelScope.launch {
-            repository.followArtist(id = id)
+            followRepository.followArtist(id = id)
             _showSnackbarMessage.value = Follow.FOLLOW
         }
     }
 
     fun unfollowArtist(id: String) {
         viewModelScope.launch {
-            repository.unfollowArtist(id = id)
+            followRepository.unfollowArtist(id = id)
             _showSnackbarMessage.value = Follow.UNFOLLOW
         }
     }

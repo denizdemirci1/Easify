@@ -5,11 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result
-import com.deniz.easify.data.source.Repository
-import com.deniz.easify.data.source.remote.parseNetworkError
+import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.remote.response.Playlist
 import com.deniz.easify.data.source.remote.response.PlaylistTracks
 import com.deniz.easify.data.source.remote.response.Track
+import com.deniz.easify.data.source.repositories.PlaylistRepository
 import com.deniz.easify.util.AuthManager
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ import kotlinx.coroutines.launch
 
 class PlaylistViewModel(
     private val authManager: AuthManager,
-    private val repository: Repository
+    private val playlistRepository: PlaylistRepository
 ) : ViewModel() {
 
     /**
@@ -84,7 +84,7 @@ class PlaylistViewModel(
 
     private fun fetchPlaylists(onlyEditablePlaylists: Boolean) {
         viewModelScope.launch {
-            repository.fetchPlaylists(authManager.user!!.id).let { result ->
+            playlistRepository.fetchPlaylists(authManager.user!!.id).let { result ->
                 when (result) {
                     is Result.Success -> {
                         playlistsToShow.clear()
@@ -96,7 +96,10 @@ class PlaylistViewModel(
                         )
                         _playlists.value = ArrayList(playlistsToShow)
                     }
-                    is Result.Error -> _errorMessage.value = parseNetworkError(result.exception)
+                    is Result.Error -> _errorMessage.value =
+                        parseNetworkError(
+                            result.exception
+                        )
                 }
             }
         }
@@ -118,7 +121,7 @@ class PlaylistViewModel(
                 }
             }
             // if track doesn't exist in the playlist, add
-            repository.addTrackToPlaylist(playlist.id, track.uri)
+            playlistRepository.addTrackToPlaylist(playlist.id, track.uri)
             _trackAddingResult.value = Event(Pair(Pair(track.name, playlist.name), true))
         }
     }
@@ -130,7 +133,7 @@ class PlaylistViewModel(
         }
 
         viewModelScope.launch {
-            repository.fetchPlaylistTracks(playlist.id, requestCount * 100).let { result ->
+            playlistRepository.fetchPlaylistTracks(playlist.id, requestCount * 100).let { result ->
                 when (result) {
                     is Result.Success -> {
                         requestCount ++
@@ -140,7 +143,10 @@ class PlaylistViewModel(
                         else
                             addTrackToPlaylist(track, playlist)
                     }
-                    is Result.Error -> _errorMessage.value = parseNetworkError(result.exception)
+                    is Result.Error -> _errorMessage.value =
+                        parseNetworkError(
+                            result.exception
+                        )
                 }
             }
         }

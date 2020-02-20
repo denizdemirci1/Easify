@@ -7,13 +7,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result.Error
 import com.deniz.easify.data.Result.Success
-import com.deniz.easify.data.source.Repository
-import com.deniz.easify.data.source.remote.parseNetworkError
+import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.remote.request.RemoveTracksBody
 import com.deniz.easify.data.source.remote.request.Uri
 import com.deniz.easify.data.source.remote.response.Playlist
 import com.deniz.easify.data.source.remote.response.PlaylistTracks
 import com.deniz.easify.data.source.remote.response.Track
+import com.deniz.easify.data.source.repositories.PlaylistRepository
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
@@ -23,7 +23,7 @@ import kotlinx.coroutines.launch
  */
 
 class PlaylistDetailViewModel(
-    private val repository: Repository
+    private val playlistRepository: PlaylistRepository
 ) : ViewModel() {
 
     private val _tracks = MutableLiveData<ArrayList<PlaylistTracks>>().apply { value = arrayListOf() }
@@ -73,7 +73,7 @@ class PlaylistDetailViewModel(
     private fun fetchPlaylistTracks(playlistId: String) {
         viewModelScope.launch {
             _loading.value = true
-            repository.fetchPlaylistTracks(playlistId, requestCount * 100).let { result ->
+            playlistRepository.fetchPlaylistTracks(playlistId, requestCount * 100).let { result ->
                 when (result) {
                     is Success -> {
                         requestCount ++
@@ -88,7 +88,10 @@ class PlaylistDetailViewModel(
                         }
                     }
                     is Error -> {
-                        _errorMessage.value = parseNetworkError(result.exception)
+                        _errorMessage.value =
+                            parseNetworkError(
+                                result.exception
+                            )
                         _loading.value = false
                     }
                 }
@@ -99,7 +102,7 @@ class PlaylistDetailViewModel(
     private fun removeTrackFromPlaylist(track: Track) {
         viewModelScope.launch {
             val uri = listOf(Uri(track.uri))
-            repository.removeTrackFromPlaylist(playlistId, RemoveTracksBody(uri))
+            playlistRepository.removeTrackFromPlaylist(playlistId, RemoveTracksBody(uri))
             _showSnackbarMessage.value = Event(track.name)
             _tracks.value = ArrayList(playlistsTracksToShow)
         }

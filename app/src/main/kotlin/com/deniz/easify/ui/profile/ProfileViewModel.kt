@@ -3,7 +3,6 @@ package com.deniz.easify.ui.profile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.remote.response.User
 import com.deniz.easify.util.AuthManager
 
@@ -13,8 +12,7 @@ import com.deniz.easify.util.AuthManager
  */
 
 class ProfileViewModel(
-    private val authManager: AuthManager,
-    private val repository: Repository
+    private val authManager: AuthManager
 ) : ViewModel() {
 
     private val _user = MutableLiveData<User>()

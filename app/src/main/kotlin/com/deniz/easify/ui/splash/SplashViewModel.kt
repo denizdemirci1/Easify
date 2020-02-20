@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result.Error
 import com.deniz.easify.data.Result.Success
-import com.deniz.easify.data.source.Repository
-import com.deniz.easify.data.source.remote.parseNetworkError
+import com.deniz.easify.data.source.remote.utils.parseNetworkError
+import com.deniz.easify.data.source.repositories.UserRepository
 import com.deniz.easify.util.AuthManager
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 class SplashViewModel(
     private val authManager: AuthManager,
-    private val repository: Repository
+    private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _authenticate = MutableLiveData<Boolean>()
@@ -41,7 +41,7 @@ class SplashViewModel(
 
     fun fetchUser() {
         viewModelScope.launch {
-            repository.fetchUser().let { result ->
+            userRepository.fetchUser().let { result ->
                 when (result) {
                     is Success -> {
                         authManager.user = result.data
@@ -50,7 +50,11 @@ class SplashViewModel(
                     }
                     is Error -> {
                         authManager.token = null
-                        handleAuthError(parseNetworkError(result.exception))
+                        handleAuthError(
+                            parseNetworkError(
+                                result.exception
+                            )
+                        )
                     }
                 }
             }

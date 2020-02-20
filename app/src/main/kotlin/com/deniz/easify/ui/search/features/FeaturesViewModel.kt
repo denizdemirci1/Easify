@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result.Error
 import com.deniz.easify.data.Result.Success
-import com.deniz.easify.data.source.Repository
-import com.deniz.easify.data.source.remote.parseNetworkError
+import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.remote.response.FeaturesObject
 import com.deniz.easify.data.source.remote.response.Track
+import com.deniz.easify.data.source.repositories.TrackRepository
 import kotlinx.coroutines.launch
 
 /**
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
  */
 
 class FeaturesViewModel(
-    private val repository: Repository
+    private val trackRepository: TrackRepository
 ) : ViewModel() {
 
     val track = MutableLiveData<Track>()
@@ -38,12 +38,15 @@ class FeaturesViewModel(
 
     private fun fetchTrackFeatures(track: Track) {
         viewModelScope.launch {
-            repository.fetchTrackFeatures(track.id).let { result ->
+            trackRepository.fetchTrackFeatures(track.id).let { result ->
                 when (result) {
                     is Success -> {
                         _trackFeatures.value = result.data
                     }
-                    is Error -> _errorMessage.value = parseNetworkError(result.exception)
+                    is Error -> _errorMessage.value =
+                        parseNetworkError(
+                            result.exception
+                        )
                 }
             }
         }

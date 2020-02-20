@@ -1,7 +1,7 @@
 package com.deniz.easify.ui
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.deniz.easify.data.FakeRepository
+import com.deniz.easify.data.FakeTrackRepository
 import com.deniz.easify.ui.search.SearchViewModel
 import com.deniz.easify.util.MainCoroutineRule
 import com.google.common.truth.Truth
@@ -32,11 +32,12 @@ class SearchViewModelTest {
     private lateinit var searchViewModel: SearchViewModel
 
     // Use a fake repository to be injected into the viewModel
-    private val spotifyRepository = FakeRepository()
+    private lateinit var trackRepository : FakeTrackRepository
 
     @Before
     fun setup() {
-        searchViewModel = SearchViewModel(spotifyRepository)
+        trackRepository = FakeTrackRepository()
+        searchViewModel = SearchViewModel(trackRepository)
     }
 
     @Test

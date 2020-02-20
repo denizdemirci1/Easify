@@ -23,7 +23,7 @@ class Easify : MultiDexApplication() {
                 viewModelModule,
                 retrofitModule,
                 serviceModule,
-                managerModule))
+                utilsModule))
         }
     }
 }

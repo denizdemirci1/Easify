@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result.Error
 import com.deniz.easify.data.Result.Success
-import com.deniz.easify.data.source.Repository
-import com.deniz.easify.data.source.remote.parseNetworkError
+import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.remote.response.Artist
+import com.deniz.easify.data.source.repositories.FollowRepository
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
  */
 
 class FollowedArtistsViewModel(
-    private val repository: Repository
+    private val followRepository: FollowRepository
 ) : ViewModel() {
 
     private val _artists = MutableLiveData<ArrayList<Artist>>().apply { value = arrayListOf() }
@@ -32,12 +32,15 @@ class FollowedArtistsViewModel(
 
     fun fetchFollowedArtists() {
         viewModelScope.launch {
-            repository.fetchFollowedArtists().let { result ->
+            followRepository.fetchFollowedArtists().let { result ->
                 when (result) {
                     is Success -> {
                         _artists.value = result.data.artists.items
                     }
-                    is Error -> _errorMessage.value = parseNetworkError(result.exception)
+                    is Error -> _errorMessage.value =
+                        parseNetworkError(
+                            result.exception
+                        )
                 }
             }
         }

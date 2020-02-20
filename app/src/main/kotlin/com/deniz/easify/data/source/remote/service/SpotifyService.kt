@@ -1,4 +1,4 @@
-package com.deniz.easify.data.source.remote
+package com.deniz.easify.data.source.remote.service
 
 import com.deniz.easify.data.source.remote.request.CreatePlaylistBody
 import com.deniz.easify.data.source.remote.request.PlayBody

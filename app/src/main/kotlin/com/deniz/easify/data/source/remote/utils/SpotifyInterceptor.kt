@@ -1,4 +1,4 @@
-package com.deniz.easify.data.source.remote
+package com.deniz.easify.data.source.remote.utils
 
 import com.deniz.easify.util.AuthManager
 import okhttp3.Interceptor

@@ -6,10 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result
-import com.deniz.easify.data.source.Repository
-import com.deniz.easify.data.source.remote.parseNetworkError
+import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.remote.response.History
 import com.deniz.easify.data.source.remote.response.Track
+import com.deniz.easify.data.source.repositories.PlayerRepository
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
  */
 
 class HistoryViewModel(
-    private val repository: Repository
+    private val playerRepository: PlayerRepository
 ) : ViewModel() {
 
     private val _historyList = MutableLiveData<ArrayList<History>>().apply { value = arrayListOf() }
@@ -39,7 +39,7 @@ class HistoryViewModel(
 
     fun fetchRecentlyPlayedSongs() {
         viewModelScope.launch {
-            repository.fetchRecentlyPlayed().let { result ->
+            playerRepository.fetchRecentlyPlayed().let { result ->
                 when (result) {
                     is Result.Success -> {
                         historyToShow.clear()
@@ -48,7 +48,10 @@ class HistoryViewModel(
                         )
                         _historyList.value = ArrayList(historyToShow)
                     }
-                    is Result.Error -> _errorMessage.value = parseNetworkError(result.exception)
+                    is Result.Error -> _errorMessage.value =
+                        parseNetworkError(
+                            result.exception
+                        )
                 }
             }
         }

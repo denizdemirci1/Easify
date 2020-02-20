@@ -1,4 +1,4 @@
-package com.deniz.easify.data.source.remote
+package com.deniz.easify.data.source.remote.utils
 
 import com.deniz.easify.BuildConfig
 import java.net.UnknownHostException

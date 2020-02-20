@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result.Success
-import com.deniz.easify.data.source.Repository
 import com.deniz.easify.data.source.remote.response.TopArtist
 import com.deniz.easify.data.source.remote.response.TopTrack
+import com.deniz.easify.data.source.repositories.DefaultPersonalizationRepository
+import com.deniz.easify.data.source.repositories.PersonalizationRepository
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
@@ -17,7 +18,7 @@ import kotlinx.coroutines.launch
  */
 
 class FavoritesViewModel(
-    private val repository: Repository
+    private val personalizationRepository: PersonalizationRepository
 ) : ViewModel() {
 
     private val _topArtist = MutableLiveData<Event<TopArtist>>()
@@ -31,7 +32,7 @@ class FavoritesViewModel(
 
     fun fetchTopArtists(type: String, timeRange: String?, limit: Int?) {
         viewModelScope.launch {
-            repository.fetchTopArtists(type, timeRange, limit).let { result ->
+            personalizationRepository.fetchTopArtists(type, timeRange, limit).let { result ->
                 if (result is Success) {
                     _topArtist.value = Event(result.data)
                 } else {
@@ -43,7 +44,7 @@ class FavoritesViewModel(
 
     fun fetchTopTracks(type: String, timeRange: String?, limit: Int?) {
         viewModelScope.launch {
-            repository.fetchTopTracks(type, timeRange, limit).let { result ->
+            personalizationRepository.fetchTopTracks(type, timeRange, limit).let { result ->
                 if (result is Success) {
                     _topTracks.value = Event(result.data)
                 } else {
