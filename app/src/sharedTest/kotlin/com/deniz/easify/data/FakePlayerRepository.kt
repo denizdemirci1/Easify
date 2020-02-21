@@ -3,7 +3,7 @@ package com.deniz.easify.data
 import com.deniz.easify.data.source.remote.request.PlayBody
 import com.deniz.easify.data.source.remote.response.HistoryObject
 import com.deniz.easify.data.source.repositories.PlayerRepository
-import io.mockk.mockk
+import org.mockito.Mockito
 
 /**
  * @User: deniz.demirci
@@ -22,7 +22,7 @@ class FakePlayerRepository : PlayerRepository {
         return if (shouldReturnError)
             Result.Error(Exception("fetchRecentlyPlayed() failed"))
         else
-            Result.Success(mockk())
+            Result.Success(Mockito.mock(HistoryObject::class.java))
     }
 
 }

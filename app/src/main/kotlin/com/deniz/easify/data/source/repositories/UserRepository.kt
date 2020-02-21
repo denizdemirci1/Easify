@@ -23,6 +23,8 @@ interface UserRepository {
 
     fun saveUser(user: User?)
 
+    fun getUser(): User?
+
     fun setTokenRefreshed(refreshed: Boolean)
 
     fun getTokenRefreshed(): Boolean
@@ -58,6 +60,10 @@ class DefaultUserRepository(
 
     override fun saveUser(user: User?) {
         authManager.user = user
+    }
+
+    override fun getUser(): User? {
+        return authManager.user
     }
 
     override fun setTokenRefreshed(refreshed: Boolean) {

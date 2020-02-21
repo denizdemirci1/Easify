@@ -45,6 +45,7 @@ class ProfileFragment : Fragment() {
 
         setupObservers()
         setupListeners()
+        viewModel.fetchUser()
     }
 
     private fun setupObservers() {
@@ -71,7 +72,7 @@ class ProfileFragment : Fragment() {
         // Profile Image
         view?.context?.let { context ->
             if (user.images.isNotEmpty())
-                Glide.with(context).load(user.images[0].url).into(profilePicture)
+                Glide.with(context).load(user.images[0].url).into(binding.profilePicture)
         }
 
         // Follower Count

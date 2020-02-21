@@ -3,7 +3,7 @@ package com.deniz.easify.data
 import com.deniz.easify.data.source.remote.response.FeaturesObject
 import com.deniz.easify.data.source.remote.response.TracksObject
 import com.deniz.easify.data.source.repositories.TrackRepository
-import io.mockk.mockk
+import org.mockito.Mockito
 import java.lang.Exception
 
 /**
@@ -19,7 +19,7 @@ class FakeTrackRepository : TrackRepository {
         if (shouldReturnError) {
             return Result.Error(Exception("fetchTrack() failed"))
         }
-        return Result.Success(mockk())
+        return Result.Success(Mockito.mock(TracksObject::class.java))
     }
 
     override suspend fun fetchTrackFeatures(id: String): Result<FeaturesObject> {

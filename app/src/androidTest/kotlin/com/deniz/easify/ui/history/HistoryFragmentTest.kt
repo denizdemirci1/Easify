@@ -12,8 +12,8 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.deniz.easify.R
+import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.util.EspressoIdlingResource
-import io.mockk.mockk
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -41,7 +41,7 @@ class HistoryFragmentTest {
     fun whenClickedOnRecyclerViewItem_openedFeaturesFragment() {
 
         // Create a mocked NavController
-        val navController: NavController = mockk()
+        val navController = Mockito.mock(NavController::class.java)
 
         val scenario = launchFragmentInContainer<HistoryFragment>(Bundle(), R.style.AppTheme)
 
@@ -55,7 +55,7 @@ class HistoryFragmentTest {
 
         // THEN - Verify that we navigate to the FeaturesFragment screen
         Mockito.verify(navController).navigate(
-            HistoryFragmentDirections.actionHistoryFragmentToFeaturesFragment(mockk())
+            HistoryFragmentDirections.actionHistoryFragmentToFeaturesFragment(Mockito.mock(Track::class.java))
         )
     }
 

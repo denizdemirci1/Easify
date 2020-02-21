@@ -2,7 +2,7 @@ package com.deniz.easify.data
 
 import com.deniz.easify.data.source.remote.response.User
 import com.deniz.easify.data.source.repositories.UserRepository
-import io.mockk.mockk
+import org.mockito.Mockito
 
 /**
  * @User: deniz.demirci
@@ -18,7 +18,7 @@ class FakeUserRepository : UserRepository {
         return if (shouldReturnError)
             Result.Error(Exception("fetchUser() failed"))
         else
-            Result.Success(mockk())
+            Result.Success(Mockito.mock(User::class.java))
     }
 
     override fun saveToken(accessToken: String?) {
@@ -30,6 +30,10 @@ class FakeUserRepository : UserRepository {
     override fun clearToken() {}
 
     override fun saveUser(user: User?) {}
+
+    override fun getUser(): User? {
+        return Mockito.mock(User::class.java)
+    }
 
     override fun setTokenRefreshed(refreshed: Boolean) {
         fakeTokenRefreshed = refreshed
