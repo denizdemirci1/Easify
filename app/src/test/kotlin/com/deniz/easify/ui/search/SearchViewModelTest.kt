@@ -46,6 +46,11 @@ class SearchViewModelTest {
         searchViewModel = SearchViewModel(trackRepository)
     }
 
+    /**
+     * This next 2 tests fail due to the fact that mocked Track Object doesn't have
+     * tracks, and therefore there is no track.name or artist.name which are needed
+     * in the filtering operation inside viewModel's fetchSongs() method
+     */
     @Test
     fun `when input length is greater than 2, there are tracks to show`() = mainCoroutineRule.runBlockingTest {
         searchViewModel.fetchSongs("brooklyn")

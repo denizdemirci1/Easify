@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
@@ -53,21 +52,17 @@ class HistoryFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.openTrackEvent.observe(viewLifecycleOwner, EventObserver {
-            openFeaturesFragment(it)
+        viewModel.event.observe(viewLifecycleOwner, EventObserver { event ->
+            when (event) {
+                is HistoryViewEvent.OpenFeaturesFragment -> openFeaturesFragment(event.track)
+
+                is HistoryViewEvent.OpenPlaylistsFragment -> openPlaylistFragment(event.track)
+
+                is HistoryViewEvent.NotifyDataChanged -> onViewDataChange(event.historyList)
+
+                is HistoryViewEvent.ShowError -> showError(event.message)
+            }
         })
-
-        viewModel.openPlaylistsPageEvent.observe(viewLifecycleOwner, EventObserver {
-            openPlaylistFragment(it)
-        })
-
-        viewModel.historyList.observe(viewLifecycleOwner) {
-            onViewDataChange(it)
-        }
-
-        viewModel.errorMessage.observe(viewLifecycleOwner) {
-            showError(it)
-        }
     }
 
     private fun setupHistoryAdapter() {
@@ -85,12 +80,10 @@ class HistoryFragment : Fragment() {
     }
 
     private fun showError(message: String) {
-        this.context.let {
-            MaterialDialog(it!!).show {
-                title(R.string.dialog_error_title)
-                message(text = message)
-                positiveButton(R.string.dialog_ok)
-            }
+        MaterialDialog(requireContext()).show {
+            title(R.string.dialog_error_title)
+            message(text = message)
+            positiveButton(R.string.dialog_ok)
         }
     }
 

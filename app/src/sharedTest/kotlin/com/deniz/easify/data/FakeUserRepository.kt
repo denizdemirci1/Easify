@@ -12,6 +12,7 @@ import io.mockk.mockk
 class FakeUserRepository : UserRepository {
 
     var shouldReturnError = false
+    var fakeTokenRefreshed = false
 
     override suspend fun fetchUser(): Result<User>? {
         return if (shouldReturnError)
@@ -31,8 +32,8 @@ class FakeUserRepository : UserRepository {
     override fun saveUser(user: User?) {}
 
     override fun setTokenRefreshed(refreshed: Boolean) {
-        val fakeTokenRefreshed = refreshed
+        fakeTokenRefreshed = refreshed
     }
 
-    override fun getTokenRefreshed() = false
+    override fun getTokenRefreshed() = fakeTokenRefreshed
 }

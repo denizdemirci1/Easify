@@ -8,6 +8,7 @@ import com.google.common.truth.Truth
 import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
@@ -55,8 +56,9 @@ class SplashViewModelTest {
     }
 
     @Test
-    fun `when fetchUser() returns Error, ShowError event is fired`() = mainCoroutineRule.runBlockingTest {
+    fun `when fetchUser() returns Error, if token is refreshed then ShowError event is fired`() = mainCoroutineRule.runBlockingTest {
         userRepository.shouldReturnError = true
+        userRepository.fakeTokenRefreshed = true
         splashViewModel.fetchUser()
 
         Truth.assertThat(splashViewModel.event.value?.getContentIfNotHandled())

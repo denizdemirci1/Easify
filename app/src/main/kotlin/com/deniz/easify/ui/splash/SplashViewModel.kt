@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
  * @Date: 2019-11-11
  */
 
-class SplashViewModel(
+open class SplashViewModel(
     private val userRepository: UserRepository
 ) : ViewModel() {
 
@@ -57,7 +57,7 @@ class SplashViewModel(
         }
     }
 
-    fun authenticateSpotify() {
+    open fun authenticateSpotify() {
         if (!userRepository.getToken().isNullOrEmpty()) {
             fetchUser()
             return

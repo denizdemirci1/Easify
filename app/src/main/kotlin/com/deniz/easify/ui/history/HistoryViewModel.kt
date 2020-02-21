@@ -22,20 +22,16 @@ class HistoryViewModel(
     private val playerRepository: PlayerRepository
 ) : ViewModel() {
 
-    private val _historyList = MutableLiveData<ArrayList<History>>().apply { value = arrayListOf() }
-    val historyList: LiveData<ArrayList<History>> = _historyList
-
-    private val _openTrackEvent = MutableLiveData<Event<Track>>()
-    val openTrackEvent: LiveData<Event<Track>> = _openTrackEvent
-
-    private val _openPlaylistsPageEvent = MutableLiveData<Event<Track>>()
-    val openPlaylistsPageEvent: LiveData<Event<Track>> = _openPlaylistsPageEvent
-
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> = _errorMessage
+    private val _event = MutableLiveData<Event<HistoryViewEvent>>()
+    val event: LiveData<Event<HistoryViewEvent>> = _event
 
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     val historyToShow = ArrayList<History>()
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun sendEvent(event: HistoryViewEvent) {
+        _event.value = Event(event)
+    }
 
     fun fetchRecentlyPlayedSongs() {
         viewModelScope.launch {
@@ -43,15 +39,13 @@ class HistoryViewModel(
                 when (result) {
                     is Result.Success -> {
                         historyToShow.clear()
-                        historyToShow.addAll(
-                            result.data.history.distinctBy { it.track.id }
-                        )
-                        _historyList.value = ArrayList(historyToShow)
+                        historyToShow.addAll(result.data.history.distinctBy { it.track.id })
+                        sendEvent(HistoryViewEvent.NotifyDataChanged(ArrayList(historyToShow)))
                     }
-                    is Result.Error -> _errorMessage.value =
-                        parseNetworkError(
-                            result.exception
-                        )
+
+                    is Result.Error -> {
+                        sendEvent(HistoryViewEvent.ShowError(parseNetworkError(result.exception)))
+                    }
                 }
             }
         }
@@ -61,10 +55,10 @@ class HistoryViewModel(
      * Called by Data Binding.
      */
     fun openTrack(track: Track) {
-        _openTrackEvent.value = Event(track)
+        sendEvent(HistoryViewEvent.OpenFeaturesFragment(track))
     }
 
     fun openPlaylistsPage(track: Track) {
-        _openPlaylistsPageEvent.value = Event(track)
+        sendEvent(HistoryViewEvent.OpenPlaylistsFragment(track))
     }
 }
