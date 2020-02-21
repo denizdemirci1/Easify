@@ -5,6 +5,7 @@ import com.deniz.easify.data.Result
 import com.deniz.easify.data.source.remote.service.SpotifyService
 import com.deniz.easify.data.source.remote.request.PlayBody
 import com.deniz.easify.data.source.remote.response.HistoryObject
+import com.deniz.easify.util.wrapEspressoIdlingResource
 
 /**
  * @User: deniz.demirci
@@ -27,27 +28,33 @@ class DefaultPlayerRepository(
 ) : PlayerRepository {
 
     override suspend fun play(playBody: PlayBody) {
-        try {
-            service.play(playBody)
-        } catch (e: Exception) {
-            Result.Error(e)
+        wrapEspressoIdlingResource {
+            try {
+                service.play(playBody)
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
         }
     }
 
     override suspend fun pause() {
-        try {
-            service.pause()
-        } catch (e: Exception) {
-            Result.Error(e)
+        wrapEspressoIdlingResource {
+            try {
+                service.pause()
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
         }
     }
 
     override suspend fun fetchRecentlyPlayed(): Result<HistoryObject> {
-        return try {
-            val history = service.fetchRecentlyPlayed()
-            Result.Success(history)
-        } catch (e: Exception) {
-            Result.Error(e)
+        wrapEspressoIdlingResource {
+            return try {
+                val history = service.fetchRecentlyPlayed()
+                Result.Success(history)
+            } catch (e: Exception) {
+                Result.Error(e)
+            }
         }
     }
 }

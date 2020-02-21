@@ -144,6 +144,9 @@ dependencies {
     // Rounded Image
     implementation "com.makeramen:roundedimageview:$rounded_image_version"
 
+    // Espresso Idling Resource
+    implementation "androidx.test.espresso:espresso-idling-resource:$test_espresso_idling_resource_version"
+
 
     // Dependencies for local unit tests
     testImplementation "junit:junit:$test_junit_version"
@@ -158,11 +161,13 @@ dependencies {
     androidTestImplementation "androidx.navigation:navigation-testing:$test_navigation_version"
     androidTestImplementation "androidx.navigation:navigation-runtime-ktx:$test_navigation_version"
     androidTestImplementation "org.mockito:mockito-android:$test_mockito_version"
+    //androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
     androidTestImplementation "io.mockk:mockk-android:$test_mockk_version"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
     androidTestImplementation "androidx.fragment:fragment-testing:$test_fragment_version"
     androidTestImplementation "org.robolectric:annotations:$test_robolectric_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$test_espresso_version"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$test_espresso_contrib_version"
     androidTestImplementation "androidx.test:runner:$test_runner_version"
     androidTestImplementation "androidx.test.ext:junit:$test_junit_ext_version"
 
