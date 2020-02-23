@@ -61,16 +61,14 @@ class TopTracksFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.topTrack.observe(viewLifecycleOwner) {
-            onViewDataChange(it)
-        }
+        viewModel.event.observe(viewLifecycleOwner, EventObserver { event ->
+            when (event) {
+                is TopTracksViewEvent.NotifyDataChanged -> onViewDataChange(event.topTrack)
 
-        viewModel.openTrackEvent.observe(viewLifecycleOwner, EventObserver {
-            openFeaturesFragment(it)
-        })
+                is TopTracksViewEvent.OpenFeaturesFragment -> openFeaturesFragment(event.track)
 
-        viewModel.openPlaylistsPageEvent.observe(viewLifecycleOwner, EventObserver {
-            openPlaylistFragment(it)
+                is TopTracksViewEvent.OpenPlaylistsFragment -> openPlaylistFragment(event.track)
+            }
         })
     }
 

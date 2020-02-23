@@ -1,13 +1,13 @@
 package com.deniz.easify.ui.profile.favorites
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result.Success
-import com.deniz.easify.data.source.remote.response.TopArtist
-import com.deniz.easify.data.source.remote.response.TopTrack
-import com.deniz.easify.data.source.repositories.DefaultPersonalizationRepository
+import com.deniz.easify.data.Result.Error
+import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.repositories.PersonalizationRepository
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
@@ -21,22 +21,25 @@ class FavoritesViewModel(
     private val personalizationRepository: PersonalizationRepository
 ) : ViewModel() {
 
-    private val _topArtist = MutableLiveData<Event<TopArtist>>()
-    val topArtist: LiveData<Event<TopArtist>> = _topArtist
+    private val _event = MutableLiveData<Event<FavoritesViewEvent>>()
+    val event: LiveData<Event<FavoritesViewEvent>> = _event
 
-    private val _topTracks = MutableLiveData<Event<TopTrack>>()
-    val topTracks: LiveData<Event<TopTrack>> = _topTracks
-
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> = _errorMessage
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun sendEvent(event: FavoritesViewEvent) {
+        _event.value = Event(event)
+    }
 
     fun fetchTopArtists(type: String, timeRange: String?, limit: Int?) {
         viewModelScope.launch {
             personalizationRepository.fetchTopArtists(type, timeRange, limit).let { result ->
-                if (result is Success) {
-                    _topArtist.value = Event(result.data)
-                } else {
-                    _errorMessage.value = "fetch top artists request'i patladı"
+                when (result) {
+                    is Success -> {
+                        sendEvent(FavoritesViewEvent.OpenTopArtists(result.data))
+                    }
+
+                    is Error -> {
+                        sendEvent(FavoritesViewEvent.ShowError(parseNetworkError(result.exception)))
+                    }
                 }
             }
         }
@@ -45,10 +48,14 @@ class FavoritesViewModel(
     fun fetchTopTracks(type: String, timeRange: String?, limit: Int?) {
         viewModelScope.launch {
             personalizationRepository.fetchTopTracks(type, timeRange, limit).let { result ->
-                if (result is Success) {
-                    _topTracks.value = Event(result.data)
-                } else {
-                    _errorMessage.value = "fetch top tracks request'i patladı"
+                when (result) {
+                    is Success -> {
+                        sendEvent(FavoritesViewEvent.OpenTopTracks(result.data))
+                    }
+
+                    is Error -> {
+                        sendEvent(FavoritesViewEvent.ShowError(parseNetworkError(result.exception)))
+                    }
                 }
             }
         }

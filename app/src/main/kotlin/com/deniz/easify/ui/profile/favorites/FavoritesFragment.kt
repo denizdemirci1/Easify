@@ -65,18 +65,15 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun setupObservers() {
+        viewModel.event.observe(viewLifecycleOwner, EventObserver { event ->
+            when (event) {
+                is FavoritesViewEvent.OpenTopArtists -> openTopArtistsFragment(event.topArtist)
 
-        viewModel.topArtist.observe(viewLifecycleOwner, EventObserver {
-            openTopArtistsFragment(it)
+                is FavoritesViewEvent.OpenTopTracks -> openTopTracksFragment(event.topTrack)
+
+                is FavoritesViewEvent.ShowError -> showError(event.message)
+            }
         })
-
-        viewModel.topTracks.observe(viewLifecycleOwner, EventObserver {
-            openTopTracksFragment(it)
-        })
-
-        viewModel.errorMessage.observe(viewLifecycleOwner) {
-            showError(it)
-        }
     }
 
     private fun openTopArtistsFragment(topArtist: TopArtist?) {
@@ -90,12 +87,10 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun showError(message: String) {
-        this.context.let {
-            MaterialDialog(it!!).show {
-                title(R.string.dialog_error_title)
-                message(text = message)
-                positiveButton(R.string.dialog_ok)
-            }
+        MaterialDialog(requireContext()).show {
+            title(R.string.dialog_error_title)
+            message(text = message)
+            positiveButton(R.string.dialog_ok)
         }
     }
 

@@ -1,5 +1,6 @@
 package com.deniz.easify.ui.profile.favorites.topTracks
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -14,19 +15,17 @@ import com.deniz.easify.util.Event
 
 class TopTracksViewModel : ViewModel() {
 
-    private val _topTrack = MutableLiveData<TopTrack>()
-    val topTrack: LiveData<TopTrack> = _topTrack
+    private val _event = MutableLiveData<Event<TopTracksViewEvent>>()
+    val event: LiveData<Event<TopTracksViewEvent>> = _event
 
-    private val _openTrackEvent = MutableLiveData<Event<Track>>()
-    val openTrackEvent: LiveData<Event<Track>> = _openTrackEvent
-
-    private val _openPlaylistsPageEvent = MutableLiveData<Event<Track>>()
-    val openPlaylistsPageEvent: LiveData<Event<Track>> = _openPlaylistsPageEvent
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun sendEvent(event: TopTracksViewEvent) {
+        _event.value = Event(event)
+    }
 
     fun start(track: TopTrack?) {
-
-        if (track != null) {
-            _topTrack.value = track
+        track?.let {
+            sendEvent(TopTracksViewEvent.NotifyDataChanged(it))
         }
     }
 
@@ -34,10 +33,10 @@ class TopTracksViewModel : ViewModel() {
      * Called by Data Binding.
      */
     fun openTrack(track: Track) {
-        _openTrackEvent.value = Event(track)
+        sendEvent(TopTracksViewEvent.OpenFeaturesFragment(track))
     }
 
     fun openPlaylistsPage(track: Track) {
-        _openPlaylistsPageEvent.value = Event(track)
+        sendEvent(TopTracksViewEvent.OpenPlaylistsFragment(track))
     }
 }

@@ -61,12 +61,12 @@ class TopArtistsFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.topArtist.observe(viewLifecycleOwner) {
-            onViewDataChange(it)
-        }
+        viewModel.event.observe(viewLifecycleOwner, EventObserver { event ->
+            when (event) {
+                is TopArtistsViewEvent.NotifyDataChanged -> onViewDataChange(event.topArtist)
 
-        viewModel.openArtistFragmentEvent.observe(viewLifecycleOwner, EventObserver {
-            navigateToArtistFragment(it)
+                is TopArtistsViewEvent.OpenArtistFragment -> navigateToArtistFragment(event.artist)
+            }
         })
     }
 
