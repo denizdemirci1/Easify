@@ -55,17 +55,16 @@ class RecommendedTracksFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.recommendedTracks.observe(viewLifecycleOwner) {
-            setUpTitle(it.tracks.size)
-            onViewDataChange(it.tracks)
-        }
+        viewModel.event.observe(viewLifecycleOwner, EventObserver { event ->
+            when (event) {
+                is RecommendedTracksViewEvent.SetTitle -> setUpTitle(event.size)
 
-        viewModel.errorMessage.observe(viewLifecycleOwner, EventObserver { message ->
-            showError(message)
-        })
+                is RecommendedTracksViewEvent.NotifyDataChanged -> onViewDataChange(event.recommendations)
 
-        viewModel.openTrackFragmentEvent.observe(viewLifecycleOwner, EventObserver { track ->
-            openTrackOnSpotify(track)
+                is RecommendedTracksViewEvent.ShowError -> showError(event.message)
+
+                is RecommendedTracksViewEvent.OpenTrackOnSpotify -> openTrackOnSpotify(event.track)
+            }
         })
     }
 
@@ -88,12 +87,10 @@ class RecommendedTracksFragment : Fragment() {
     }
 
     private fun showError(message: String) {
-        view?.context?.let {
-            MaterialDialog(it).show {
-                title(R.string.dialog_error_title)
-                message(text = message)
-                positiveButton(R.string.dialog_ok)
-            }
+        MaterialDialog(requireContext()).show {
+            title(R.string.dialog_error_title)
+            message(text = message)
+            positiveButton(R.string.dialog_ok)
         }
     }
 

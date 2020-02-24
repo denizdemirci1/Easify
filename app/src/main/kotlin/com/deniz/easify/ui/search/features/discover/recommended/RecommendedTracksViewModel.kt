@@ -1,5 +1,6 @@
 package com.deniz.easify.ui.search.features.discover.recommended
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -7,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result
 import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.remote.response.FeaturesObject
-import com.deniz.easify.data.source.remote.response.RecommendationsObject
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.data.source.repositories.BrowseRepository
 import com.deniz.easify.util.Event
@@ -22,14 +22,13 @@ class RecommendedTracksViewModel(
     private val browseRepository: BrowseRepository
 ) : ViewModel() {
 
-    private val _openTrackFragmentEvent = MutableLiveData<Event<Track>>()
-    val openTrackFragmentEvent: LiveData<Event<Track>> = _openTrackFragmentEvent
+    private val _event = MutableLiveData<Event<RecommendedTracksViewEvent>>()
+    val event: LiveData<Event<RecommendedTracksViewEvent>> = _event
 
-    private val _recommendedTracks = MutableLiveData<RecommendationsObject>()
-    val recommendedTracks: LiveData<RecommendationsObject> = _recommendedTracks
-
-    private val _errorMessage = MutableLiveData<Event<String>>()
-    val errorMessage: LiveData<Event<String>> = _errorMessage
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun sendEvent(event: RecommendedTracksViewEvent) {
+        _event.value = Event(event)
+    }
 
     fun start(features: FeaturesObject?) {
         features?.let {
@@ -37,8 +36,9 @@ class RecommendedTracksViewModel(
             return
         }
 
-        _errorMessage.value = Event("Could not load the features you set from previous page." +
-                "Please go back and try again.")
+        sendEvent(RecommendedTracksViewEvent.ShowError(
+            "Could not load the features you set from previous page." +
+                "Please go back and try again."))
     }
 
     private fun fetchRecommendations(features: FeaturesObject) {
@@ -56,13 +56,11 @@ class RecommendedTracksViewModel(
             ).let { result ->
                 when (result) {
                     is Result.Success -> {
-                        _recommendedTracks.value = result.data
+                        sendEvent(RecommendedTracksViewEvent.NotifyDataChanged(result.data.tracks))
                     }
-                    is Result.Error -> _errorMessage.value = Event(
-                        parseNetworkError(
-                            result.exception
-                        )
-                    )
+                    is Result.Error -> {
+                        sendEvent(RecommendedTracksViewEvent.ShowError(parseNetworkError(result.exception)))
+                    }
                 }
             }
         }
@@ -70,6 +68,6 @@ class RecommendedTracksViewModel(
 
     // Called by Data Binding.
     fun openTrackFragment(track: Track) {
-        _openTrackFragmentEvent.value = Event(track)
+        sendEvent(RecommendedTracksViewEvent.OpenTrackOnSpotify(track))
     }
 }

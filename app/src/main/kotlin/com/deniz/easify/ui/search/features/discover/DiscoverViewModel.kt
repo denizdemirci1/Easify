@@ -15,9 +15,6 @@ class DiscoverViewModel: ViewModel() {
     private val _trackFeatures = MutableLiveData<FeaturesObject>()
     val trackFeatures: LiveData<FeaturesObject> = _trackFeatures
 
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> = _errorMessage
-
     private val _showDiscoverButton = MutableLiveData<Boolean>().apply { value = true }
     val showDiscoverButton: LiveData<Boolean> = _showDiscoverButton
 

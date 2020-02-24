@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.FeaturesObject
 import com.deniz.easify.databinding.FragmentFeaturesBinding
+import com.deniz.easify.util.EventObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -58,11 +60,23 @@ class FeaturesFragment : Fragment() {
         viewModel.trackFeatures.observe(viewLifecycleOwner) {
             setFeatures(it)
         }
+
+        viewModel.errorMessage.observe(viewLifecycleOwner, EventObserver {
+            showError(it)
+        })
     }
 
     private fun openDiscoverFragment(trackFeatures: FeaturesObject?) {
         val action = FeaturesFragmentDirections.actionFeaturesFragmentToDiscoverFragment(trackFeatures)
         findNavController().navigate(action)
+    }
+
+    private fun showError(message: String) {
+        MaterialDialog(requireContext()).show {
+            title(R.string.dialog_error_title)
+            message(text = message)
+            positiveButton(R.string.dialog_ok)
+        }
     }
 
     //region Features Are Set Here
