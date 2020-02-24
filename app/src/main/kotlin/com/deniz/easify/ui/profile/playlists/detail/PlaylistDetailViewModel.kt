@@ -1,6 +1,7 @@
 package com.deniz.easify.ui.profile.playlists.detail
 
 import android.util.Log
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,11 +27,13 @@ class PlaylistDetailViewModel(
     private val playlistRepository: PlaylistRepository
 ) : ViewModel() {
 
-    private val _tracks = MutableLiveData<ArrayList<PlaylistTracks>>().apply { value = arrayListOf() }
-    val tracks: LiveData<ArrayList<PlaylistTracks>> = _tracks
+    private val _event = MutableLiveData<Event<PlaylistDetailViewEvent>>()
+    val event: LiveData<Event<PlaylistDetailViewEvent>> = _event
 
-    private val _openTrackEvent = MutableLiveData<Event<Track>>()
-    val openTrackEvent: LiveData<Event<Track>> = _openTrackEvent
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun sendEvent(event: PlaylistDetailViewEvent) {
+        _event.value = Event(event)
+    }
 
     private val _title = MutableLiveData<String>()
     val title: LiveData<String> = _title
@@ -38,24 +41,16 @@ class PlaylistDetailViewModel(
     private val _editable = MutableLiveData<Boolean>()
     val editable: LiveData<Boolean> = _editable
 
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> = _errorMessage
-
-    private val _loading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean> = _loading
-
     private val _showNoTracksLayout = MutableLiveData<Boolean>()
     val showNoTracksLayout: LiveData<Boolean> = _showNoTracksLayout
 
-    private val _showSnackbarMessage = MutableLiveData<Event<String>>()
-    val showSnackbarMessage: LiveData<Event<String>> = _showSnackbarMessage
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
 
     private val playlistsTracksToShow = ArrayList<PlaylistTracks>()
     private lateinit var playlistId: String
 
     private var requestCount = 0
-
-    private var removedTrackIds = ArrayList<String>()
 
     fun start(playlist: Playlist?, editable: Boolean) {
         _showNoTracksLayout.value = false
@@ -81,17 +76,18 @@ class PlaylistDetailViewModel(
                         if (playlistsTracksToShow.size < result.data.total)
                             fetchPlaylistTracks(playlistId)
                         else {
-                            _tracks.value = ArrayList(playlistsTracksToShow)
+                            sendEvent(PlaylistDetailViewEvent.NotifyDataChanged(
+                                    ArrayList(playlistsTracksToShow))
+                            )
                             _loading.value = false
                             if (playlistsTracksToShow.isEmpty())
                                 _showNoTracksLayout.value = true
                         }
                     }
                     is Error -> {
-                        _errorMessage.value =
-                            parseNetworkError(
-                                result.exception
-                            )
+                        sendEvent(PlaylistDetailViewEvent.ShowError(
+                            parseNetworkError(result.exception))
+                        )
                         _loading.value = false
                     }
                 }
@@ -103,13 +99,13 @@ class PlaylistDetailViewModel(
         viewModelScope.launch {
             val uri = listOf(Uri(track.uri))
             playlistRepository.removeTrackFromPlaylist(playlistId, RemoveTracksBody(uri))
-            _showSnackbarMessage.value = Event(track.name)
-            _tracks.value = ArrayList(playlistsTracksToShow)
+            sendEvent(PlaylistDetailViewEvent.ShowSnackBar(track.name))
+            sendEvent(PlaylistDetailViewEvent.NotifyDataChanged(ArrayList(playlistsTracksToShow)))
         }
     }
 
     fun openTrack(track: Track) {
-        _openTrackEvent.value = Event(track)
+        sendEvent(PlaylistDetailViewEvent.OpenFeatureFragment(track))
     }
 
     fun removeTrack(track: Track) {

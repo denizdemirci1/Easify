@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.PlaylistTracks
 import com.deniz.easify.data.source.remote.response.Track
@@ -56,16 +57,20 @@ class PlaylistDetailFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.tracks.observe(viewLifecycleOwner) {
-            onViewDataChange(it)
-        }
+        viewModel.event.observe(viewLifecycleOwner, EventObserver { event ->
+            when (event) {
+                is PlaylistDetailViewEvent.NotifyDataChanged -> onViewDataChange(event.tracks)
 
-        viewModel.openTrackEvent.observe(viewLifecycleOwner, EventObserver {
-            openFeaturesFragment(it)
-        })
+                is PlaylistDetailViewEvent.OpenFeatureFragment -> openFeaturesFragment(event.track)
 
-        viewModel.showSnackbarMessage.observe(viewLifecycleOwner, EventObserver { trackName ->
-            showSnackbar(getString(R.string.fragment_playlist_detail_removed, trackName))
+                is PlaylistDetailViewEvent.ShowError -> showError(event.message)
+
+                is PlaylistDetailViewEvent.ShowSnackBar -> {
+                    showSnackbar(getString(
+                        R.string.fragment_playlist_detail_removed, event.trackName)
+                    )
+                }
+            }
         })
     }
 
@@ -84,6 +89,14 @@ class PlaylistDetailFragment : Fragment() {
 
     private fun onViewDataChange(playlistTracks: ArrayList<PlaylistTracks>) {
         playlistDetailAdapter.submitList(playlistTracks)
+    }
+
+    private fun showError(message: String) {
+        MaterialDialog(requireContext()).show {
+            title(R.string.dialog_error_title)
+            message(text = message)
+            positiveButton(R.string.dialog_ok)
+        }
     }
 
     private fun openFeaturesFragment(track: Track) {

@@ -55,35 +55,45 @@ class PlaylistFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.playlists.observe(viewLifecycleOwner) {
-            onViewDataChange(it)
-        }
+        viewModel.event.observe(viewLifecycleOwner, EventObserver { event ->
+            when (event) {
+                is PlaylistViewEvent.SetTitle -> {
+                    binding.title.text = when (event.reason) {
+                        PlaylistViewModel.Reason.ADD -> getString(R.string.fragment_playlist_title_add)
+                        PlaylistViewModel.Reason.SEE -> getString(R.string.fragment_playlist_title_see)
+                    }
+                }
 
-        viewModel.reason.observe(viewLifecycleOwner) {
-            binding.title.text = when (it) {
-                PlaylistViewModel.Reason.ADD -> getString(R.string.fragment_playlist_title_add)
-                PlaylistViewModel.Reason.SEE -> getString(R.string.fragment_playlist_title_see)
+                is PlaylistViewEvent.NotifyDataChanged -> onViewDataChange(event.playlists)
+
+                is PlaylistViewEvent.TrackAddingSucceeded -> {
+                    showSnackbar(
+                        getString(
+                            R.string.fragment_playlist_track_added_to_playlist,
+                            event.trackName,
+                            event.playlistName
+                        )
+                    )
+                }
+
+                is PlaylistViewEvent.TrackAddingFailed -> {
+                    showSnackbar(
+                        getString(
+                            R.string.fragment_playlist_track_already_exists_in_playlist,
+                            event.trackName,
+                            event.playlistName
+                        )
+                    )
+                }
+
+                is PlaylistViewEvent.OpenPlaylistDetail -> {
+                    openPlaylistDetailFragment(event.playlist, event.isEditable)
+                }
+
+                is PlaylistViewEvent.FetchPlaylistTracks -> {
+                    viewModel.fetchPlaylistTracks(args.track!!, event.playlist)
+                }
             }
-        }
-
-        viewModel.playlistClickedEvent.observe(viewLifecycleOwner, EventObserver {
-            when (viewModel.reason.value) {
-                PlaylistViewModel.Reason.SEE -> openPlaylistDetailFragment(it.first, it.second)
-                PlaylistViewModel.Reason.ADD -> viewModel.fetchPlaylistTracks(args.track!!, it.first)
-            }
-        })
-
-        viewModel.trackAddingResult.observe(viewLifecycleOwner, EventObserver {
-            if (it.second)
-                showSnackbar(
-                    getString(R.string.fragment_playlist_track_added_to_playlist,
-                        it.first.first,
-                        it.first.second))
-            else
-                showSnackbar(
-                    getString(R.string.fragment_playlist_track_already_exists_in_playlist,
-                        it.first.first,
-                        it.first.second))
         })
     }
 

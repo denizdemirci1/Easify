@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
@@ -53,16 +52,14 @@ class FollowedArtistsFragment : Fragment() {
     }
 
     private fun setObservers() {
-        viewModel.artists.observe(viewLifecycleOwner) {
-            onViewDataChange(it)
-        }
+        viewModel.event.observe(viewLifecycleOwner, EventObserver { event ->
+            when (event) {
+                is FollowedArtistsViewEvent.NotifyDataChanged -> onViewDataChange(event.artists)
 
-        viewModel.errorMessage.observe(viewLifecycleOwner) {
-            showError(it)
-        }
+                is FollowedArtistsViewEvent.ShowError -> showError(event.message)
 
-        viewModel.openArtistFragmentEvent.observe(viewLifecycleOwner, EventObserver {
-            navigateToArtistFragment(it)
+                is FollowedArtistsViewEvent.OpenArtistFragment -> navigateToArtistFragment(event.artist)
+            }
         })
     }
 
@@ -97,12 +94,10 @@ class FollowedArtistsFragment : Fragment() {
     }
 
     private fun showError(message: String) {
-        view?.context?.let {
-            MaterialDialog(it).show {
-                title(R.string.dialog_error_title)
-                message(text = message)
-                positiveButton(R.string.dialog_ok)
-            }
+        MaterialDialog(requireContext()).show {
+            title(R.string.dialog_error_title)
+            message(text = message)
+            positiveButton(R.string.dialog_ok)
         }
     }
 }

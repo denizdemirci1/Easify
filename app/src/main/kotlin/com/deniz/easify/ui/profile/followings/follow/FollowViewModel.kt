@@ -1,5 +1,6 @@
 package com.deniz.easify.ui.profile.followings.follow
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,14 +22,13 @@ class FollowViewModel(
     private val artistRepository: ArtistRepository
 ) : ViewModel() {
 
-    private val _artists = MutableLiveData<ArrayList<Artist>>().apply { value = arrayListOf() }
-    val artists: LiveData<ArrayList<Artist>> = _artists
+    private val _event = MutableLiveData<Event<FollowViewEvent>>()
+    val event: LiveData<Event<FollowViewEvent>> = _event
 
-    private val _openArtistFragmentEvent = MutableLiveData<Event<Artist>>()
-    val openArtistFragmentEvent: LiveData<Event<Artist>> = _openArtistFragmentEvent
-
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> = _errorMessage
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun sendEvent(event: FollowViewEvent) {
+        _event.value = Event(event)
+    }
 
     private val _showClearIcon = MutableLiveData<Boolean>(false)
     val showClearIcon: LiveData<Boolean> = _showClearIcon
@@ -41,12 +41,12 @@ class FollowViewModel(
                         val artistsToShow = ArrayList<Artist>()
                         artistsToShow.clear()
                         artistsToShow.addAll(result.data.artists.items)
-                        _artists.value = ArrayList(artistsToShow)
+                        sendEvent(FollowViewEvent.NotifyDataChanged(ArrayList(artistsToShow)))
                     }
-                    is Error -> _errorMessage.value =
-                        parseNetworkError(
-                            result.exception
-                        )
+
+                    is Error -> {
+                        sendEvent(FollowViewEvent.ShowError(parseNetworkError(result.exception)))
+                    }
                 }
             }
         }
@@ -54,7 +54,7 @@ class FollowViewModel(
 
     // Called by Data Binding.
     fun openArtistFragment(artist: Artist) {
-        _openArtistFragmentEvent.value = Event(artist)
+        sendEvent(FollowViewEvent.OpenArtistFragment(artist))
     }
 
     fun showClearIcon(show: Boolean) {

@@ -1,5 +1,6 @@
 package com.deniz.easify.ui.profile.followings
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -21,26 +22,37 @@ class FollowedArtistsViewModel(
     private val followRepository: FollowRepository
 ) : ViewModel() {
 
-    private val _artists = MutableLiveData<ArrayList<Artist>>().apply { value = arrayListOf() }
-    val artists: LiveData<ArrayList<Artist>> = _artists
+    private val _event = MutableLiveData<Event<FollowedArtistsViewEvent>>()
+    val event: LiveData<Event<FollowedArtistsViewEvent>> = _event
 
-    private val _openArtistFragmentEvent = MutableLiveData<Event<Artist>>()
-    val openArtistFragmentEvent: LiveData<Event<Artist>> = _openArtistFragmentEvent
+    private val _loading = MutableLiveData<Boolean>(true)
+    val loading: LiveData<Boolean> = _loading
 
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> = _errorMessage
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun sendEvent(event: FollowedArtistsViewEvent) {
+        _event.value = Event(event)
+    }
 
     fun fetchFollowedArtists() {
         viewModelScope.launch {
             followRepository.fetchFollowedArtists().let { result ->
                 when (result) {
                     is Success -> {
-                        _artists.value = result.data.artists.items
-                    }
-                    is Error -> _errorMessage.value =
-                        parseNetworkError(
-                            result.exception
+                        _loading.value = false
+                        sendEvent(
+                            FollowedArtistsViewEvent.NotifyDataChanged(
+                            result.data.artists.items)
                         )
+
+                    }
+
+                    is Error -> {
+                        _loading.value = false
+                        sendEvent(
+                            FollowedArtistsViewEvent.ShowError(
+                            parseNetworkError(result.exception))
+                        )
+                    }
                 }
             }
         }
@@ -48,6 +60,6 @@ class FollowedArtistsViewModel(
 
     // Called by Data Binding.
     fun openArtistFragment(artist: Artist) {
-        _openArtistFragmentEvent.value = Event(artist)
+        sendEvent(FollowedArtistsViewEvent.OpenArtistFragment(artist))
     }
 }

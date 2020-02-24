@@ -1,5 +1,6 @@
 package com.deniz.easify.ui.profile.playlists
 
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -34,37 +35,25 @@ class PlaylistViewModel(
         SEE, ADD
     }
 
-    private val _playlists = MutableLiveData<ArrayList<Playlist>>().apply { value = arrayListOf() }
-    val playlists: LiveData<ArrayList<Playlist>> = _playlists
+    private val _event = MutableLiveData<Event<PlaylistViewEvent>>()
+    val event: LiveData<Event<PlaylistViewEvent>> = _event
 
-    private val _playlistClickedEvent = MutableLiveData<Event<Pair<Playlist, Boolean>>>()
-    val playlistClickedEvent: LiveData<Event<Pair<Playlist, Boolean>>> = _playlistClickedEvent
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun sendEvent(event: PlaylistViewEvent) {
+        _event.value = Event(event)
+    }
 
-    /**
-     * The form of _trackAddingResult is a pair that holds a pair and a boolean
-     * The inner pair holds trackName and playlistName
-     *
-     * Pair <Pair(trackName, playlistName), isSuccessfullyAdded>
-     */
-    private val _trackAddingResult = MutableLiveData<Event<Pair<Pair<String, String>, Boolean>>>()
-    val trackAddingResult: LiveData<Event<Pair<Pair<String, String>, Boolean>>> = _trackAddingResult
-
-    private val _errorMessage = MutableLiveData<String>()
-    val errorMessage: LiveData<String> = _errorMessage
-
-    private val _reason = MutableLiveData<Reason>()
-    val reason: LiveData<Reason> = _reason
+    private val _loading = MutableLiveData<Boolean>(true)
+    val loading: LiveData<Boolean> = _loading
 
     private val playlistsToShow = ArrayList<Playlist>()
-
     private val playlistsTracksToShow = ArrayList<PlaylistTracks>()
+    private lateinit var reason: Reason
 
     /**
      * [requestCount]: To determine offset value for fetchPlaylistTracks request
-     * [deletedTrackCount]: To calculate fetched track count with total track count in playlist
      */
     private var requestCount = 0
-    private var deletedTrackCount = 0
 
     /**
      * To keep ids of clicked playlists so if its clicked before, that means the track is already
@@ -74,11 +63,13 @@ class PlaylistViewModel(
 
     fun start(track: Track?) {
         track?.let {
-            _reason.value = Reason.ADD
+            reason = Reason.ADD
+            sendEvent(PlaylistViewEvent.SetTitle(Reason.ADD))
             fetchPlaylists(true)
             return
         }
-        _reason.value = Reason.SEE
+        reason = Reason.SEE
+        sendEvent(PlaylistViewEvent.SetTitle(Reason.SEE))
         fetchPlaylists(false)
     }
 
@@ -87,6 +78,7 @@ class PlaylistViewModel(
             playlistRepository.fetchPlaylists(authManager.user!!.id).let { result ->
                 when (result) {
                     is Result.Success -> {
+                        _loading.value = false
                         playlistsToShow.clear()
                         playlistsToShow.addAll(
                             if (onlyEditablePlaylists)
@@ -94,12 +86,12 @@ class PlaylistViewModel(
                             else
                                 result.data.playlists
                         )
-                        _playlists.value = ArrayList(playlistsToShow)
+                        sendEvent(PlaylistViewEvent.NotifyDataChanged(ArrayList(playlistsToShow)))
                     }
-                    is Result.Error -> _errorMessage.value =
-                        parseNetworkError(
-                            result.exception
-                        )
+                    is Result.Error -> {
+                        _loading.value = false
+                        sendEvent(PlaylistViewEvent.ShowError(parseNetworkError(result.exception)))
+                    }
                 }
             }
         }
@@ -116,19 +108,19 @@ class PlaylistViewModel(
             // if track already exist in the playlist, return
             for (playlistTrack in playlistsTracksToShow) {
                 if (playlistTrack.track.id == track.id) {
-                    _trackAddingResult.value = Event(Pair(Pair(track.name, playlist.name), false))
+                    sendEvent(PlaylistViewEvent.TrackAddingFailed(track.name, playlist.name))
                     return@launch
                 }
             }
             // if track doesn't exist in the playlist, add
             playlistRepository.addTrackToPlaylist(playlist.id, track.uri)
-            _trackAddingResult.value = Event(Pair(Pair(track.name, playlist.name), true))
+            sendEvent(PlaylistViewEvent.TrackAddingSucceeded(track.name, playlist.name))
         }
     }
 
     fun fetchPlaylistTracks(track: Track, playlist: Playlist) {
         if (clickedPlaylistIds.contains(playlist.id)) {
-            _trackAddingResult.value = Event(Pair(Pair(track.name, playlist.name), false))
+            sendEvent(PlaylistViewEvent.TrackAddingFailed(track.name, playlist.name))
             return
         }
 
@@ -143,10 +135,9 @@ class PlaylistViewModel(
                         else
                             addTrackToPlaylist(track, playlist)
                     }
-                    is Result.Error -> _errorMessage.value =
-                        parseNetworkError(
-                            result.exception
-                        )
+                    is Result.Error -> {
+                        sendEvent(PlaylistViewEvent.ShowError(parseNetworkError(result.exception)))
+                    }
                 }
             }
         }
@@ -156,6 +147,20 @@ class PlaylistViewModel(
      * Called by Data Binding.
      */
     fun playlistClicked(playlist: Playlist) {
-        _playlistClickedEvent.value = Event(Pair(playlist, playlist.owner.id == authManager.user!!.id))
+        requestCount = 0
+        when (reason) {
+            Reason.SEE -> {
+                sendEvent(
+                    PlaylistViewEvent.OpenPlaylistDetail(
+                        playlist,
+                        playlist.owner.id == authManager.user!!.id
+                    )
+                )
+            }
+
+            Reason.ADD -> {
+                sendEvent(PlaylistViewEvent.FetchPlaylistTracks(playlist))
+            }
+        }
     }
 }

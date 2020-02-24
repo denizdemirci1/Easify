@@ -46,7 +46,8 @@ class PlaylistDetailViewHolder(
         binding.viewmodel = viewModel
         binding.track = track
         binding.remove.setOnClickListener {
-            removeListener?.invoke(track) }
+            removeListener?.invoke(track)
+        }
         binding.executePendingBindings()
     }
 }
