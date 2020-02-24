@@ -25,6 +25,11 @@ import org.mockito.Mockito
  * @Date: 2020-02-21
  */
 
+/**
+ * This test involves coroutine calls for network request.
+ * If token is expired, request returns error 401 and material dialog shows up.
+ * And the test fail. So get a fresh token before running this test.
+ */
 @RunWith(AndroidJUnit4::class)
 @MediumTest
 class HistoryFragmentTest {
@@ -34,9 +39,6 @@ class HistoryFragmentTest {
         IdlingRegistry.getInstance().register(EspressoIdlingResource.countingIdlingResource)
     }
 
-    /**
-     * Fails because remote call returns error and Dialog Material shows up
-     */
     @Test
     fun whenClickedOnRecyclerViewItem_openedFeaturesFragment() {
 
@@ -54,8 +56,10 @@ class HistoryFragmentTest {
             .perform(RecyclerViewActions.actionOnItemAtPosition<HistoryViewHolder>(0, click()))
 
         // THEN - Verify that we navigate to the FeaturesFragment screen
+        //TODO: fails because mocked Track is not the same with clicked Track.
+        val track = Mockito.mock(Track::class.java)
         Mockito.verify(navController).navigate(
-            HistoryFragmentDirections.actionHistoryFragmentToFeaturesFragment(Mockito.mock(Track::class.java))
+            HistoryFragmentDirections.actionHistoryFragmentToFeaturesFragment(track)
         )
     }
 

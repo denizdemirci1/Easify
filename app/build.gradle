@@ -5,6 +5,12 @@ apply plugin: "kotlin-kapt"
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'io.fabric'
+apply plugin: 'kotlin-allopen'
+
+allOpen {
+    // allows mocking for classes w/o directly opening them for release builds
+    annotation 'com.deniz.easify.util.OpenClass'
+}
 
 android {
     compileSdkVersion 29
@@ -156,7 +162,7 @@ dependencies {
     // Dependencies for local unit tests
     testImplementation "junit:junit:$test_junit_version"
     testImplementation "io.mockk:mockk:$test_mockk_version"
-    testImplementation "org.mockito:mockito-android:$test_mockito_version"
+    testImplementation "org.mockito:mockito-core:$test_mockito_version"
     testImplementation "org.hamcrest:hamcrest-all:$test_hamcrest_version"
     testImplementation "androidx.arch.core:core-testing:$test_arch_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
@@ -167,13 +173,13 @@ dependencies {
     androidTestImplementation "androidx.navigation:navigation-testing:$test_navigation_version"
     androidTestImplementation "androidx.navigation:navigation-runtime-ktx:$test_navigation_version"
     androidTestImplementation "org.mockito:mockito-android:$test_mockito_version"
-    //androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:$dexMakerVersion"
     androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines_version"
     androidTestImplementation "org.robolectric:annotations:$test_robolectric_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$test_espresso_version"
     androidTestImplementation "androidx.test.espresso:espresso-contrib:$test_espresso_contrib_version"
     androidTestImplementation "androidx.test:runner:$test_runner_version"
     androidTestImplementation "androidx.test.ext:junit:$test_junit_ext_version"
+    androidTestImplementation "com.google.truth:truth:$test_truth_version"
 
     debugImplementation "androidx.fragment:fragment-testing:$test_fragment_version"
     debugImplementation "androidx.test:core:$test_core_version"

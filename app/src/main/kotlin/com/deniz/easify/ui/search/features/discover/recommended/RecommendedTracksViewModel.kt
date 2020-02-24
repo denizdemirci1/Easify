@@ -25,6 +25,9 @@ class RecommendedTracksViewModel(
     private val _event = MutableLiveData<Event<RecommendedTracksViewEvent>>()
     val event: LiveData<Event<RecommendedTracksViewEvent>> = _event
 
+    private val _loading = MutableLiveData<Boolean>(true)
+    val loading: LiveData<Boolean> = _loading
+
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun sendEvent(event: RecommendedTracksViewEvent) {
         _event.value = Event(event)
@@ -56,9 +59,12 @@ class RecommendedTracksViewModel(
             ).let { result ->
                 when (result) {
                     is Result.Success -> {
+                        _loading.value = false
                         sendEvent(RecommendedTracksViewEvent.NotifyDataChanged(result.data.tracks))
                     }
+
                     is Result.Error -> {
+                        _loading.value = false
                         sendEvent(RecommendedTracksViewEvent.ShowError(parseNetworkError(result.exception)))
                     }
                 }
