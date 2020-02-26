@@ -13,12 +13,10 @@ import com.deniz.easify.data.source.remote.response.FeaturesObject
 import com.deniz.easify.ui.search.features.discover.DiscoverFragment
 import com.deniz.easify.ui.search.features.discover.DiscoverFragmentArgs
 import com.deniz.easify.ui.search.features.discover.DiscoverFragmentDirections
-import org.junit.After
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.verify
-
 
 /**
  * @User: deniz.demirci

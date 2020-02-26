@@ -8,12 +8,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.deniz.easify.data.Result.Error
 import com.deniz.easify.data.Result.Success
-import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.remote.request.RemoveTracksBody
 import com.deniz.easify.data.source.remote.request.Uri
 import com.deniz.easify.data.source.remote.response.Playlist
 import com.deniz.easify.data.source.remote.response.PlaylistTracks
 import com.deniz.easify.data.source.remote.response.Track
+import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.repositories.PlaylistRepository
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
@@ -109,7 +109,7 @@ class PlaylistDetailViewModel(
     }
 
     fun removeTrack(track: Track) {
-        playlistsTracksToShow.removeAll { it.track.id == track.id}
+        playlistsTracksToShow.removeAll { it.track.id == track.id }
         removeTrackFromPlaylist(track)
     }
 }

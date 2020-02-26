@@ -11,7 +11,6 @@ import com.deniz.easify.R
 import com.deniz.easify.extension.disableCurrentFragmentRecreating
 import kotlinx.android.synthetic.main.activity_main.*
 
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

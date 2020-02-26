@@ -10,7 +10,7 @@ import com.deniz.easify.data.source.remote.response.FeaturesObject
  * @Date: 2020-01-02
  */
 
-class DiscoverViewModel: ViewModel() {
+class DiscoverViewModel : ViewModel() {
 
     private val _trackFeatures = MutableLiveData<FeaturesObject>()
     val trackFeatures: LiveData<FeaturesObject> = _trackFeatures

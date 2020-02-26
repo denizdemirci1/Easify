@@ -10,5 +10,4 @@ sealed class ArtistViewEvent {
     enum class Follow {
         FOLLOW, UNFOLLOW
     }
-
 }

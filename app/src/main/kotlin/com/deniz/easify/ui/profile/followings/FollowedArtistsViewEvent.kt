@@ -9,9 +9,9 @@ import com.deniz.easify.data.source.remote.response.Artist
 
 sealed class FollowedArtistsViewEvent {
 
-    data class NotifyDataChanged(val artists: ArrayList<Artist>): FollowedArtistsViewEvent()
+    data class NotifyDataChanged(val artists: ArrayList<Artist>) : FollowedArtistsViewEvent()
 
-    data class ShowError(val message: String): FollowedArtistsViewEvent()
+    data class ShowError(val message: String) : FollowedArtistsViewEvent()
 
-    data class OpenArtistFragment(val artist: Artist): FollowedArtistsViewEvent()
+    data class OpenArtistFragment(val artist: Artist) : FollowedArtistsViewEvent()
 }

@@ -6,9 +6,7 @@ import com.deniz.easify.util.EventObserver
 import com.deniz.easify.util.MainCoroutineRule
 import com.google.common.truth.Truth
 import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before

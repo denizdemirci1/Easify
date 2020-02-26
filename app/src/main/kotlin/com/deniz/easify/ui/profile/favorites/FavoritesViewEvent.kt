@@ -10,9 +10,9 @@ import com.deniz.easify.data.source.remote.response.TopTrack
 
 sealed class FavoritesViewEvent {
 
-    data class OpenTopArtists(val topArtist: TopArtist): FavoritesViewEvent()
+    data class OpenTopArtists(val topArtist: TopArtist) : FavoritesViewEvent()
 
-    data class OpenTopTracks(val topTrack: TopTrack): FavoritesViewEvent()
+    data class OpenTopTracks(val topTrack: TopTrack) : FavoritesViewEvent()
 
-    data class ShowError(val message: String): FavoritesViewEvent()
+    data class ShowError(val message: String) : FavoritesViewEvent()
 }

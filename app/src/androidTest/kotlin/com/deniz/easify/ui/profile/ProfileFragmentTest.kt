@@ -96,6 +96,5 @@ class ProfileFragmentTest {
         Espresso.onView(ViewMatchers.withId(R.id.profile_picture)).check(matches(isDisplayed()))
         Espresso.onView(ViewMatchers.withId(R.id.username)).check(matches(isDisplayed()))
         Espresso.onView(ViewMatchers.withId(R.id.follower_count)).check(matches(isDisplayed()))
-
     }
 }

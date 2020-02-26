@@ -9,11 +9,11 @@ import com.deniz.easify.data.source.remote.response.Track
 
 sealed class RecommendedTracksViewEvent {
 
-    data class SetTitle(val size: Int): RecommendedTracksViewEvent()
+    data class SetTitle(val size: Int) : RecommendedTracksViewEvent()
 
-    data class NotifyDataChanged(val recommendations: ArrayList<Track>): RecommendedTracksViewEvent()
+    data class NotifyDataChanged(val recommendations: ArrayList<Track>) : RecommendedTracksViewEvent()
 
-    data class ShowError(val message: String): RecommendedTracksViewEvent()
+    data class ShowError(val message: String) : RecommendedTracksViewEvent()
 
-    data class OpenTrackOnSpotify(val track: Track): RecommendedTracksViewEvent()
+    data class OpenTrackOnSpotify(val track: Track) : RecommendedTracksViewEvent()
 }

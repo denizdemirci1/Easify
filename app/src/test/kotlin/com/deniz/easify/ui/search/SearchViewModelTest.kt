@@ -6,7 +6,6 @@ import com.deniz.easify.util.EventObserver
 import com.deniz.easify.util.MainCoroutineRule
 import com.google.common.truth.Truth
 import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
@@ -35,7 +34,7 @@ class SearchViewModelTest {
     private lateinit var searchViewModel: SearchViewModel
 
     // Use a fake repository to be injected into the viewModel
-    private lateinit var trackRepository : FakeTrackRepository
+    private lateinit var trackRepository: FakeTrackRepository
 
     private lateinit var eventObserver: EventObserver<SearchViewEvent>
 

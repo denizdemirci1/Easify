@@ -1,8 +1,8 @@
 package com.deniz.easify.di
 
 import android.content.Context
-import com.deniz.easify.data.source.remote.utils.SpotifyInterceptor
 import com.deniz.easify.data.source.remote.service.SpotifyService
+import com.deniz.easify.data.source.remote.utils.SpotifyInterceptor
 import com.deniz.easify.util.AuthManager
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson

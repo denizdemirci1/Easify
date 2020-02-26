@@ -1,7 +1,6 @@
 package com.deniz.easify.ui.profile.playlists.detail
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.deniz.easify.data.source.remote.response.PlaylistTracks
@@ -19,7 +18,8 @@ import com.deniz.easify.ui.base.BaseViewHolder
 
 class PlaylistDetailAdapter(
     private val viewModel: PlaylistDetailViewModel,
-    var removeListener: ((Track) -> Unit)? = null) : BaseListAdapter<PlaylistTracks>(
+    var removeListener: ((Track) -> Unit)? = null
+) : BaseListAdapter<PlaylistTracks>(
     itemsSame = { old, new -> old.track.id == new.track.id },
     contentsSame = { old, new -> old == new }
 ) {

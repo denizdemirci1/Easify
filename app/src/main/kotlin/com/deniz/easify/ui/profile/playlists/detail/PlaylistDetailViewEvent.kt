@@ -10,11 +10,11 @@ import com.deniz.easify.data.source.remote.response.Track
 
 sealed class PlaylistDetailViewEvent {
 
-    data class NotifyDataChanged(val tracks: ArrayList<PlaylistTracks>): PlaylistDetailViewEvent()
+    data class NotifyDataChanged(val tracks: ArrayList<PlaylistTracks>) : PlaylistDetailViewEvent()
 
-    data class OpenFeatureFragment(val track: Track): PlaylistDetailViewEvent()
+    data class OpenFeatureFragment(val track: Track) : PlaylistDetailViewEvent()
 
-    data class ShowSnackBar(val trackName: String): PlaylistDetailViewEvent()
+    data class ShowSnackBar(val trackName: String) : PlaylistDetailViewEvent()
 
-    data class ShowError(val message: String): PlaylistDetailViewEvent()
+    data class ShowError(val message: String) : PlaylistDetailViewEvent()
 }

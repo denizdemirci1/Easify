@@ -2,13 +2,10 @@ package com.deniz.easify.ui.history
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.deniz.easify.data.FakePlayerRepository
-import com.deniz.easify.data.FakeTrackRepository
-import com.deniz.easify.data.source.repositories.PlayerRepository
 import com.deniz.easify.util.EventObserver
 import com.deniz.easify.util.MainCoroutineRule
 import com.google.common.truth.Truth
 import io.mockk.mockk
-import io.mockk.verify
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After

@@ -10,11 +10,11 @@ import com.deniz.easify.data.source.remote.response.Track
 
 sealed class HistoryViewEvent {
 
-    data class OpenFeaturesFragment(val track: Track): HistoryViewEvent()
+    data class OpenFeaturesFragment(val track: Track) : HistoryViewEvent()
 
-    data class OpenPlaylistsFragment(val track: Track): HistoryViewEvent()
+    data class OpenPlaylistsFragment(val track: Track) : HistoryViewEvent()
 
-    data class NotifyDataChanged(val historyList: ArrayList<History>): HistoryViewEvent()
+    data class NotifyDataChanged(val historyList: ArrayList<History>) : HistoryViewEvent()
 
-    data class ShowError(val message: String): HistoryViewEvent()
+    data class ShowError(val message: String) : HistoryViewEvent()
 }

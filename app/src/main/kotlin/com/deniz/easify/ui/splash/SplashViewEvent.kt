@@ -7,9 +7,9 @@ package com.deniz.easify.ui.splash
 
 sealed class SplashViewEvent {
 
-    object Authenticate: SplashViewEvent()
+    object Authenticate : SplashViewEvent()
 
-    object OpenSearchFragment: SplashViewEvent()
+    object OpenSearchFragment : SplashViewEvent()
 
-    data class ShowError(val message: String): SplashViewEvent()
+    data class ShowError(val message: String) : SplashViewEvent()
 }

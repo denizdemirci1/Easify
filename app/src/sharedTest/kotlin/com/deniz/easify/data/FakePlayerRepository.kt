@@ -24,5 +24,4 @@ class FakePlayerRepository : PlayerRepository {
         else
             Result.Success(Mockito.mock(HistoryObject::class.java))
     }
-
 }

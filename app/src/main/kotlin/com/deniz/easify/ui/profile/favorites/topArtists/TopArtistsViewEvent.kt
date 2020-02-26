@@ -10,7 +10,7 @@ import com.deniz.easify.data.source.remote.response.TopArtist
 
 sealed class TopArtistsViewEvent {
 
-    data class OpenArtistFragment(val artist: Artist): TopArtistsViewEvent()
+    data class OpenArtistFragment(val artist: Artist) : TopArtistsViewEvent()
 
-    data class NotifyDataChanged(val topArtist: TopArtist): TopArtistsViewEvent()
+    data class NotifyDataChanged(val topArtist: TopArtist) : TopArtistsViewEvent()
 }

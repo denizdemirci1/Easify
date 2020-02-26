@@ -4,17 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.FeaturesObject
-import com.deniz.easify.data.source.remote.response.RecommendationsObject
 import com.deniz.easify.databinding.FragmentDiscoverBinding
 import com.deniz.easify.extension.onProgressChanged
-import com.deniz.easify.util.EventObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**

@@ -5,8 +5,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.Result.Error
+import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.repositories.PersonalizationRepository
 import com.deniz.easify.util.Event

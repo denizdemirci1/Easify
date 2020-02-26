@@ -1,11 +1,11 @@
 package com.deniz.easify.data.source.repositories
 
-import androidx.annotation.VisibleForTesting.PRIVATE
 import androidx.annotation.VisibleForTesting
+import androidx.annotation.VisibleForTesting.PRIVATE
 import com.deniz.easify.data.Result
-import com.deniz.easify.data.source.remote.service.SpotifyService
 import com.deniz.easify.data.source.remote.response.FeaturesObject
 import com.deniz.easify.data.source.remote.response.TracksObject
+import com.deniz.easify.data.source.remote.service.SpotifyService
 
 /**
  * @User: deniz.demirci
@@ -17,7 +17,6 @@ interface TrackRepository {
     suspend fun fetchTrack(q: String): Result<TracksObject>
 
     suspend fun fetchTrackFeatures(id: String): Result<FeaturesObject>
-
 }
 
 class DefaultTrackRepository(
@@ -42,5 +41,4 @@ class DefaultTrackRepository(
             Result.Error(e)
         }
     }
-
 }

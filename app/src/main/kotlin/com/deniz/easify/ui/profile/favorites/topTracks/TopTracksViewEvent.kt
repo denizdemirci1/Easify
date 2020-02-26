@@ -10,11 +10,9 @@ import com.deniz.easify.data.source.remote.response.Track
 
 sealed class TopTracksViewEvent {
 
-    data class OpenFeaturesFragment(val track: Track): TopTracksViewEvent()
+    data class OpenFeaturesFragment(val track: Track) : TopTracksViewEvent()
 
-    data class OpenPlaylistsFragment(val track: Track): TopTracksViewEvent()
+    data class OpenPlaylistsFragment(val track: Track) : TopTracksViewEvent()
 
-    data class NotifyDataChanged(val topTrack: TopTrack): TopTracksViewEvent()
-
-
+    data class NotifyDataChanged(val topTrack: TopTrack) : TopTracksViewEvent()
 }

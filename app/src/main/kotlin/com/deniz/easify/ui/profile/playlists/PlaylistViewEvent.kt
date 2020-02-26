@@ -9,17 +9,17 @@ import com.deniz.easify.data.source.remote.response.Playlist
 
 sealed class PlaylistViewEvent {
 
-    data class SetTitle(val reason: PlaylistViewModel.Reason): PlaylistViewEvent()
+    data class SetTitle(val reason: PlaylistViewModel.Reason) : PlaylistViewEvent()
 
-    data class NotifyDataChanged(val playlists: ArrayList<Playlist>): PlaylistViewEvent()
+    data class NotifyDataChanged(val playlists: ArrayList<Playlist>) : PlaylistViewEvent()
 
-    data class TrackAddingSucceeded(val trackName: String, val playlistName: String): PlaylistViewEvent()
+    data class TrackAddingSucceeded(val trackName: String, val playlistName: String) : PlaylistViewEvent()
 
-    data class TrackAddingFailed(val trackName: String, val playlistName: String): PlaylistViewEvent()
+    data class TrackAddingFailed(val trackName: String, val playlistName: String) : PlaylistViewEvent()
 
-    data class OpenPlaylistDetail(val playlist: Playlist, val isEditable: Boolean): PlaylistViewEvent()
+    data class OpenPlaylistDetail(val playlist: Playlist, val isEditable: Boolean) : PlaylistViewEvent()
 
-    data class FetchPlaylistTracks(val playlist: Playlist): PlaylistViewEvent()
+    data class FetchPlaylistTracks(val playlist: Playlist) : PlaylistViewEvent()
 
-    data class ShowError(val message: String): PlaylistViewEvent()
+    data class ShowError(val message: String) : PlaylistViewEvent()
 }

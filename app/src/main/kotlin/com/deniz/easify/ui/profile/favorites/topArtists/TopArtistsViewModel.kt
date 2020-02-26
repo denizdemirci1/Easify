@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.data.source.remote.response.TopArtist
-import com.deniz.easify.ui.history.HistoryViewEvent
 import com.deniz.easify.util.Event
 
 /**

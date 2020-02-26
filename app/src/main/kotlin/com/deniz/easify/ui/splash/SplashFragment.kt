@@ -23,7 +23,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * @Date: 2020-02-06
  */
 
-
 class SplashFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashBinding
@@ -68,7 +67,6 @@ class SplashFragment : Fragment() {
         viewModel.authenticateSpotify()
         setupObservers()
     }
-
 
     private fun setupObservers() {
         viewModel.event.observe(viewLifecycleOwner, EventObserver { event ->

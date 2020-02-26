@@ -3,8 +3,8 @@ package com.deniz.easify.data
 import com.deniz.easify.data.source.remote.response.FeaturesObject
 import com.deniz.easify.data.source.remote.response.TracksObject
 import com.deniz.easify.data.source.repositories.TrackRepository
-import org.mockito.Mockito
 import java.lang.Exception
+import org.mockito.Mockito
 
 /**
  * @User: deniz.demirci
@@ -23,7 +23,6 @@ class FakeTrackRepository : TrackRepository {
     }
 
     override suspend fun fetchTrackFeatures(id: String): Result<FeaturesObject> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        TODO("not implemented") // To change body of created functions use File | Settings | File Templates.
     }
-
 }

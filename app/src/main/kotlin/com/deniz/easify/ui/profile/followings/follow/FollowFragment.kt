@@ -12,7 +12,6 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Artist
 import com.deniz.easify.databinding.FragmentFollowBinding
-import com.deniz.easify.extension.afterTextChanged
 import com.deniz.easify.util.EventObserver
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

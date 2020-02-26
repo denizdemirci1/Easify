@@ -2,8 +2,8 @@ package com.deniz.easify.data.source.repositories
 
 import androidx.annotation.VisibleForTesting
 import com.deniz.easify.data.Result
-import com.deniz.easify.data.source.remote.service.SpotifyService
 import com.deniz.easify.data.source.remote.response.User
+import com.deniz.easify.data.source.remote.service.SpotifyService
 import com.deniz.easify.util.AuthManager
 
 /**
@@ -73,6 +73,4 @@ class DefaultUserRepository(
     override fun getTokenRefreshed(): Boolean {
         return authManager.tokenRefreshed
     }
-
-
 }

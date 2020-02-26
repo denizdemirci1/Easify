@@ -5,7 +5,6 @@ package com.deniz.easify.ui.util
  * @Date: 2020-02-21
  */
 
-
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding

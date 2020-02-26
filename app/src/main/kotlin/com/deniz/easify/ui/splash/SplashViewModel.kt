@@ -9,8 +9,6 @@ import com.deniz.easify.data.Result.Error
 import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.repositories.UserRepository
-import com.deniz.easify.ui.search.SearchViewEvent
-import com.deniz.easify.util.AuthManager
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 

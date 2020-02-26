@@ -2,9 +2,9 @@ package com.deniz.easify.data.source.repositories
 
 import androidx.annotation.VisibleForTesting
 import com.deniz.easify.data.Result
-import com.deniz.easify.data.source.remote.service.SpotifyService
 import com.deniz.easify.data.source.remote.request.PlayBody
 import com.deniz.easify.data.source.remote.response.HistoryObject
+import com.deniz.easify.data.source.remote.service.SpotifyService
 import com.deniz.easify.util.wrapEspressoIdlingResource
 
 /**
@@ -19,7 +19,6 @@ interface PlayerRepository {
     suspend fun pause()
 
     suspend fun fetchRecentlyPlayed(): Result<HistoryObject>
-
 }
 
 class DefaultPlayerRepository(

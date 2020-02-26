@@ -2,9 +2,9 @@ package com.deniz.easify.data.source.repositories
 
 import androidx.annotation.VisibleForTesting
 import com.deniz.easify.data.Result
-import com.deniz.easify.data.source.remote.service.SpotifyService
 import com.deniz.easify.data.source.remote.response.TopArtist
 import com.deniz.easify.data.source.remote.response.TopTrack
+import com.deniz.easify.data.source.remote.service.SpotifyService
 
 /**
  * @User: deniz.demirci

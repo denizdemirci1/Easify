@@ -2,18 +2,21 @@ package com.deniz.easify.ui.history
 
 import android.os.Bundle
 import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.test.espresso.Espresso
+import androidx.navigation.testing.TestNavHostController
+import androidx.recyclerview.widget.RecyclerView
+import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.swipeUp
 import androidx.test.espresso.contrib.RecyclerViewActions
-import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.deniz.easify.R
-import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.util.EspressoIdlingResource
+import com.google.common.truth.Truth.assertThat
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
@@ -40,10 +43,15 @@ class HistoryFragmentTest {
     }
 
     @Test
-    fun whenClickedOnRecyclerViewItem_openedFeaturesFragment() {
+    fun whenClickedOnRecyclerViewFirstItem_openedFeaturesFragment() {
 
-        // Create a mocked NavController
-        val navController = Mockito.mock(NavController::class.java)
+        // Create a TestNavController
+        val navController = TestNavHostController(
+            ApplicationProvider.getApplicationContext())
+        navController.setGraph(R.navigation.nav_graph)
+
+        // Set current destination to the navController
+        navController.setCurrentDestination(R.id.historyFragment)
 
         val scenario = launchFragmentInContainer<HistoryFragment>(Bundle(), R.style.AppTheme)
 
@@ -51,16 +59,47 @@ class HistoryFragmentTest {
             Navigation.setViewNavController(fragment.requireView(), navController)
         }
 
-        // WHEN - an item of the recyclerView is clicked
-        Espresso.onView(ViewMatchers.withId(R.id.tracks_recycler_view))
+        // WHEN - first item of the recyclerView is clicked
+        onView(withId(R.id.tracks_recycler_view))
             .perform(RecyclerViewActions.actionOnItemAtPosition<HistoryViewHolder>(0, click()))
 
         // THEN - Verify that we navigate to the FeaturesFragment screen
-        //TODO: fails because mocked Track is not the same with clicked Track.
-        val track = Mockito.mock(Track::class.java)
-        Mockito.verify(navController).navigate(
-            HistoryFragmentDirections.actionHistoryFragmentToFeaturesFragment(track)
-        )
+        assertThat(navController.currentDestination?.id).isEqualTo(R.id.featuresFragment)
+    }
+
+    @Test
+    fun whenClickedOnRecyclerViewLastItem_openedFeaturesFragment() {
+
+        // Create a TestNavController
+        val navController = TestNavHostController(
+            ApplicationProvider.getApplicationContext())
+        navController.setGraph(R.navigation.nav_graph)
+
+        // Set current destination to the navController
+        navController.setCurrentDestination(R.id.historyFragment)
+
+        var recyclerView = Mockito.mock(RecyclerView::class.java)
+        val scenario = launchFragmentInContainer<HistoryFragment>(Bundle(), R.style.AppTheme)
+
+        scenario.onFragment { fragment ->
+            Navigation.setViewNavController(fragment.requireView(), navController)
+            recyclerView = fragment.requireActivity().findViewById(R.id.tracks_recycler_view)
+        }
+
+        // Scroll to the bottom of [tracks_recycler_view]
+        for (x in 1..5) {
+            onView(withId(R.id.tracks_recycler_view)).perform(swipeUp())
+        }
+
+        // Find total item count in the recycler view
+        val itemCount = recyclerView.adapter!!.itemCount
+
+        // WHEN - last item of the recyclerView is clicked
+        onView(withId(R.id.tracks_recycler_view))
+            .perform(RecyclerViewActions.actionOnItemAtPosition<HistoryViewHolder>(itemCount - 1, click()))
+
+        // THEN - Verify that we navigate to the FeaturesFragment screen
+        assertThat(navController.currentDestination?.id).isEqualTo(R.id.featuresFragment)
     }
 
     @After

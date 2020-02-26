@@ -15,7 +15,7 @@ import com.deniz.easify.ui.search.SearchViewModel
 @BindingAdapter("app:viewModel")
 fun setSearchEditTextFeatures(editText: AppCompatEditText, viewModel: SearchViewModel) {
 
-    editText.setOnFocusChangeListener { view , focused ->
+    editText.setOnFocusChangeListener { view, focused ->
         editText.hint = if (!focused) view.context.getString(R.string.search) else ""
     }
 
@@ -29,7 +29,7 @@ fun setSearchEditTextFeatures(editText: AppCompatEditText, viewModel: SearchView
 @BindingAdapter("app:viewModel")
 fun setFollowEditTextFeatures(editText: AppCompatEditText, viewModel: FollowViewModel) {
 
-    editText.setOnFocusChangeListener { view , focused ->
+    editText.setOnFocusChangeListener { view, focused ->
         editText.hint = if (!focused) view.context.getString(R.string.search) else ""
     }
 

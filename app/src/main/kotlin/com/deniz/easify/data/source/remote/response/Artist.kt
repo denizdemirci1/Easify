@@ -1,5 +1,6 @@
 package com.deniz.easify.data.source.remote.response
 
+import com.deniz.easify.util.OpenForTesting
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
@@ -8,6 +9,7 @@ import java.io.Serializable
  * @Date: 2019-12-02
  */
 
+@OpenForTesting
 data class Artist(
     @SerializedName("followers")
     val followers: Follower,
