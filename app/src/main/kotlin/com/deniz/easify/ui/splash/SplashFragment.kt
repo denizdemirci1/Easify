@@ -135,7 +135,7 @@ class SplashFragment : Fragment() {
                     viewModel.handleAuthError(response.error)
                 }
 
-                else -> showNetworkError("Something went wrong be canım.")
+                else -> showNetworkError(getString(R.string.dialog_common_error_text))
             }
         }
     }

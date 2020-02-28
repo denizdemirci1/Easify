@@ -10,6 +10,7 @@
     <string name="dialog_positive_button_text">Try Again</string>
     <string name="dialog_negative_button_text">Exit</string>
     <string name="dialog_ok">OK</string>
+    <string name="dialog_common_error_text">Something went wrong. Please go back and try again.</string>
 
     <string name="search">Search</string>
     <string name="history">History</string>
@@ -32,6 +33,10 @@
 
     <!-- Recommended Tracks Fragment -->
     <string name="fragment_recommended_tracks_title">Found %d Tracks</string>
+    <string name="fragment_recommended_tracks_create_playlist_name">Similar to %s - by Easify</string>
+    <string name="fragment_recommended_tracks_create_playlist_desc">This playlist is automatically created by Easify just for your taste</string>
+    <string name="fragment_recommended_tracks_create_playlist_succeeded">Your new playlist is created.</string>
+    <string name="fragment_recommended_tracks_create_playlist_failed">Creating playlist failed. Please try again.</string>
 
     <string name="fragment_discover_title">Search For Your Taste</string>
 

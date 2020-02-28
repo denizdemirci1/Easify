@@ -67,7 +67,7 @@ class FeaturesFragment : Fragment() {
     }
 
     private fun openDiscoverFragment(trackFeatures: FeaturesObject?) {
-        val action = FeaturesFragmentDirections.actionFeaturesFragmentToDiscoverFragment(trackFeatures)
+        val action = FeaturesFragmentDirections.actionFeaturesFragmentToDiscoverFragment(trackFeatures, args.track)
         findNavController().navigate(action)
     }
 

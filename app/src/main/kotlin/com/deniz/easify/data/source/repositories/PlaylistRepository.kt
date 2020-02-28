@@ -16,7 +16,7 @@ import com.deniz.easify.util.AuthManager
 
 interface PlaylistRepository {
 
-    suspend fun fetchPlaylists(id: String): Result<PlaylistObject>
+    suspend fun fetchPlaylists(): Result<PlaylistObject>
 
     suspend fun createPlaylist(createPlaylistBody: CreatePlaylistBody)
 
@@ -34,9 +34,9 @@ class DefaultPlaylistRepository(
     internal val authManager: AuthManager
 ) : PlaylistRepository {
 
-    override suspend fun fetchPlaylists(id: String): Result<PlaylistObject> {
+    override suspend fun fetchPlaylists(): Result<PlaylistObject> {
         return try {
-            val playlistObject = service.fetchPlaylists(id)
+            val playlistObject = service.fetchPlaylists(authManager.user!!.id)
             Result.Success(playlistObject)
         } catch (e: Exception) {
             Result.Error(e)

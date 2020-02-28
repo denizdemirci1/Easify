@@ -13,6 +13,8 @@ sealed class RecommendedTracksViewEvent {
 
     data class NotifyDataChanged(val recommendations: ArrayList<Track>) : RecommendedTracksViewEvent()
 
+    data class ShowSnackBar(val isSuccessful: Boolean) : RecommendedTracksViewEvent()
+
     data class ShowError(val message: String) : RecommendedTracksViewEvent()
 
     data class OpenTrackOnSpotify(val track: Track) : RecommendedTracksViewEvent()

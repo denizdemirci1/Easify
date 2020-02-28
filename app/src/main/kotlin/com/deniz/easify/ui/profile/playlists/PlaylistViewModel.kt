@@ -75,7 +75,7 @@ class PlaylistViewModel(
 
     private fun fetchPlaylists(onlyEditablePlaylists: Boolean) {
         viewModelScope.launch {
-            playlistRepository.fetchPlaylists(authManager.user!!.id).let { result ->
+            playlistRepository.fetchPlaylists().let { result ->
                 when (result) {
                     is Result.Success -> {
                         _loading.value = false

@@ -15,6 +15,7 @@ import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.FragmentRecommendedTracksBinding
 import com.deniz.easify.util.EventObserver
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -51,7 +52,16 @@ class RecommendedTracksFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setUpRecommendedTracksAdapter()
         viewModel.start(args.features)
+        setListeners()
         setObservers()
+    }
+
+    private fun setListeners() {
+        binding.createPlaylist.setOnClickListener {
+            it.isEnabled = false
+            it.alpha = 0.3f
+            createPlaylist()
+        }
     }
 
     private fun setObservers() {
@@ -61,11 +71,25 @@ class RecommendedTracksFragment : Fragment() {
 
                 is RecommendedTracksViewEvent.NotifyDataChanged -> onViewDataChange(event.recommendations)
 
+                is RecommendedTracksViewEvent.ShowSnackBar -> showSnackBar(event.isSuccessful)
+
                 is RecommendedTracksViewEvent.ShowError -> showError(event.message)
 
                 is RecommendedTracksViewEvent.OpenTrackOnSpotify -> openTrackOnSpotify(event.track)
             }
         })
+    }
+
+    private fun createPlaylist() {
+        args.track?.let { track ->
+            viewModel.createPlaylist(
+                name = getString(R.string.fragment_recommended_tracks_create_playlist_name, track.name),
+                description = getString(R.string.fragment_recommended_tracks_create_playlist_desc)
+            )
+            return
+        }
+
+        showError(getString(R.string.dialog_common_error_text))
     }
 
     private fun setUpTitle(value: Int) {
@@ -84,6 +108,28 @@ class RecommendedTracksFragment : Fragment() {
 
     private fun onViewDataChange(tracks: ArrayList<Track>) {
         recommendedTracksAdapter.submitList(tracks)
+    }
+
+    private fun showSnackBar(isSuccessful: Boolean) {
+        val message =
+            if (isSuccessful)
+                getString(R.string.fragment_recommended_tracks_create_playlist_succeeded)
+            else
+                getString(R.string.fragment_recommended_tracks_create_playlist_failed)
+
+        view?.let {
+            val snackbar = Snackbar.make(it, message, Snackbar.LENGTH_LONG)
+
+            // add color
+            snackbar.view.background = this.context?.getDrawable(R.drawable.bg_snackbar)
+
+            // add margin
+            val params = snackbar.view.layoutParams as ViewGroup.MarginLayoutParams
+            params.setMargins(24, 24, 24, 24)
+            snackbar.view.layoutParams = params
+
+            snackbar.show()
+        }
     }
 
     private fun showError(message: String) {

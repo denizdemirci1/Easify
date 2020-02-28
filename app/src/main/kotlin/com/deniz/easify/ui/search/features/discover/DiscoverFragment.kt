@@ -86,7 +86,7 @@ class DiscoverFragment : Fragment() {
     }
 
     private fun navigateToRecommendedTracksFragment(features: FeaturesObject) {
-        val action = DiscoverFragmentDirections.actionDiscoverFragmentToRecommendedTracksFragment(features)
+        val action = DiscoverFragmentDirections.actionDiscoverFragmentToRecommendedTracksFragment(features, args.track)
         findNavController().navigate(action)
     }
 

@@ -40,6 +40,19 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/create_playlist"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                android:layout_marginEnd="16dp"
+                android:src="@drawable/ic_create_playlist"
+                android:visibility="@{viewmodel.toolbarLoading ? View.GONE : View.VISIBLE}"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ProgressBar

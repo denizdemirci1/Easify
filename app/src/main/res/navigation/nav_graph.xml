@@ -65,6 +65,10 @@
             app:argType="com.deniz.easify.data.source.remote.response.FeaturesObject"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="track"
+            app:argType="com.deniz.easify.data.source.remote.response.Track"
+            app:nullable="true" />
         <action
             android:id="@+id/action_discoverFragment_to_recommendedTracksFragment"
             app:destination="@id/recommendedTracksFragment"
@@ -83,6 +87,10 @@
             app:argType="com.deniz.easify.data.source.remote.response.FeaturesObject"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="track"
+            app:argType="com.deniz.easify.data.source.remote.response.Track"
+            app:nullable="true" />
     </fragment>
     <!-- End of Search Fragment and its flow -->
 
