@@ -26,10 +26,14 @@ class PlaylistViewModel(
 ) : ViewModel() {
 
     /**
-     * There are three sources to this fragment. SearchFragment, HistoryFragment, ProfileFragment
-     * @SearchFragment: Came with a track. Pick a playlist and [ADD] this track to it.
+     * There are four sources to this fragment. SearchFragment, HistoryFragment, ProfileFragment
+     *
+     * @SearchFragment,
      * @HistoryFragment: Came with a track. Pick a playlist and [ADD] this track to it.
-     * @ProfileFragment: Came without a track. Pick a playlist and [SEE] detail of the playlist.
+     *
+     * @ProfileFragment,
+     * @RecommendedTracksFragment: Came without a track. Pick a playlist and [SEE] details of
+     * the playlist or click on the eye icon and view playlist on Spotify.
      */
     enum class Reason {
         SEE, ADD
@@ -46,9 +50,14 @@ class PlaylistViewModel(
     private val _loading = MutableLiveData<Boolean>(true)
     val loading: LiveData<Boolean> = _loading
 
+    private val _showSeeIcon = MutableLiveData<Boolean>(true)
+    val showSeeIcon: LiveData<Boolean> = _showSeeIcon
+
     private val playlistsToShow = ArrayList<Playlist>()
     private val playlistsTracksToShow = ArrayList<PlaylistTracks>()
+
     private lateinit var reason: Reason
+
 
     /**
      * [requestCount]: To determine offset value for fetchPlaylistTracks request
@@ -56,7 +65,7 @@ class PlaylistViewModel(
     private var requestCount = 0
 
     /**
-     * To keep ids of clicked playlists so if its clicked before, that means the track is already
+     * To keep ids of clicked playlists so if it is clicked before, that means the track is already
      * there. So we show snackbar to say "the track already exists" and return from the function
      */
     private var clickedPlaylistIds = ArrayList<String>()
@@ -64,12 +73,14 @@ class PlaylistViewModel(
     fun start(track: Track?) {
         track?.let {
             reason = Reason.ADD
-            sendEvent(PlaylistViewEvent.SetTitle(Reason.ADD))
+            _showSeeIcon.value = false
+            sendEvent(PlaylistViewEvent.InitUI(Reason.ADD))
             fetchPlaylists(true)
             return
         }
         reason = Reason.SEE
-        sendEvent(PlaylistViewEvent.SetTitle(Reason.SEE))
+        _showSeeIcon.value = true
+        sendEvent(PlaylistViewEvent.InitUI(Reason.SEE))
         fetchPlaylists(false)
     }
 
@@ -162,5 +173,9 @@ class PlaylistViewModel(
                 sendEvent(PlaylistViewEvent.FetchPlaylistTracks(playlist))
             }
         }
+    }
+
+    fun openPlaylistOnSpotify(playlist: Playlist) {
+        sendEvent(PlaylistViewEvent.OpenPlaylistOnSpotify(playlist))
     }
 }

@@ -18,4 +18,6 @@ sealed class RecommendedTracksViewEvent {
     data class ShowError(val message: String) : RecommendedTracksViewEvent()
 
     data class OpenTrackOnSpotify(val track: Track) : RecommendedTracksViewEvent()
+
+    object OpenPlaylistsFragment : RecommendedTracksViewEvent()
 }

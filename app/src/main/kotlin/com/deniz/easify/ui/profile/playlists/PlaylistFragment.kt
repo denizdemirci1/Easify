@@ -1,5 +1,7 @@
 package com.deniz.easify.ui.profile.playlists
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -57,10 +59,15 @@ class PlaylistFragment : Fragment() {
     private fun setupObservers() {
         viewModel.event.observe(viewLifecycleOwner, EventObserver { event ->
             when (event) {
-                is PlaylistViewEvent.SetTitle -> {
-                    binding.title.text = when (event.reason) {
-                        PlaylistViewModel.Reason.ADD -> getString(R.string.fragment_playlist_title_add)
-                        PlaylistViewModel.Reason.SEE -> getString(R.string.fragment_playlist_title_see)
+                is PlaylistViewEvent.InitUI -> {
+                    when (event.reason) {
+                        PlaylistViewModel.Reason.ADD -> {
+                            binding.title.text = getString(R.string.fragment_playlist_title_add)
+                            binding.add.visibility = View.GONE
+                        }
+                        PlaylistViewModel.Reason.SEE -> {
+                            binding.title.text = getString(R.string.fragment_playlist_title_see)
+                        }
                     }
                 }
 
@@ -88,6 +95,10 @@ class PlaylistFragment : Fragment() {
 
                 is PlaylistViewEvent.OpenPlaylistDetail -> {
                     openPlaylistDetailFragment(event.playlist, event.isEditable)
+                }
+
+                is PlaylistViewEvent.OpenPlaylistOnSpotify -> {
+                    openPlaylistOnSpotify(event.playlist)
                 }
 
                 is PlaylistViewEvent.FetchPlaylistTracks -> {
@@ -141,5 +152,9 @@ class PlaylistFragment : Fragment() {
 
             snackbar.show()
         }
+    }
+
+    private fun openPlaylistOnSpotify(playlist: Playlist) {
+        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(playlist.uri)))
     }
 }

@@ -6,7 +6,7 @@ package com.deniz.easify.data
  */
 
 /**
- * A generic class that holds a value with its loading status.
+ * A generic class that holds a value
  * @param <T>
  */
 sealed class Result<out R> {

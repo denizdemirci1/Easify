@@ -9,7 +9,7 @@ import com.deniz.easify.data.source.remote.response.Playlist
 
 sealed class PlaylistViewEvent {
 
-    data class SetTitle(val reason: PlaylistViewModel.Reason) : PlaylistViewEvent()
+    data class InitUI(val reason: PlaylistViewModel.Reason) : PlaylistViewEvent()
 
     data class NotifyDataChanged(val playlists: ArrayList<Playlist>) : PlaylistViewEvent()
 
@@ -18,6 +18,8 @@ sealed class PlaylistViewEvent {
     data class TrackAddingFailed(val trackName: String, val playlistName: String) : PlaylistViewEvent()
 
     data class OpenPlaylistDetail(val playlist: Playlist, val isEditable: Boolean) : PlaylistViewEvent()
+
+    data class OpenPlaylistOnSpotify(val playlist: Playlist) : PlaylistViewEvent()
 
     data class FetchPlaylistTracks(val playlist: Playlist) : PlaylistViewEvent()
 

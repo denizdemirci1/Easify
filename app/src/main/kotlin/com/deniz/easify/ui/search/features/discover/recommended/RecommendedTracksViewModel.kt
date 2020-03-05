@@ -127,6 +127,7 @@ class RecommendedTracksViewModel(
                 playlistRepository.addTrackToPlaylist(id, uris)
                 _toolbarLoading.value = false
                 sendEvent(RecommendedTracksViewEvent.ShowSnackBar(true))
+                sendEvent(RecommendedTracksViewEvent.OpenPlaylistsFragment)
             }
             return
         }

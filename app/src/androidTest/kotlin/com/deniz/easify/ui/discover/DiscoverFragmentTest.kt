@@ -10,6 +10,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.FeaturesObject
+import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.ui.search.features.discover.DiscoverFragment
 import com.deniz.easify.ui.search.features.discover.DiscoverFragmentArgs
 import com.deniz.easify.ui.search.features.discover.DiscoverFragmentDirections
@@ -46,7 +47,9 @@ class DiscoverFragmentTest {
             valence = 0.28f
         )
 
-        val bundle = DiscoverFragmentArgs(featuresObject).toBundle()
+        val track = mock(Track::class.java)
+
+        val bundle = DiscoverFragmentArgs(featuresObject, track).toBundle()
         val scenario = launchFragmentInContainer<DiscoverFragment>(bundle, R.style.AppTheme)
 
         scenario.onFragment { fragment ->
@@ -59,7 +62,9 @@ class DiscoverFragmentTest {
 
         // THEN - Verify that we navigate to the recommended tracks screen
         verify(navController).navigate(
-            DiscoverFragmentDirections.actionDiscoverFragmentToRecommendedTracksFragment()
+            DiscoverFragmentDirections.actionDiscoverFragmentToRecommendedTracksFragment(
+                featuresObject,
+                track)
         )
     }
 }

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
@@ -76,6 +77,8 @@ class RecommendedTracksFragment : Fragment() {
                 is RecommendedTracksViewEvent.ShowError -> showError(event.message)
 
                 is RecommendedTracksViewEvent.OpenTrackOnSpotify -> openTrackOnSpotify(event.track)
+
+                RecommendedTracksViewEvent.OpenPlaylistsFragment -> openPlaylistsFragment()
             }
         })
     }
@@ -142,5 +145,11 @@ class RecommendedTracksFragment : Fragment() {
 
     private fun openTrackOnSpotify(track: Track) {
         startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(track.uri)))
+    }
+
+    private fun openPlaylistsFragment() {
+        val action = RecommendedTracksFragmentDirections
+            .actionRecommendedTracksFragmentToPlaylistFragment()
+        findNavController().navigate(action)
     }
 }

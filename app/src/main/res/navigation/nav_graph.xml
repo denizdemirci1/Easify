@@ -91,6 +91,9 @@
             android:name="track"
             app:argType="com.deniz.easify.data.source.remote.response.Track"
             app:nullable="true" />
+        <action
+            android:id="@+id/action_recommendedTracksFragment_to_playlistFragment"
+            app:destination="@id/playlistFragment" />
     </fragment>
     <!-- End of Search Fragment and its flow -->
 
