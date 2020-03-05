@@ -34,7 +34,7 @@
     <!-- Recommended Tracks Fragment -->
     <string name="fragment_recommended_tracks_title">Found %d Tracks</string>
     <string name="fragment_recommended_tracks_create_playlist_name">Similar to %s - by Easify</string>
-    <string name="fragment_recommended_tracks_create_playlist_desc">This playlist is automatically created by Easify just for your taste</string>
+    <string name="fragment_recommended_tracks_create_playlist_desc">This playlist is automatically created by Easify just for your taste on %s</string>
     <string name="fragment_recommended_tracks_create_playlist_succeeded">Your new playlist is created.</string>
     <string name="fragment_recommended_tracks_create_playlist_failed">Creating playlist failed. Please try again.</string>
 

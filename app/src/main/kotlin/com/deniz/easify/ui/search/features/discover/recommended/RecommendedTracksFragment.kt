@@ -15,6 +15,7 @@ import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.FragmentRecommendedTracksBinding
+import com.deniz.easify.util.DateTimeHelper
 import com.deniz.easify.util.EventObserver
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -86,8 +87,14 @@ class RecommendedTracksFragment : Fragment() {
     private fun createPlaylist() {
         args.track?.let { track ->
             viewModel.createPlaylist(
-                name = getString(R.string.fragment_recommended_tracks_create_playlist_name, track.name),
-                description = getString(R.string.fragment_recommended_tracks_create_playlist_desc)
+                name = getString(
+                    R.string.fragment_recommended_tracks_create_playlist_name,
+                    track.name
+                ),
+                description = getString(
+                    R.string.fragment_recommended_tracks_create_playlist_desc,
+                    DateTimeHelper.getToday()
+                )
             )
             return
         }
