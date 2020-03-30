@@ -22,7 +22,10 @@ fun loadTrackImage(view: AppCompatImageView, track: Track) {
     if (track.album.images.isNullOrEmpty()) {
         view.setImageResource(R.drawable.ic_music_note)
     } else {
-        Glide.with(view.context).load(track.album.images[track.album.images.size - 1].url).into(view)
+        Glide.with(view.context)
+            .load(track.album.images[track.album.images.size - 1].url)
+            .placeholder(R.drawable.ic_music_note)
+            .into(view)
     }
 }
 
@@ -40,7 +43,10 @@ fun loadArtistImage(view: AppCompatImageView, artist: Artist) {
     if (artist.images.isNullOrEmpty()) {
         view.setImageResource(R.drawable.ic_person)
     } else {
-        Glide.with(view.context).load(artist.images[artist.images.size - 1].url).into(view)
+        Glide.with(view.context)
+            .load(artist.images[artist.images.size - 1].url)
+            .placeholder(R.drawable.ic_person)
+            .into(view)
     }
 }
 
@@ -58,6 +64,9 @@ fun loadPlaylistImage(view: AppCompatImageView, playlist: Playlist) {
     if (playlist.images.isNullOrEmpty()) {
         view.setImageResource(R.drawable.ic_music_note)
     } else {
-        Glide.with(view.context).load(playlist.images[playlist.images.size - 1].url).into(view)
+        Glide.with(view.context)
+            .load(playlist.images[playlist.images.size - 1].url)
+            .placeholder(R.drawable.ic_music_note)
+            .into(view)
     }
 }

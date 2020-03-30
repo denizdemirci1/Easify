@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.deniz.easify.data.source.remote.response.PlaylistTracks
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.databinding.ViewholderPlaylistDetailBinding
+import com.deniz.easify.extension.animateFading
 import com.deniz.easify.ui.base.BaseListAdapter
 import com.deniz.easify.ui.base.BaseViewHolder
 
@@ -46,6 +47,7 @@ class PlaylistDetailViewHolder(
         binding.viewmodel = viewModel
         binding.track = track
         binding.remove.setOnClickListener {
+            binding.trackLayout.animateFading()
             removeListener?.invoke(track)
         }
         binding.executePendingBindings()
