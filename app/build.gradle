@@ -16,9 +16,9 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
-    ext.major = 0
+    ext.major = 1
     ext.minor = 0
-    ext.patch = 2
+    ext.patch = 0
 
     defaultConfig {
         applicationId "com.deniz.easify"

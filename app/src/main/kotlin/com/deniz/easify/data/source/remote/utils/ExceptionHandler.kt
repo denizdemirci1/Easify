@@ -22,8 +22,7 @@ fun parseNetworkError(e: Exception): String {
 
         is UnknownHostException -> "It's on you, consider checking your internet connection"
 
-        else -> {
-            "Something went wrong :( and Exception type is not specified."
-        }
+        else -> "Something went wrong :("
+
     }
 }
