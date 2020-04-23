@@ -91,6 +91,11 @@
                         android:textColor="@color/colorSpotifyWhite"
                         android:textSize="20sp"
                         android:textStyle="bold"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:scrollHorizontally="true"
+                        app:slideText="@{true}"
 
                         app:layout_constraintEnd_toEndOf="@id/albumImage"
                         app:layout_constraintStart_toStartOf="@id/albumImage"
@@ -105,6 +110,11 @@
                         android:text="@{viewmodel.track.artists.get(0).name}"
                         android:textColor="@color/colorTextGray"
                         android:textStyle="bold"
+                        android:singleLine="true"
+                        android:ellipsize="marquee"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:scrollHorizontally="true"
+                        app:slideText="@{true}"
 
                         app:layout_constraintEnd_toEndOf="@id/songName"
                         app:layout_constraintStart_toStartOf="@id/songName"

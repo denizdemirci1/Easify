@@ -67,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:text="@{track.artists.get(0).name}"
                 android:textColor="@color/colorSpotifyWhite"
+
                 android:layout_marginTop="4dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
