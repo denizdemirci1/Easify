@@ -18,7 +18,7 @@ android {
 
     ext.major = 1
     ext.minor = 0
-    ext.patch = 0
+    ext.patch = 3
 
     defaultConfig {
         applicationId "com.deniz.easify"
@@ -28,6 +28,15 @@ android {
         versionName String.valueOf(major) + "." + String.valueOf(minor) + "." + String.valueOf(patch)
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("../keystore.jks")
+            storePassword "dnzdmrc93"
+            keyAlias "key0"
+            keyPassword "dnzdmrc93"
+        }
     }
 
     sourceSets {
@@ -57,6 +66,7 @@ android {
         }
         release {
             minifyEnabled false
+            signingConfig signingConfigs.release
             buildConfigField "String", "SPOTIFY_CLIENT_ID", spotify_client_id
             buildConfigField "String", "SPOTIFY_CLIENT_SECRET", spotify_client_secret
         }
