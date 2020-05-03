@@ -58,13 +58,13 @@ class RecommendedTracksViewModel(
     private fun fetchRecommendations(features: FeaturesObject) {
         viewModelScope.launch {
             browseRepository.fetchRecommendations(
-                features.danceability,
-                features.energy,
-                features.speechiness,
-                features.acousticness,
-                features.instrumentalness,
-                features.liveness,
-                features.valence,
+                features.danceability / 100,
+                features.energy / 100,
+                features.speechiness / 100,
+                features.acousticness / 100,
+                features.instrumentalness / 100,
+                features.liveness / 100,
+                features.valence / 100,
                 features.tempo,
                 features.id
             ).let { result ->

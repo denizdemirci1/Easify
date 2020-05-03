@@ -61,7 +61,7 @@ class DiscoverFragment : Fragment() {
         binding.instrumentalnessSeek.onProgressChanged { setInstrumentalness(it) }
         binding.livenessSeek.onProgressChanged { setLiveness(it) }
         binding.valenceSeek.onProgressChanged { setValence(it) }
-        binding.tempoSeek.onProgressChanged { setTempo(it) }
+        binding.tempoSeek.onProgressChanged { setTempo(it * 100) }
 
         binding.discover.setOnClickListener {
             val features = FeaturesObject(
