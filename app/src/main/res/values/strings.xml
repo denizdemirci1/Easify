@@ -70,6 +70,7 @@
     <string name="fragment_playlist_title_add">Pick a Playlist to Add Track</string>
     <string name="fragment_playlist_track_added_to_playlist">%s is added to %s</string>
     <string name="fragment_playlist_track_already_exists_in_playlist">%s already exists in %s</string>
+    <string name="fragment_playlist_should_download_spotify">You should download Spotify in order to listen to this playlist</string>
 
     <!-- Create Playlist Fragment -->
     <string name="fragment_create_playlist_title">Create a Playlist</string>

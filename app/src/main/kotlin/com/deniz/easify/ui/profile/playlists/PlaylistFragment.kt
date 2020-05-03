@@ -1,6 +1,7 @@
 package com.deniz.easify.ui.profile.playlists
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -8,15 +9,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.afollestad.materialdialogs.MaterialDialog
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.Playlist
 import com.deniz.easify.databinding.FragmentPlaylistBinding
 import com.deniz.easify.util.EventObserver
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 /**
  * @User: deniz.demirci
@@ -155,6 +157,28 @@ class PlaylistFragment : Fragment() {
     }
 
     private fun openPlaylistOnSpotify(playlist: Playlist) {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(playlist.uri)))
+        if (isSpotifyInstalled()) {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(playlist.uri)))
+        } else {
+            showError(getString(R.string.fragment_playlist_should_download_spotify))
+        }
+    }
+
+    private fun isSpotifyInstalled(): Boolean {
+        val pm = requireActivity().packageManager
+        return try {
+            pm.getPackageInfo("com.spotify.music", 0)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        }
+    }
+
+    private fun showError(message: String) {
+        MaterialDialog(requireContext()).show {
+            title(R.string.dialog_error_title)
+            message(text = message)
+            positiveButton(R.string.dialog_ok)
+        }
     }
 }
