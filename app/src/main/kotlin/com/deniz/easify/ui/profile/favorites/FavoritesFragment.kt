@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import com.afollestad.materialdialogs.MaterialDialog
 import com.afollestad.materialdialogs.list.listItems
@@ -29,8 +28,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class FavoritesFragment : Fragment() {
 
     companion object {
-        private const val artists = "artists"
-        private const val tracks = "tracks"
+        private const val KEY_ARTISTS = "artists"
+        private const val KEY_TRACKS = "tracks"
         private val longTerm = Pair("Several Years", "long_term")
         private val mediumTerm = Pair("Last 6 Months", "medium_term")
         private val shortTerm = Pair("Last 4 Weeks", "short_term")
@@ -115,8 +114,8 @@ class FavoritesFragment : Fragment() {
             }
 
             when {
-                binding.type.text.toString() == artists -> fetchTopArtists(term, amount)
-                binding.type.text.toString() == tracks -> fetchTopTracks(term, amount)
+                binding.type.text.toString() == KEY_ARTISTS -> fetchTopArtists(term, amount)
+                binding.type.text.toString() == KEY_TRACKS -> fetchTopTracks(term, amount)
                 else -> showError(resources.getString(R.string.fragment_favorites_type_empty_error))
             }
         }
@@ -124,7 +123,7 @@ class FavoritesFragment : Fragment() {
         binding.type.setOnClickListener {
             it.context.let { context ->
                 MaterialDialog(context).show {
-                    listItems(items = listOf(artists, tracks)) { _, _, text ->
+                    listItems(items = listOf(KEY_ARTISTS, KEY_TRACKS)) { _, _, text ->
                         binding.type.setText(text)
                     }
                 }
@@ -144,14 +143,14 @@ class FavoritesFragment : Fragment() {
 
     private fun fetchTopArtists(term: String, amount: Int?) {
         viewModel.fetchTopArtists(
-            artists,
+            KEY_ARTISTS,
             term,
             amount)
     }
 
     private fun fetchTopTracks(term: String, amount: Int?) {
         viewModel.fetchTopTracks(
-            tracks,
+            KEY_TRACKS,
             term,
             amount)
     }

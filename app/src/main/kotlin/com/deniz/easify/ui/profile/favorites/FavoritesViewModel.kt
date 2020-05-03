@@ -29,15 +29,21 @@ class FavoritesViewModel(
         _event.value = Event(event)
     }
 
+    private val _loading = MutableLiveData<Boolean>(false)
+    val loading: LiveData<Boolean> = _loading
+
     fun fetchTopArtists(type: String, timeRange: String?, limit: Int?) {
+        _loading.value = true
         viewModelScope.launch {
             personalizationRepository.fetchTopArtists(type, timeRange, limit).let { result ->
                 when (result) {
                     is Success -> {
+                        _loading.value = false
                         sendEvent(FavoritesViewEvent.OpenTopArtists(result.data))
                     }
 
                     is Error -> {
+                        _loading.value = false
                         sendEvent(FavoritesViewEvent.ShowError(parseNetworkError(result.exception)))
                     }
                 }
@@ -46,14 +52,17 @@ class FavoritesViewModel(
     }
 
     fun fetchTopTracks(type: String, timeRange: String?, limit: Int?) {
+        _loading.value = true
         viewModelScope.launch {
             personalizationRepository.fetchTopTracks(type, timeRange, limit).let { result ->
                 when (result) {
                     is Success -> {
+                        _loading.value = false
                         sendEvent(FavoritesViewEvent.OpenTopTracks(result.data))
                     }
 
                     is Error -> {
+                        _loading.value = false
                         sendEvent(FavoritesViewEvent.ShowError(parseNetworkError(result.exception)))
                     }
                 }

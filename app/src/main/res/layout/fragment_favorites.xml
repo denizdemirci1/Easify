@@ -91,12 +91,23 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
 
+            android:clickable="@{viewmodel.loading ? false : true}"
             android:text="@string/fragment_favorites_show"
             android:textColor="@color/colorSpotifyWhite"
             android:textSize="24sp"
             android:background="@drawable/button_green"
 
             app:layout_constraintTop_toBottomOf="@id/limitLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:visibility="@{viewmodel.loading ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@id/show"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"/>
 
