@@ -18,7 +18,7 @@ android {
 
     ext.major = 1
     ext.minor = 0
-    ext.patch = 4
+    ext.patch = 5
 
     defaultConfig {
         applicationId "com.deniz.easify"
