@@ -116,7 +116,7 @@ class SearchFragment : Fragment() {
 
     private fun showRatingBar() {
         val dialog = MaterialDialog(requireContext())
-            .customView(R.layout.layout_rating, scrollable = true)
+            .customView(R.layout.layout_rating)
             .positiveButton(R.string.fragment_search_rate) { dialog ->
                 if (dialog.getCustomView().rating_bar.rating >= 3.5) {
                     viewModel.setUserSawRating()

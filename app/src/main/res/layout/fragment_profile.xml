@@ -12,213 +12,211 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:id="@+id/root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorSpotifyBlack">
 
-        <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/profile_picture"
-            android:layout_width="96dp"
-            android:layout_height="96dp"
-            android:layout_marginTop="16dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_person"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:riv_border_color="#FFFFFF"
-            app:riv_border_width="1dp"
-
-            app:riv_corner_radius="42dp"
-            app:riv_oval="true"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/username"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-
-            android:text="@{viewmodel.user.displayName}"
-            android:textColor="@color/colorSpotifyWhite"
-            android:textSize="24sp"
-
-            app:layout_constraintTop_toBottomOf="@id/profile_picture"
-            app:layout_constraintStart_toStartOf="@id/profile_picture"
-            app:layout_constraintEnd_toEndOf="@id/profile_picture"/>
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/follower_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-
-            android:textColor="@color/colorSpotifyWhite"
-            android:textSize="16sp"
-
-            app:layout_constraintTop_toBottomOf="@id/username"
-            app:layout_constraintStart_toStartOf="@id/username"
-            app:layout_constraintEnd_toEndOf="@id/username"/>
-
-        <ScrollView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="32dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            app:layout_constraintTop_toBottomOf="@id/follower_count"
-            app:layout_constraintBottom_toBottomOf="parent">
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/profile_picture"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_person"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:riv_border_color="#FFFFFF"
+                app:riv_border_width="1dp"
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+                app:riv_corner_radius="42dp"
+                app:riv_oval="true"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+
+                android:text="@{viewmodel.user.displayName}"
+                android:textColor="@color/colorSpotifyWhite"
+                android:textSize="24sp"
+
+                app:layout_constraintTop_toBottomOf="@id/profile_picture"
+                app:layout_constraintStart_toStartOf="@id/profile_picture"
+                app:layout_constraintEnd_toEndOf="@id/profile_picture"/>
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/follower_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+
+                android:textColor="@color/colorSpotifyWhite"
+                android:textSize="16sp"
+
+                app:layout_constraintTop_toBottomOf="@id/username"
+                app:layout_constraintStart_toStartOf="@id/username"
+                app:layout_constraintEnd_toEndOf="@id/username"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/favorites"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_marginTop="32dp"
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/favorites"
-                    android:layout_width="match_parent"
+                android:background="@color/colorBackgroundLight"
+                app:layout_constraintTop_toBottomOf="@+id/follower_count">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="?actionBarSize"
+                    android:layout_marginStart="8dp"
+
+                    android:text="@string/fragment_profile_favorites"
+                    android:textSize="32sp"
+                    android:textColor="@color/colorSpotifyWhite"
+                    android:gravity="center"
+
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
 
-                    android:background="@color/colorBackgroundLight">
+                    android:src="@drawable/ic_arrow_right"
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="?actionBarSize"
-                        android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-                        android:text="@string/fragment_profile_favorites"
-                        android:textSize="32sp"
-                        android:textColor="@color/colorSpotifyWhite"
-                        android:gravity="center"
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/followed_artists"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
+                android:background="@color/colorBackgroundLight"
+                app:layout_constraintTop_toBottomOf="@id/favorites">
 
-                        android:src="@drawable/ic_arrow_right"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="?actionBarSize"
+                    android:layout_marginStart="8dp"
 
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                    android:text="@string/fragment_profile_followed_artists"
+                    android:textSize="32sp"
+                    android:textColor="@color/colorSpotifyWhite"
+                    android:gravity="center"
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/followed_artists"
-                    android:layout_width="match_parent"
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
 
-                    android:background="@color/colorBackgroundLight">
+                    android:src="@drawable/ic_arrow_right"
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="?actionBarSize"
-                        android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-                        android:text="@string/fragment_profile_followed_artists"
-                        android:textSize="32sp"
-                        android:textColor="@color/colorSpotifyWhite"
-                        android:gravity="center"
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/playlists"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
+                android:background="@color/colorBackgroundLight"
+                app:layout_constraintTop_toBottomOf="@id/followed_artists">
 
-                        android:src="@drawable/ic_arrow_right"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="?actionBarSize"
+                    android:layout_marginStart="8dp"
 
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                    android:text="@string/fragment_profile_playlists"
+                    android:textSize="32sp"
+                    android:textColor="@color/colorSpotifyWhite"
+                    android:gravity="center"
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/playlists"
-                    android:layout_width="match_parent"
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
 
-                    android:background="@color/colorBackgroundLight">
+                    android:src="@drawable/ic_arrow_right"
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="?actionBarSize"
-                        android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-                        android:text="@string/fragment_profile_playlists"
-                        android:textSize="32sp"
-                        android:textColor="@color/colorSpotifyWhite"
-                        android:gravity="center"
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/rate_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
+                android:background="@color/colorBackgroundLight"
+                app:layout_constraintTop_toBottomOf="@id/playlists">
 
-                        android:src="@drawable/ic_arrow_right"
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="?actionBarSize"
+                    android:layout_marginStart="8dp"
 
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
+                    android:text="@string/fragment_profile_rate_us"
+                    android:textSize="32sp"
+                    android:textColor="@color/colorSpotifyWhite"
+                    android:gravity="center"
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/rate_layout"
-                    android:layout_width="match_parent"
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="8dp"
 
-                    android:background="@color/colorBackgroundLight">
+                    android:src="@drawable/ic_arrow_right"
 
-                    <androidx.appcompat.widget.AppCompatTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="?actionBarSize"
-                        android:layout_marginStart="8dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
-                        android:text="@string/fragment_profile_rate_us"
-                        android:textSize="32sp"
-                        android:textColor="@color/colorSpotifyWhite"
-                        android:gravity="center"
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"/>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                app:layout_constraintTop_toBottomOf="@id/rate_layout" />
 
-                    <androidx.appcompat.widget.AppCompatImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                        android:src="@drawable/ic_arrow_right"
-
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-        </ScrollView>
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </layout>
