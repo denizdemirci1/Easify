@@ -13,6 +13,7 @@ import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.repositories.BrowseRepository
 import com.deniz.easify.data.source.repositories.PlaylistRepository
+import com.deniz.easify.util.AuthManager
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
@@ -22,6 +23,7 @@ import kotlinx.coroutines.launch
  */
 
 class RecommendedTracksViewModel(
+    private val authManager: AuthManager,
     private val browseRepository: BrowseRepository,
     private val playlistRepository: PlaylistRepository
 ) : ViewModel() {
@@ -45,6 +47,7 @@ class RecommendedTracksViewModel(
     }
 
     fun start(features: FeaturesObject?) {
+        setUserReadyToRate()
         features?.let {
             fetchRecommendations(features)
             return
@@ -53,6 +56,10 @@ class RecommendedTracksViewModel(
         sendEvent(RecommendedTracksViewEvent.ShowError(
             "Could not load the features you set from previous page." +
                 "Please go back and try again."))
+    }
+
+    private fun setUserReadyToRate() {
+        authManager.isReadyToRate = true
     }
 
     private fun fetchRecommendations(features: FeaturesObject) {

@@ -10,6 +10,7 @@ import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.remote.response.Track
 import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.repositories.TrackRepository
+import com.deniz.easify.util.AuthManager
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
  */
 
 class SearchViewModel(
+    private val authManager: AuthManager,
     private val trackRepository: TrackRepository
 ) : ViewModel() {
 
@@ -34,6 +36,16 @@ class SearchViewModel(
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun sendEvent(event: SearchViewEvent) {
         _event.value = Event(event)
+    }
+
+    fun didUserCancelledRating() = authManager.didUserSeeRating
+
+    fun setUserSawRating() {
+        authManager.didUserSeeRating = true
+    }
+
+    fun setUserRated() {
+        authManager.isRatedBefore = true
     }
 
     fun fetchSongs(q: String) {

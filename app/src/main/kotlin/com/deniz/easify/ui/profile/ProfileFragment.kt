@@ -1,5 +1,8 @@
 package com.deniz.easify.ui.profile
 
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,8 +14,8 @@ import com.bumptech.glide.Glide
 import com.deniz.easify.R
 import com.deniz.easify.data.source.remote.response.User
 import com.deniz.easify.databinding.FragmentProfileBinding
-import kotlinx.android.synthetic.main.fragment_profile.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 /**
  * @User: deniz.demirci
@@ -20,6 +23,12 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  */
 
 class ProfileFragment : Fragment() {
+
+    companion object {
+        private const val APP_URL =
+            "https://play.google.com/store/apps/details?id=com.deniz.easify"
+        private const val APP_URI = "market://details?id=com.deniz.easify"
+    }
 
     private lateinit var binding: FragmentProfileBinding
 
@@ -66,6 +75,10 @@ class ProfileFragment : Fragment() {
         binding.playlists.setOnClickListener {
             openPlaylistsFragment()
         }
+
+        binding.rateLayout.setOnClickListener {
+            openGooglePlayPage()
+        }
     }
 
     private fun setupUserInfo(user: User) {
@@ -93,5 +106,13 @@ class ProfileFragment : Fragment() {
     private fun openPlaylistsFragment() {
         val action = ProfileFragmentDirections.actionProfileFragmentToPlaylistFragment(track = null)
         findNavController().navigate(action)
+    }
+
+    private fun openGooglePlayPage() {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(APP_URI)))
+        } catch (e: ActivityNotFoundException) {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(APP_URL)))
+        }
     }
 }

@@ -12,9 +12,18 @@
     <string name="dialog_ok">OK</string>
     <string name="dialog_common_error_text">Something went wrong. Please go back and try again.</string>
 
+    <string name="dialog_rate_question">How do you like Easify so far?</string>
+    <string name="dialog_rate_you_can_rate_later_title">Alright!</string>
+    <string name="dialog_rate_you_can_rate_later_body">If you change your mind, you can always rate us through your profile :)</string>
+
     <string name="search">Search</string>
     <string name="history">History</string>
     <string name="profile">Profile</string>
+
+    <!-- Search Fragment -->
+    <string name="fragment_search_rate">Rate</string>
+    <string name="fragment_search_rate_later">Later</string>
+    <string name="fragment_search_never_show_rate">Don\'t show again</string>
 
     <!-- Features Fragment -->
     <string name="fragment_features_album">ALBUM</string>
@@ -37,6 +46,7 @@
     <string name="fragment_recommended_tracks_create_playlist_desc">This playlist is automatically created by Easify just for your taste on %s</string>
     <string name="fragment_recommended_tracks_create_playlist_succeeded">Your new playlist is created.</string>
     <string name="fragment_recommended_tracks_create_playlist_failed">Creating playlist failed. Please try again.</string>
+    <string name="fragment_recommended_tracks_should_download_spotify">You should download Spotify in order to listen to this song</string>
 
     <string name="fragment_discover_title">Search For Your Taste</string>
 
@@ -50,6 +60,7 @@
     <string name="fragment_profile_favorites">Favorites</string>
     <string name="fragment_profile_followed_artists">Following</string>
     <string name="fragment_profile_playlists">Playlists</string>
+    <string name="fragment_profile_rate_us">Rate Us</string>
 
     <!-- Favorites Fragment -->
     <string name="fragment_favorites_hint_type">Type</string>

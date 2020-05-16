@@ -9,6 +9,7 @@ import com.deniz.easify.data.Result.Error
 import com.deniz.easify.data.Result.Success
 import com.deniz.easify.data.source.remote.utils.parseNetworkError
 import com.deniz.easify.data.source.repositories.UserRepository
+import com.deniz.easify.util.AuthManager
 import com.deniz.easify.util.Event
 import kotlinx.coroutines.launch
 
@@ -18,15 +19,23 @@ import kotlinx.coroutines.launch
  */
 
 open class SplashViewModel(
+    private val authManager: AuthManager,
     private val userRepository: UserRepository
 ) : ViewModel() {
 
     private val _event = MutableLiveData<Event<SplashViewEvent>>()
     val event: LiveData<Event<SplashViewEvent>> = _event
 
+    val isReadyToRate: Boolean
+        get() = authManager.isReadyToRate
+
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun sendEvent(event: SplashViewEvent) {
         _event.value = Event(event)
+    }
+
+    fun setUserCancelledRatingFalse() {
+        authManager.didUserSeeRating = false
     }
 
     fun saveToken(accessToken: String) {

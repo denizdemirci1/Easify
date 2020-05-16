@@ -1,6 +1,7 @@
 package com.deniz.easify.ui.search.features.discover.recommended
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -151,7 +152,21 @@ class RecommendedTracksFragment : Fragment() {
     }
 
     private fun openTrackOnSpotify(track: Track) {
-        startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(track.uri)))
+        if (isSpotifyInstalled()) {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(track.uri)))
+        } else {
+            showError(getString(R.string.fragment_recommended_tracks_should_download_spotify))
+        }
+    }
+
+    private fun isSpotifyInstalled(): Boolean {
+        val pm = requireActivity().packageManager
+        return try {
+            pm.getPackageInfo("com.spotify.music", 0)
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        }
     }
 
     private fun openPlaylistsFragment() {

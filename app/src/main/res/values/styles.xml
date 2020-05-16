@@ -6,6 +6,11 @@
         <item name="colorPrimary">@color/colorSpotifyBlack</item>
         <item name="colorPrimaryDark">@color/colorSpotifyBlack</item>
         <item name="colorAccent">@color/colorSpotifyGreen</item>
+
+        <item name="md_background_color">@color/colorBackgroundLight</item>
+        <item name="md_color_title">@color/colorSpotifyWhite</item>
+        <item name="md_color_content">@color/colorSpotifyWhite</item>
+        <item name="md_color_button_text">@color/colorSpotifyWhite</item>
     </style>
 
 </resources>

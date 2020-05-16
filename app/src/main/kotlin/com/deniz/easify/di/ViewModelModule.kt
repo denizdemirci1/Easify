@@ -25,19 +25,19 @@ import org.koin.dsl.module
  */
 
 val viewModelModule = module {
-    viewModel { SplashViewModel(get()) }
-    viewModel { SearchViewModel(get()) }
+    viewModel { SplashViewModel(get(), get()) }
+    viewModel { SearchViewModel(get(), get()) }
     viewModel { HistoryViewModel(get()) }
     viewModel { ProfileViewModel(get()) }
     viewModel { FavoritesViewModel(get()) }
-    viewModel { TopArtistsViewModel() }
-    viewModel { TopTracksViewModel() }
+    viewModel { TopArtistsViewModel(get()) }
+    viewModel { TopTracksViewModel(get()) }
     viewModel { FollowedArtistsViewModel(get()) }
     viewModel { FollowViewModel(get()) }
     viewModel { ArtistViewModel(get()) }
     viewModel { FeaturesViewModel(get()) }
     viewModel { DiscoverViewModel() }
-    viewModel { RecommendedTracksViewModel(get(), get()) }
+    viewModel { RecommendedTracksViewModel(get(), get(), get()) }
     viewModel { PlaylistViewModel(get(), get()) }
     viewModel { CreatePlaylistViewModel(get()) }
     viewModel { PlaylistDetailViewModel(get()) }

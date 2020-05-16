@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.deniz.easify.data.source.remote.response.TopTrack
 import com.deniz.easify.data.source.remote.response.Track
+import com.deniz.easify.util.AuthManager
 import com.deniz.easify.util.Event
 
 /**
@@ -13,7 +14,9 @@ import com.deniz.easify.util.Event
  * @Date: 2019-12-04
  */
 
-class TopTracksViewModel : ViewModel() {
+class TopTracksViewModel(
+    private val authManager: AuthManager
+) : ViewModel() {
 
     private val _event = MutableLiveData<Event<TopTracksViewEvent>>()
     val event: LiveData<Event<TopTracksViewEvent>> = _event
@@ -24,9 +27,14 @@ class TopTracksViewModel : ViewModel() {
     }
 
     fun start(track: TopTrack?) {
+        setUserReadyToRate()
         track?.let {
             sendEvent(TopTracksViewEvent.NotifyDataChanged(it))
         }
+    }
+
+    private fun setUserReadyToRate() {
+        authManager.isReadyToRate = true
     }
 
     /**

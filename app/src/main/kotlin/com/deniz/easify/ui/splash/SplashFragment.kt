@@ -64,6 +64,7 @@ class SplashFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel.setUserCancelledRatingFalse()
         viewModel.authenticateSpotify()
         setupObservers()
     }
@@ -96,7 +97,9 @@ class SplashFragment : Fragment() {
     }
 
     private fun openSearchFragment() {
-        val action = SplashFragmentDirections.actionSplashFragmentToSearchFragment()
+        val action = SplashFragmentDirections.actionSplashFragmentToSearchFragment(
+            viewModel.isReadyToRate
+        )
         findNavController().navigate(action)
     }
 

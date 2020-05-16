@@ -17,6 +17,9 @@ class AuthManager(context: Context) {
         const val TOKEN = "easify.token"
         const val TOKEN_REFRESHED = "easify.tokenRefreshed"
         const val USER = "easify.user"
+        const val IS_READY_TO_RATE = "easify.isReadyToRate"
+        const val IS_RATED_BEFORE = "easify.isRatedBefore"
+        const val DID_USER_SEE_RATING = "easify.didUserSeeRating"
     }
 
     private val authPrefs: SharedPreferences =
@@ -48,4 +51,28 @@ class AuthManager(context: Context) {
             else
                 null
         set(value) = authPrefs.edit().putString(USER, gson.toJson(value)).apply()
+
+    var isReadyToRate: Boolean
+        get() =
+            if (authPrefs.contains(IS_READY_TO_RATE) && !isRatedBefore)
+                authPrefs.getBoolean(IS_READY_TO_RATE, false)
+            else
+                false
+        set(value) = authPrefs.edit().putBoolean(IS_READY_TO_RATE, value).apply()
+
+    var isRatedBefore: Boolean
+        get() =
+            if (authPrefs.contains(IS_RATED_BEFORE))
+                authPrefs.getBoolean(IS_RATED_BEFORE, false)
+            else
+                false
+        set(value) = authPrefs.edit().putBoolean(IS_RATED_BEFORE, value).apply()
+
+    var didUserSeeRating: Boolean
+        get() =
+            if (authPrefs.contains(DID_USER_SEE_RATING))
+                authPrefs.getBoolean(DID_USER_SEE_RATING, false)
+            else
+                false
+        set(value) = authPrefs.edit().putBoolean(DID_USER_SEE_RATING, value).apply()
 }
